@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nathan Coulthurst - Systems & Automation Engineer</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        slate: {
+                            50: '#F8FAFC',
+                            100: '#F1F5F9',
+                            900: '#0F172A',
+                        },
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                },
+            },
+        }
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        body {
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+        
+        /* Loading Animation */
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .fade-in-up {
+            animation: fadeInUp 0.8s ease-out forwards;
+        }
+        #main-content {
+            opacity: 0;
+            transition: opacity 0.6s ease-out;
+        }
+        #main-content.loaded {
+            opacity: 1;
+        }
+
+        /* Refined Systems Light Mode (Default) */
+        body {
+            background-color: #F1F5F9;
+            color: #1E293B;
+        }
+        .glass-card {
+            background: #FFFFFF;
+            border: 1px solid #E2E8F0;
+            border-radius: 24px;
+            box-shadow: 0 8px 30px rgba(59, 130, 246, 0.05);
+            transition: all 0.3s ease;
+        }
+        .glass-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 20px 40px -10px rgba(59, 130, 246, 0.15);
+            border-color: #3B82F6;
+        }
+
+        /* Dark Mode Override */
+        .dark body {
+            background: radial-gradient(circle at top, #141418 0%, #0f0f12 100%);
+            color: #ffffff;
+        }
+        .dark .glass-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            box-shadow: none;
+        }
+        .dark .glass-card:hover {
+            background: rgba(255, 255, 255, 0.05);
+            border-color: rgba(74, 222, 128, 0.3);
+            box-shadow: 0 20px 40px -10px rgba(74, 222, 128, 0.1);
+        }
+    </style>
+</head>
+<body class="antialiased selection:bg-blue-400/30 selection:text-blue-600 dark:selection:text-blue-400">
+
+    <!-- Loading Overlay -->
+    <div id="loader" class="fixed inset-0 z-[100] bg-[#F1F5F9] flex items-center justify-center transition-opacity duration-700">
+        <h1 class="text-5xl md:text-6xl font-bold tracking-tighter text-[#1E293B] fade-in-up font-['Inter']">
+            Nathan<span class="text-[#3B82F6]">.</span>
+        </h1>
+    </div>
+
+    <div id="main-content">
+        <!-- Header -->
+        <div class="sticky top-4 sm:top-6 z-50 max-w-7xl mx-auto px-4 sm:px-6 mb-8 sm:mb-12">
+            <div class="relative">
+                <header class="bg-white/80 dark:bg-[#1a1a1e]/80 backdrop-blur-lg border border-slate-200/50 dark:border-white/10 rounded-full px-5 sm:px-8 py-3 sm:py-4 flex items-center justify-between shadow-sm dark:shadow-2xl">
+                    <!-- Logo / Name -->
+                    <div class="flex items-center">
+                        <a href="#" class="text-lg sm:text-xl font-bold tracking-tight text-[#1E293B] dark:text-white hover:text-blue-400 dark:hover:text-green-500 transition-colors font-['Inter']">Nathan Coulthurst</a>
+                    </div>
+
+                    <!-- Centered Nav Pill (desktop only) -->
+                    <nav class="hidden lg:flex items-center bg-slate-200/30 dark:bg-white/5 rounded-full p-1 border border-slate-200/50 dark:border-white/5">
+                        <a href="#" class="px-6 py-2.5 text-sm font-semibold text-[#64748B] dark:text-gray-400 hover:text-slate-800 dark:hover:text-white transition-colors">About</a>
+                        <a href="#" class="px-6 py-2.5 text-sm font-semibold text-[#64748B] dark:text-gray-400 hover:text-slate-800 dark:hover:text-white transition-colors">Projects</a>
+                    </nav>
+
+                    <div class="flex items-center gap-2 sm:gap-3">
+                        <!-- Theme Toggle -->
+                        <button id="theme-toggle" class="w-10 h-10 rounded-full bg-slate-200/50 dark:bg-white/5 border border-slate-200/50 dark:border-white/5 flex items-center justify-center hover:bg-slate-200 dark:hover:bg-white/10 transition-all">
+                            <i data-lucide="sun" class="w-5 h-5 hidden dark:block"></i>
+                            <i data-lucide="moon" class="w-5 h-5 block dark:hidden text-[#64748B]"></i>
+                        </button>
+
+                        <!-- CTA Button (hidden on mobile) -->
+                        <button class="hidden sm:flex bg-blue-500 text-white border border-white/10 pl-7 pr-2 py-2 rounded-full text-sm font-bold items-center gap-4 hover:bg-blue-400 dark:bg-[#4ade80] dark:text-black dark:hover:bg-green-500 transition-all duration-500 group shadow-lg">
+                            Contact Me
+                            <div class="w-8 h-8 bg-white/20 dark:bg-black/10 rounded-full flex items-center justify-center group-hover:bg-white/30 dark:group-hover:bg-black/20 transition-colors">
+                                <i data-lucide="arrow-up-right" class="w-4 h-4"></i>
+                            </div>
+                        </button>
+
+                        <!-- Hamburger (mobile only) -->
+                        <button id="mobile-menu-btn" class="lg:hidden w-10 h-10 rounded-full bg-slate-200/50 dark:bg-white/5 border border-slate-200/50 dark:border-white/5 flex items-center justify-center hover:bg-slate-200 dark:hover:bg-white/10 transition-all">
+                            <i data-lucide="menu" class="w-5 h-5 text-[#64748B] dark:text-white"></i>
+                        </button>
+                    </div>
+                </header>
+
+                <!-- Mobile Nav Dropdown -->
+                <div id="mobile-menu" class="hidden lg:hidden absolute top-full left-0 right-0 mt-3 bg-white/95 dark:bg-[#1a1a1e]/95 backdrop-blur-lg border border-slate-200/50 dark:border-white/10 rounded-2xl p-4 shadow-xl">
+                    <nav class="flex flex-col gap-1">
+                        <a href="#" class="px-4 py-3 text-sm font-semibold text-[#64748B] dark:text-gray-400 hover:text-slate-800 dark:hover:text-white hover:bg-slate-50 dark:hover:bg-white/5 rounded-xl transition-colors">About</a>
+                        <a href="#" class="px-4 py-3 text-sm font-semibold text-[#64748B] dark:text-gray-400 hover:text-slate-800 dark:hover:text-white hover:bg-slate-50 dark:hover:bg-white/5 rounded-xl transition-colors">Projects</a>
+                    </nav>
+                    <div class="mt-3 pt-3 border-t border-slate-100 dark:border-white/5">
+                        <button class="w-full bg-blue-500 text-white py-3 rounded-full text-sm font-bold hover:bg-blue-400 dark:bg-[#4ade80] dark:text-black dark:hover:bg-green-500 transition-all duration-300 shadow-lg">
+                            Contact Me
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <main class="max-w-7xl mx-auto px-4 sm:px-6 pt-4 sm:pt-8 pb-16 sm:pb-20">
+            <!-- Main Grid Layout -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 items-stretch">
+                
+                <!-- Column 1 -->
+                <div class="flex flex-col gap-6">
+                    <!-- About Me Card -->
+                    <div class="glass-card p-8 relative overflow-hidden group flex flex-col h-full">
+                        <div class="flex justify-between items-start mb-6">
+                            <span class="text-xs font-semibold uppercase tracking-wider text-[#64748B] dark:text-gray-500">About Me</span>
+                            <div class="flex items-center space-x-2">
+                                <span class="relative flex h-2 w-2">
+                                    <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#3B82F6] dark:bg-green-400 opacity-75"></span>
+                                    <span class="relative inline-flex rounded-full h-2 w-2 bg-[#3B82F6] dark:bg-green-500"></span>
+                                </span>
+                            </div>
+                        </div>
+                        <h2 class="text-xl font-semibold tracking-tight leading-tight mb-6 text-[#1E293B] dark:text-gray-200 font-['Inter']">
+                            Currently a Technical Support Engineer with a strong interest in systems and automation.
+                        </h2>
+                        <div class="mt-auto">
+                            <button class="w-full py-3 rounded-full border border-white/10 text-sm font-bold bg-blue-500 text-white hover:bg-blue-400 dark:bg-[#4ade80] dark:text-black dark:hover:bg-green-500 transition-all duration-500 shadow-lg">
+                                About me
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Work Experience Card -->
+                    <div class="glass-card p-8 flex flex-col h-full">
+                        <div class="flex items-center justify-between mb-8 pb-4 border-b border-slate-100 dark:border-white/5">
+                            <span class="text-xs font-semibold uppercase tracking-wider text-[#64748B] dark:text-gray-500">Work experience</span>
+                        </div>
+                        <div class="space-y-6">
+                            <div class="flex items-center group">
+                                <div class="text-xs text-[#64748B] dark:text-gray-500 w-24">2025 - Present</div>
+                                <div class="w-10 h-10 rounded-full bg-slate-50 dark:bg-white/5 flex items-center justify-center mr-4 border border-slate-100 dark:border-white/10">
+                                    <i data-lucide="cpu" class="w-5 h-5 text-[#3B82F6] dark:text-blue-400"></i>
+                                </div>
+                                <div>
+                                    <div class="text-sm font-medium text-[#1E293B] dark:text-white">Technical Support Engineer</div>
+                                    <div class="text-xs text-[#64748B] dark:text-gray-500">Eskens Tinting Solutions</div>
+                                </div>
+                            </div>
+                            <div class="flex items-center group">
+                                <div class="text-xs text-[#64748B] dark:text-gray-500 w-24">2024 - 2025</div>
+                                <div class="w-10 h-10 rounded-full bg-slate-50 dark:bg-white/5 flex items-center justify-center mr-4 border border-slate-100 dark:border-white/10">
+                                    <i data-lucide="layers" class="w-5 h-5 text-[#3B82F6] dark:text-blue-400"></i>
+                                </div>
+                                <div>
+                                    <div class="text-sm font-medium text-[#1E293B] dark:text-white">Helpdesk Advisor</div>
+                                    <div class="text-xs text-[#64748B] dark:text-gray-500">Eskens Tinting Solutions</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Bottom Row Column 1 -->
+                    <div class="grid grid-cols-2 gap-6 mt-auto">
+                        <div class="glass-card p-6 flex flex-col aspect-square h-full">
+                            <div class="mb-6 pb-3 border-b border-slate-100 dark:border-white/5">
+                                <span class="text-[10px] font-semibold uppercase tracking-widest text-[#64748B] dark:text-gray-500">Dissertation Score</span>
+                            </div>
+                            <div class="flex-grow flex flex-col items-center justify-center text-center">
+                                <div class="text-6xl font-bold tracking-tighter text-[#3B82F6] dark:text-gray-200">77%</div>
+                                <span class="text-[10px] font-semibold uppercase tracking-widest text-[#64748B] dark:text-gray-500 mt-2">Computer Security</span>
+                            </div>
+                        </div>
+                        <div class="glass-card p-6 flex flex-col aspect-square h-full">
+                            <div class="mb-6 pb-3 border-b border-slate-100 dark:border-white/5">
+                                <span class="text-[10px] font-semibold uppercase tracking-widest text-[#64748B] dark:text-gray-500">My CV</span>
+                            </div>
+                            <div class="flex-grow flex flex-col justify-center space-y-4">
+                                <button class="w-full flex items-center justify-between group">
+                                    <span class="text-xs font-medium text-[#3B82F6] dark:text-white">View</span>
+                                    <i data-lucide="arrow-up-right" class="w-4 h-4 text-slate-300 group-hover:text-[#3B82F6] dark:group-hover:text-white transition-colors"></i>
+                                </button>
+                                <div class="h-px bg-slate-100 dark:bg-white/5"></div>
+                                <button class="w-full flex items-center justify-between group">
+                                    <span class="text-xs font-medium text-[#3B82F6] dark:text-white">Download</span>
+                                    <i data-lucide="arrow-down" class="w-4 h-4 text-slate-300 group-hover:text-[#3B82F6] dark:group-hover:text-white transition-colors"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Column 2 -->
+                <div class="flex flex-col gap-6 h-full">
+                    <!-- What I do Card -->
+                    <div class="glass-card p-8 flex flex-col h-full">
+                        <div class="mb-8 pb-4 border-b border-slate-100 dark:border-white/5">
+                            <span class="text-[10px] font-semibold uppercase tracking-widest text-[#64748B] dark:text-gray-500">What I do</span>
+                        </div>
+                        <div class="grid grid-cols-3 gap-4 items-stretch flex-grow">
+                            <div class="bg-slate-50 dark:bg-white/[0.03] border border-slate-100 dark:border-white/[0.05] rounded-[32px] p-4 flex flex-col items-center justify-center aspect-[4/5] hover:scale-[1.02] transition-transform w-full shadow-sm">
+                                <div class="w-14 h-14 md:w-16 md:h-16 rounded-full bg-white dark:bg-white/[0.05] flex items-center justify-center mb-3 shadow-sm border border-slate-100 dark:border-transparent">
+                                    <i data-lucide="share-2" class="w-6 h-6 md:w-7 md:h-7 text-[#3B82F6] dark:text-white/80"></i>
+                                </div>
+                                <span class="text-[10px] md:text-xs font-semibold text-[#64748B] dark:text-white/60 text-center leading-tight">API Engineering</span>
+                            </div>
+                            <div class="bg-slate-50 dark:bg-white/[0.03] border border-slate-100 dark:border-white/[0.05] rounded-[32px] p-4 flex flex-col items-center justify-center aspect-[4/5] hover:scale-[1.02] transition-transform w-full shadow-sm">
+                                <div class="w-14 h-14 md:w-16 md:h-16 rounded-full bg-white dark:bg-white/[0.05] flex items-center justify-center mb-3 shadow-sm border border-slate-100 dark:border-transparent">
+                                    <i data-lucide="shield-check" class="w-6 h-6 md:w-7 md:h-7 text-[#3B82F6] dark:text-white/80"></i>
+                                </div>
+                                <span class="text-[10px] md:text-xs font-semibold text-[#64748B] dark:text-white/60 text-center leading-tight">2nd Line IT Support</span>
+                            </div>
+                            <div class="bg-slate-50 dark:bg-white/[0.03] border border-slate-100 dark:border-white/[0.05] rounded-[32px] p-4 flex flex-col items-center justify-center aspect-[4/5] hover:scale-[1.02] transition-transform w-full shadow-sm">
+                                <div class="w-14 h-14 md:w-16 md:h-16 rounded-full bg-white dark:bg-white/[0.05] flex items-center justify-center mb-3 shadow-sm border border-slate-100 dark:border-transparent">
+                                    <i data-lucide="zap" class="w-6 h-6 md:w-7 md:h-7 text-[#3B82F6] dark:text-green-400"></i>
+                                </div>
+                                <span class="text-[10px] md:text-xs font-semibold text-[#64748B] dark:text-white/60 text-center leading-tight">Automation</span>
+                            </div>
+                            <div class="bg-slate-50 dark:bg-white/[0.03] border border-slate-100 dark:border-white/[0.05] rounded-[32px] p-4 flex flex-col items-center justify-center aspect-[4/5] hover:scale-[1.02] transition-transform w-full shadow-sm">
+                                <div class="w-14 h-14 md:w-16 md:h-16 rounded-full bg-white dark:bg-white/[0.05] flex items-center justify-center mb-3 shadow-sm border border-slate-100 dark:border-transparent">
+                                    <i data-lucide="pen-tool" class="w-6 h-6 md:w-7 md:h-7 text-[#3B82F6] dark:text-white/80"></i>
+                                </div>
+                                <span class="text-[10px] md:text-xs font-semibold text-[#64748B] dark:text-white/60 text-center leading-tight">Web Design</span>
+                            </div>
+                            <div class="bg-slate-50 dark:bg-white/[0.03] border border-slate-100 dark:border-white/[0.05] rounded-[32px] p-4 flex flex-col items-center justify-center aspect-[4/5] hover:scale-[1.02] transition-transform w-full shadow-sm">
+                                <div class="w-14 h-14 md:w-16 md:h-16 rounded-full bg-white dark:bg-white/[0.05] flex items-center justify-center mb-3 shadow-sm border border-slate-100 dark:border-transparent">
+                                    <i data-lucide="shopping-cart" class="w-6 h-6 md:w-7 md:h-7 text-[#3B82F6] dark:text-white/80"></i>
+                                </div>
+                                <span class="text-[10px] md:text-xs font-semibold text-[#64748B] dark:text-white/60 text-center leading-tight">Shopify</span>
+                            </div>
+                            <div class="bg-slate-50 dark:bg-white/[0.03] border border-slate-100 dark:border-white/[0.05] rounded-[32px] p-4 flex flex-col items-center justify-center aspect-[4/5] hover:scale-[1.02] transition-transform w-full shadow-sm">
+                                <div class="w-14 h-14 md:w-16 md:h-16 rounded-full bg-white dark:bg-white/[0.05] flex items-center justify-center mb-3 shadow-sm border border-slate-100 dark:border-transparent">
+                                    <i data-lucide="terminal" class="w-6 h-6 md:w-7 md:h-7 text-[#3B82F6] dark:text-white/80"></i>
+                                </div>
+                                <span class="text-[10px] md:text-xs font-semibold text-[#64748B] dark:text-white/60 text-center leading-tight">Python</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Latest Projects Card -->
+                    <div class="glass-card p-8 flex flex-col h-full mt-auto">
+                        <div class="mb-8 pb-4 border-b border-slate-100 dark:border-white/5">
+                            <span class="text-[10px] font-semibold uppercase tracking-widest text-[#64748B] dark:text-gray-500">Latest projects</span>
+                        </div>
+                        <div class="space-y-6 flex-grow flex flex-col justify-center">
+                            <div class="flex items-center group">
+                                <div class="text-xs text-[#64748B] dark:text-gray-500 w-24">2024</div>
+                                <div class="w-10 h-10 rounded-full bg-slate-50 dark:bg-white/5 flex items-center justify-center mr-4 border border-slate-100 dark:border-white/10">
+                                    <i data-lucide="monitor" class="w-5 h-5 text-[#3B82F6] dark:text-green-400"></i>
+                                </div>
+                                <div class="flex-grow">
+                                    <div class="flex items-center justify-between">
+                                        <div class="text-sm font-medium text-[#1E293B] dark:text-white">Vinted Listing Monitor</div>
+                                        <i data-lucide="arrow-up-right" class="w-4 h-4 text-slate-300 group-hover:text-[#3B82F6] dark:group-hover:text-white transition-colors"></i>
+                                    </div>
+                                    <div class="text-xs text-[#64748B] dark:text-gray-500">Automation / Python</div>
+                                </div>
+                            </div>
+                            <div class="flex items-center group opacity-50">
+                                <div class="text-xs text-[#64748B] dark:text-gray-500 w-24">2023</div>
+                                <div class="w-10 h-10 rounded-full bg-slate-50 dark:bg-white/5 flex items-center justify-center mr-4 border border-slate-100 dark:border-white/10">
+                                    <i data-lucide="database" class="w-5 h-5 text-[#3B82F6] dark:text-blue-400"></i>
+                                </div>
+                                <div class="flex-grow">
+                                    <div class="flex items-center justify-between">
+                                        <div class="text-sm font-medium text-[#1E293B] dark:text-white">Inventory API</div>
+                                        <i data-lucide="arrow-up-right" class="w-4 h-4 text-slate-300 group-hover:text-[#3B82F6] dark:group-hover:text-white transition-colors"></i>
+                                    </div>
+                                    <div class="text-xs text-[#64748B] dark:text-gray-500">Cloud Infrastructure</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Column 3 -->
+                <div class="flex flex-col gap-6 h-full">
+                    <!-- Stay with me Card -->
+                    <div class="glass-card p-8 flex flex-col">
+                        <div class="flex items-center justify-between mb-8 pb-4 border-b border-slate-100 dark:border-white/5">
+                            <span class="text-xs font-semibold uppercase tracking-wider text-[#64748B] dark:text-gray-500">Stay with me</span>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <button class="w-12 h-12 rounded-full bg-slate-50 dark:bg-white/5 border border-slate-100 dark:border-white/5 flex items-center justify-center hover:bg-[#3B82F6] dark:hover:bg-white hover:text-white dark:hover:text-black transition-all duration-300 group shadow-sm">
+                                <i data-lucide="twitter" class="w-5 h-5 text-[#64748B] group-hover:text-white dark:group-hover:text-black"></i>
+                            </button>
+                            <button class="w-12 h-12 rounded-full bg-slate-50 dark:bg-white/5 border border-slate-100 dark:border-white/5 flex items-center justify-center hover:bg-[#3B82F6] dark:hover:bg-white hover:text-white dark:hover:text-black transition-all duration-300 group shadow-sm">
+                                <i data-lucide="video" class="w-5 h-5 text-[#64748B] group-hover:text-white dark:group-hover:text-black"></i>
+                            </button>
+                            <button class="w-12 h-12 rounded-full bg-slate-50 dark:bg-white/5 border border-slate-100 dark:border-white/5 flex items-center justify-center hover:bg-[#3B82F6] dark:hover:bg-white hover:text-white dark:hover:text-black transition-all duration-300 group shadow-sm">
+                                <i data-lucide="facebook" class="w-5 h-5 text-[#64748B] group-hover:text-white dark:group-hover:text-black"></i>
+                            </button>
+                            <button class="w-12 h-12 rounded-full bg-slate-50 dark:bg-white/5 border border-slate-100 dark:border-white/5 flex items-center justify-center hover:bg-[#3B82F6] dark:hover:bg-white hover:text-white dark:hover:text-black transition-all duration-300 group shadow-sm">
+                                <i data-lucide="instagram" class="w-5 h-5 text-[#64748B] group-hover:text-white dark:group-hover:text-black"></i>
+                            </button>
+                            <button class="w-12 h-12 rounded-full bg-slate-50 dark:bg-white/5 border border-slate-100 dark:border-white/5 flex items-center justify-center hover:bg-[#3B82F6] dark:hover:bg-white hover:text-white dark:hover:text-black transition-all duration-300 group shadow-sm">
+                                <i data-lucide="dribbble" class="w-5 h-5 text-[#64748B] group-hover:text-white dark:group-hover:text-black"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Education Card -->
+                    <div class="glass-card p-6 flex flex-col">
+                        <div class="flex items-center justify-between mb-4 pb-3 border-b border-slate-100 dark:border-white/5">
+                            <span class="text-[10px] font-semibold uppercase tracking-widest text-[#64748B] dark:text-gray-500">Education</span>
+                        </div>
+                        <div class="flex items-center group">
+                            <div class="w-8 h-8 rounded-full bg-slate-50 dark:bg-white/5 flex items-center justify-center mr-3 border border-slate-100 dark:border-white/10 shrink-0">
+                                <i data-lucide="graduation-cap" class="w-4 h-4 text-[#3B82F6] dark:text-indigo-400"></i>
+                            </div>
+                            <div>
+                                <div class="text-xs font-bold text-[#1E293B] dark:text-white leading-tight">BSc (Hons) Computer Security</div>
+                                <div class="text-[10px] text-[#64748B] dark:text-gray-500">Liverpool John Moores University</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Ready for next Card -->
+                    <div class="glass-card p-8 bg-[#1E293B] dark:bg-white/5 flex flex-col flex-grow relative overflow-hidden group">
+                        <div class="relative z-10 mb-2">
+                            <h2 class="text-2xl font-bold tracking-tight mb-3 text-white dark:text-white leading-tight font-['Inter']">
+                                Ready for my next technical challenge. 🚀
+                            </h2>
+                            <p class="text-slate-400 dark:text-gray-400 text-sm font-medium">
+                                Currently open to Systems, Automation, or Security-focused roles.
+                            </p>
+                        </div>
+                        
+                        <div class="mt-4 relative z-10 flex flex-col items-center gap-2">
+                            <a href="mailto:nathancoulthurst@hotmail.co.uk?subject=Getting in touch"
+                               class="w-full py-4 rounded-full bg-[#3B82F6] hover:bg-blue-600 dark:bg-[#4ade80] dark:hover:bg-green-500 text-white dark:text-black text-center font-bold transition-all duration-300 shadow-xl flex items-center justify-center gap-3">
+                                <i data-lucide="mail" class="w-5 h-5"></i>
+                                Email Nathan
+                            </a>
+                            
+                            <button onclick="copyEmail()" class="flex items-center gap-2 text-xs font-semibold text-slate-400 dark:text-gray-500 hover:text-white transition-colors group/copy">
+                                <i data-lucide="copy" class="w-3.5 h-3.5 group-hover/copy:scale-110 transition-transform"></i>
+                                <span>copy email address</span>
+                            </button>
+                        </div>
+
+                        <!-- Decorative Gradient -->
+                        <div class="absolute -bottom-20 -right-20 w-64 h-64 bg-[#3B82F6] dark:bg-[#4ade80] opacity-20 dark:opacity-[0.03] blur-[100px] pointer-events-none"></div>
+                    </div>
+                </div>
+
+            </div>
+        </main>
+    </div>
+
+    <script>
+        // Initialize Lucide icons
+        lucide.createIcons();
+
+        // Initial Loader Logic
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                const loader = document.getElementById('loader');
+                const content = document.getElementById('main-content');
+                
+                loader.style.opacity = '0';
+                content.classList.add('loaded');
+                
+                setTimeout(() => {
+                    loader.style.display = 'none';
+                }, 700);
+            }, 1500);
+        });
+
+        // Mobile Menu Toggle
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+            const isOpen = !mobileMenu.classList.contains('hidden');
+            mobileMenuBtn.innerHTML = isOpen
+                ? '<i data-lucide="x" class="w-5 h-5 text-[#64748B] dark:text-white"></i>'
+                : '<i data-lucide="menu" class="w-5 h-5 text-[#64748B] dark:text-white"></i>';
+            lucide.createIcons();
+        });
+
+        // Theme Toggle Logic
+        const themeToggleBtn = document.getElementById('theme-toggle');
+        const htmlElement = document.documentElement;
+
+        themeToggleBtn.addEventListener('click', () => {
+            htmlElement.classList.toggle('dark');
+            lucide.createIcons();
+        });
+
+        // Copy Email Logic
+        function copyEmail() {
+            const email = "nathancoulthurst@hotmail.co.uk";
+            navigator.clipboard.writeText(email).then(() => {
+                const btn = event.currentTarget;
+                const originalText = btn.innerHTML;
+                btn.innerHTML = `<i data-lucide="check" class="w-3.5 h-3.5 text-green-400"></i><span class="text-green-400">email copied!</span>`;
+                lucide.createIcons();
+                setTimeout(() => {
+                    btn.innerHTML = originalText;
+                    lucide.createIcons();
+                }, 2000);
+            });
+        }
+    </script>
+</body>
+</html>
