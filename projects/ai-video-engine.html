@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Video Production Engine — Nathan Coulthurst</title>
+
+    <script>
+        (function () {
+            try {
+                var stored = localStorage.getItem('nc-theme');
+                if (stored === 'dark') document.documentElement.classList.add('dark');
+                document.documentElement.style.colorScheme = stored === 'dark' ? 'dark' : 'light';
+            } catch (e) {}
+        })();
+    </script>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        display: ['Fraunces', 'serif'],
+                        sans: ['"Instrument Sans"', 'system-ui', 'sans-serif'],
+                        mono: ['"JetBrains Mono"', 'ui-monospace', 'monospace'],
+                    },
+                },
+            },
+        }
+    </script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;0,9..144,900;1,9..144,400&family=Instrument+Sans:ital,wght@0,400;0,500;0,600;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <style>
+        :root {
+            --bg: #F4EDE0;
+            --surface: #FBF7EE;
+            --ink: #141210;
+            --mute: #6B6357;
+            --rule: rgba(20, 18, 16, 0.12);
+            --rule-strong: rgba(20, 18, 16, 0.22);
+            --accent: #C8553D;
+            --accent-hover: #A8412C;
+            --on-accent: #F4EDE0;
+        }
+        .dark {
+            --bg: #0F0E0C;
+            --surface: #1A1815;
+            --ink: #E8E2D5;
+            --mute: #8A8275;
+            --rule: rgba(232, 226, 213, 0.10);
+            --rule-strong: rgba(232, 226, 213, 0.22);
+            --accent: #E07A5F;
+            --accent-hover: #ED9377;
+            --on-accent: #0F0E0C;
+        }
+
+        html, body { background: var(--bg); color: var(--ink); }
+        body {
+            font-family: 'Instrument Sans', system-ui, sans-serif;
+            transition: background-color 0.4s ease, color 0.4s ease;
+            min-height: 100vh;
+        }
+
+        body::before {
+            content: ""; position: fixed; inset: 0;
+            pointer-events: none; z-index: 1; opacity: 0.4; mix-blend-mode: multiply;
+            background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.08 0 0 0 0 0.07 0 0 0 0 0.06 0 0 0 0.55 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+        }
+        .dark body::before {
+            opacity: 0.55; mix-blend-mode: screen;
+            background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.92 0 0 0 0 0.89 0 0 0 0 0.83 0 0 0 0.04 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+        }
+
+        .display { font-family: 'Fraunces', serif; font-optical-sizing: auto; letter-spacing: -0.02em; }
+        .display-italic { font-family: 'Fraunces', serif; font-style: italic; font-variation-settings: "SOFT" 100; }
+        .mono { font-family: 'JetBrains Mono', ui-monospace, monospace; }
+
+        .index-marker {
+            font-family: 'JetBrains Mono', ui-monospace, monospace;
+            font-size: 0.7rem; letter-spacing: 0.18em; text-transform: uppercase;
+            color: var(--mute);
+        }
+
+        .rule-t { border-top: 1px solid var(--rule); }
+        .rule-b { border-bottom: 1px solid var(--rule); }
+
+        .nav-pill {
+            background: color-mix(in srgb, var(--surface) 78%, transparent);
+            border: 1px solid var(--rule);
+            backdrop-filter: blur(14px) saturate(140%);
+            -webkit-backdrop-filter: blur(14px) saturate(140%);
+        }
+        .nav-link { color: var(--mute); transition: color 0.2s ease; }
+        .nav-link:hover { color: var(--ink); }
+
+        .cta-primary {
+            background: var(--accent); color: var(--on-accent);
+            transition: transform 0.25s ease, background 0.25s ease;
+        }
+        .cta-primary:hover { background: var(--accent-hover); transform: translateY(-1px); }
+
+        .cta-ghost {
+            border: 1px solid var(--rule-strong); color: var(--ink);
+            transition: border-color 0.2s ease, color 0.2s ease;
+        }
+        .cta-ghost:hover { border-color: var(--accent); color: var(--accent); }
+
+        .icon-btn {
+            background: transparent; border: 1px solid var(--rule); color: var(--ink);
+            transition: border-color 0.2s ease, color 0.2s ease;
+        }
+        .icon-btn:hover { border-color: var(--accent); color: var(--accent); }
+
+        .chip {
+            font-family: 'JetBrains Mono', ui-monospace, monospace;
+            font-size: 0.68rem; letter-spacing: 0.04em;
+            padding: 0.3rem 0.65rem; border: 1px solid var(--rule-strong);
+            border-radius: 999px; color: var(--ink);
+        }
+
+        .video-tile {
+            background: var(--surface);
+            border: 1px solid var(--rule);
+            transition: border-color 0.3s ease, transform 0.3s ease;
+            overflow: hidden;
+        }
+        .video-tile:hover { border-color: var(--accent); }
+        .video-frame {
+            position: relative;
+            aspect-ratio: 16 / 9;
+            width: 100%;
+            background: var(--bg);
+        }
+        .video-frame iframe {
+            position: absolute; inset: 0; width: 100%; height: 100%;
+            border: 0;
+        }
+
+        .arch-frame {
+            background: var(--surface);
+            border: 1px solid var(--rule);
+            border-radius: 28px;
+            padding: clamp(1rem, 3vw, 2.5rem);
+        }
+        .arch-frame img {
+            width: 100%;
+            height: auto;
+            display: block;
+            border-radius: 14px;
+        }
+
+        ::selection { background: var(--accent); color: var(--bg); }
+
+        #loader {
+            position: fixed; inset: 0; z-index: 100;
+            background: var(--bg);
+            display: flex; align-items: center; justify-content: center;
+            transition: opacity 0.6s ease;
+        }
+        .loader-glyph {
+            font-family: 'Fraunces', serif; font-weight: 400; font-style: italic;
+            font-size: clamp(5rem, 10vw, 8rem);
+            color: var(--ink); letter-spacing: -0.04em; line-height: 1;
+            position: relative; font-variation-settings: "SOFT" 100;
+        }
+        .loader-glyph .dot { color: var(--accent); }
+        .loader-glyph::after {
+            content: ""; position: absolute; left: 0; right: 0; bottom: -0.2em;
+            height: 1px; background: var(--ink);
+            transform-origin: left; transform: scaleX(0);
+            animation: ruleDraw 1s 0.15s cubic-bezier(.7,0,.2,1) forwards;
+        }
+        @keyframes ruleDraw { to { transform: scaleX(1); } }
+
+        #main-content { opacity: 0; transition: opacity 0.7s ease; position: relative; z-index: 2; }
+        #main-content.loaded { opacity: 1; }
+
+        @keyframes fadeUp { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: translateY(0); } }
+        .reveal { opacity: 0; animation: fadeUp 0.9s cubic-bezier(.2,.7,.2,1) forwards; }
+        .reveal.d1 { animation-delay: 0.1s; }
+        .reveal.d2 { animation-delay: 0.2s; }
+        .reveal.d3 { animation-delay: 0.3s; }
+    </style>
+</head>
+<body class="antialiased">
+
+    <div id="loader">
+        <div class="loader-glyph"><span class="display-italic">¶</span><span class="dot">.</span></div>
+    </div>
+
+    <div id="main-content">
+
+        <!-- Header -->
+        <div class="sticky top-4 sm:top-6 z-50 max-w-[1320px] mx-auto px-4 sm:px-6 mb-10 sm:mb-16">
+            <div class="relative">
+                <header class="nav-pill rounded-full px-5 sm:px-7 py-3 sm:py-3.5 flex items-center justify-between">
+                    <div class="flex items-center">
+                        <a href="/" class="display text-lg sm:text-xl font-medium tracking-tight">
+                            Nathan Coulthurst<span style="color: var(--accent);">.</span>
+                        </a>
+                    </div>
+
+                    <nav class="hidden lg:flex items-center gap-1 rounded-full p-1" style="border:1px solid var(--rule);">
+                        <a href="/#about" class="nav-link mono text-[11px] uppercase tracking-[0.18em] px-5 py-2.5">About</a>
+                        <a href="/#work" class="nav-link mono text-[11px] uppercase tracking-[0.18em] px-5 py-2.5">Projects</a>
+                    </nav>
+
+                    <div class="flex items-center gap-2 sm:gap-3">
+                        <button id="theme-toggle" aria-label="Toggle theme" class="icon-btn w-10 h-10 rounded-full flex items-center justify-center">
+                            <i data-lucide="sun" class="w-[18px] h-[18px] hidden dark:block"></i>
+                            <i data-lucide="moon" class="w-[18px] h-[18px] block dark:hidden"></i>
+                        </button>
+
+                        <a href="/" class="cta-primary hidden sm:inline-flex items-center gap-3 rounded-full pl-5 pr-2 py-2 text-sm">
+                            <span class="w-7 h-7 rounded-full flex items-center justify-center" style="background: color-mix(in srgb, var(--bg) 18%, transparent);">
+                                <i data-lucide="arrow-left" class="w-3.5 h-3.5"></i>
+                            </span>
+                            <span class="mono text-[11px] uppercase tracking-[0.16em] pr-3">Back to Portfolio</span>
+                        </a>
+
+                        <button id="mobile-menu-btn" aria-label="Open menu" class="icon-btn lg:hidden w-10 h-10 rounded-full flex items-center justify-center">
+                            <i data-lucide="menu" class="w-[18px] h-[18px]"></i>
+                        </button>
+                    </div>
+                </header>
+
+                <div id="mobile-menu" class="hidden lg:hidden absolute top-full left-0 right-0 mt-3 nav-pill rounded-2xl p-4">
+                    <nav class="flex flex-col gap-1">
+                        <a href="/#about" class="nav-link mono text-[11px] uppercase tracking-[0.18em] px-4 py-3 rounded-xl">About</a>
+                        <a href="/#work" class="nav-link mono text-[11px] uppercase tracking-[0.18em] px-4 py-3 rounded-xl">Projects</a>
+                    </nav>
+                    <div class="mt-3 pt-3" style="border-top:1px solid var(--rule);">
+                        <a href="/" class="cta-primary w-full inline-flex items-center justify-center gap-2 py-3 rounded-full text-sm">
+                            <i data-lucide="arrow-left" class="w-3.5 h-3.5"></i>
+                            <span class="mono text-[11px] uppercase tracking-[0.16em]">Back to Portfolio</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <main class="max-w-[1320px] mx-auto px-4 sm:px-6 pb-24 sm:pb-32">
+
+            <!-- ========== HERO ========== -->
+            <section class="pt-2 sm:pt-6 pb-14 sm:pb-20 rule-b">
+                <div class="grid grid-cols-12 gap-6">
+                    <div class="col-span-12 md:col-span-4 lg:col-span-3 reveal d1">
+                        <div class="index-marker">Case Study / 01</div>
+                        <div class="mono text-xs mt-2" style="color: var(--mute);">Latest Project · 2026</div>
+                        <a href="/" class="mono text-[11px] uppercase tracking-[0.16em] mt-6 inline-flex items-center gap-2 hover:opacity-70 transition-opacity">
+                            <i data-lucide="arrow-left" class="w-3.5 h-3.5"></i> All work
+                        </a>
+                    </div>
+
+                    <div class="col-span-12 md:col-span-8 lg:col-span-9">
+                        <h1 class="display font-medium leading-[0.92] tracking-[-0.03em] reveal d2"
+                            style="font-size: clamp(2.75rem, 8vw, 7.5rem);">
+                            The AI Video<br>
+                            Production <span class="display-italic" style="color: var(--accent);">Engine</span><span style="color: var(--accent);">.</span>
+                        </h1>
+
+                        <p class="mt-8 text-lg sm:text-xl leading-snug max-w-[44ch] reveal d3">
+                            A multi-agent pipeline that scripts, narrates, renders and ships full video episodes — end-to-end, programmatically.
+                        </p>
+
+                        <div class="mt-8 flex flex-wrap gap-2 reveal d3">
+                            <span class="chip">Python</span>
+                            <span class="chip">Flask</span>
+                            <span class="chip">LLM Orchestration</span>
+                            <span class="chip">Remotion</span>
+                            <span class="chip">ElevenLabs</span>
+                            <span class="chip">React / TS</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ========== OVERVIEW ========== -->
+            <section class="pt-12 sm:pt-20 pb-12 sm:pb-20 rule-b">
+                <div class="grid grid-cols-12 gap-6">
+                    <div class="col-span-12 md:col-span-4 lg:col-span-3">
+                        <h2 class="display text-3xl sm:text-4xl font-medium tracking-tight">Overview<span class="display-italic">.</span></h2>
+                    </div>
+
+                    <div class="col-span-12 md:col-span-8 lg:col-span-9 space-y-7">
+                        <p class="display font-light leading-[1.3] tracking-tight" style="font-size: clamp(1.35rem, 2.2vw, 1.85rem);">
+                            <span class="display-italic" style="font-size:1.5em; float:left; line-height:0.9; padding: 0.05em 0.12em 0 0; color: var(--accent);">[</span>
+                            REPLACE: paragraph 1 — what the engine actually does, in one strong opening. Frame it for someone who has never seen it: "Give it a topic; out comes a finished, narrated, captioned, fully-rendered video on the other side."
+                            <span class="display-italic" style="color: var(--accent);">]</span>
+                        </p>
+
+                        <p class="text-base sm:text-lg leading-relaxed" style="color: var(--mute);">
+                            [REPLACE: paragraph 2 — the technically non-trivial part. The multi-agent orchestration: a writer agent drafts, a director agent storyboards, a researcher agent fact-checks, and they negotiate revisions before any frame is rendered. State concretely how they're coordinated and why naïve single-prompt approaches fail.]
+                        </p>
+
+                        <p class="text-base sm:text-lg leading-relaxed" style="color: var(--mute);">
+                            [REPLACE: paragraph 3 — the rendering and full-stack delivery side. Programmatic Remotion compositions driven by structured data, ElevenLabs narration timed to scene cuts, a Flask job runner, and a React/TS dashboard for monitoring queue state and reviewing outputs. Close on what the engine has actually shipped — episode count, runtime saved, anything concrete.]
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ========== SAMPLE OUTPUTS ========== -->
+            <section class="pt-12 sm:pt-20 pb-12 sm:pb-20 rule-b">
+                <div class="flex items-baseline justify-between mb-8 sm:mb-10">
+                    <h2 class="display text-2xl sm:text-3xl font-medium tracking-tight">Sample outputs</h2>
+                    <span class="mono text-[11px] uppercase tracking-[0.18em]" style="color: var(--mute);">3 episodes</span>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-5 sm:gap-6">
+                    <figure class="video-tile rounded-2xl">
+                        <div class="video-frame">
+                            <iframe src="https://www.youtube.com/embed/PLACEHOLDER" title="Sample episode 01" allowfullscreen></iframe>
+                        </div>
+                        <figcaption class="px-5 py-4 flex items-center justify-between" style="border-top:1px solid var(--rule);">
+                            <span class="mono text-[11px] uppercase tracking-[0.18em]" style="color: var(--mute);">Episode 01</span>
+                            <span class="text-sm display-italic">[REPLACE: title]</span>
+                        </figcaption>
+                    </figure>
+
+                    <figure class="video-tile rounded-2xl">
+                        <div class="video-frame">
+                            <iframe src="https://www.youtube.com/embed/PLACEHOLDER" title="Sample episode 02" allowfullscreen></iframe>
+                        </div>
+                        <figcaption class="px-5 py-4 flex items-center justify-between" style="border-top:1px solid var(--rule);">
+                            <span class="mono text-[11px] uppercase tracking-[0.18em]" style="color: var(--mute);">Episode 02</span>
+                            <span class="text-sm display-italic">[REPLACE: title]</span>
+                        </figcaption>
+                    </figure>
+
+                    <figure class="video-tile rounded-2xl">
+                        <div class="video-frame">
+                            <iframe src="https://www.youtube.com/embed/PLACEHOLDER" title="Sample episode 03" allowfullscreen></iframe>
+                        </div>
+                        <figcaption class="px-5 py-4 flex items-center justify-between" style="border-top:1px solid var(--rule);">
+                            <span class="mono text-[11px] uppercase tracking-[0.18em]" style="color: var(--mute);">Episode 03</span>
+                            <span class="text-sm display-italic">[REPLACE: title]</span>
+                        </figcaption>
+                    </figure>
+                </div>
+            </section>
+
+            <!-- ========== ARCHITECTURE ========== -->
+            <section class="pt-12 sm:pt-20 pb-12 sm:pb-20 rule-b">
+                <div class="grid grid-cols-12 gap-6 mb-8 sm:mb-10">
+                    <div class="col-span-12 md:col-span-4 lg:col-span-3">
+                        <h2 class="display text-3xl sm:text-4xl font-medium tracking-tight">Architecture<span class="display-italic">.</span></h2>
+                    </div>
+                    <div class="col-span-12 md:col-span-8 lg:col-span-9">
+                        <p class="text-base sm:text-lg leading-relaxed" style="color: var(--mute);">
+                            [REPLACE: 2–3 sentences describing the multi-agent flow — how a topic enters the system, gets fanned out across writer/director/researcher agents, converges on a finalised script, then hands off to the rendering pipeline. Mention the message bus, retry semantics, and any human-in-the-loop checkpoints.]
+                        </p>
+                    </div>
+                </div>
+
+                <div class="arch-frame">
+                    <img src="../assets/architecture.png" alt="[REPLACE: architecture diagram description — e.g. 'Multi-agent orchestration flow showing writer, director, and researcher agents handing off to a Remotion render queue']">
+                </div>
+            </section>
+
+            <!-- ========== FOOTER ========== -->
+            <footer class="pt-12 sm:pt-20">
+                <div class="grid grid-cols-12 gap-6">
+                    <div class="col-span-12 md:col-span-4 lg:col-span-3">
+                        <h2 class="display text-3xl sm:text-4xl font-medium tracking-tight">More from<br>this <span class="display-italic">project.</span></h2>
+                    </div>
+
+                    <div class="col-span-12 md:col-span-8 lg:col-span-9">
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-2xl">
+                            <a href="[REPLACE: GitHub repo URL]" class="cta-ghost flex items-center justify-between rounded-2xl px-5 py-4 group">
+                                <span class="flex items-center gap-3">
+                                    <i data-lucide="github" class="w-4 h-4"></i>
+                                    <span class="mono text-[11px] uppercase tracking-[0.16em]">GitHub Repo</span>
+                                </span>
+                                <i data-lucide="arrow-up-right" class="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform"></i>
+                            </a>
+                            <a href="[REPLACE: YouTube channel URL]" class="cta-ghost flex items-center justify-between rounded-2xl px-5 py-4 group">
+                                <span class="flex items-center gap-3">
+                                    <i data-lucide="youtube" class="w-4 h-4"></i>
+                                    <span class="mono text-[11px] uppercase tracking-[0.16em]">YouTube</span>
+                                </span>
+                                <i data-lucide="arrow-up-right" class="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform"></i>
+                            </a>
+                        </div>
+
+                        <div class="mt-10">
+                            <a href="/" class="cta-primary inline-flex items-center gap-3 rounded-full pl-2 pr-6 py-2.5 text-sm">
+                                <span class="w-8 h-8 rounded-full flex items-center justify-center" style="background: color-mix(in srgb, var(--bg) 18%, transparent);">
+                                    <i data-lucide="arrow-left" class="w-4 h-4"></i>
+                                </span>
+                                <span class="mono text-[11px] uppercase tracking-[0.16em]">Back to Portfolio</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-16 pt-8 rule-t flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+                    <div class="mono text-[11px] uppercase tracking-[0.18em]" style="color: var(--mute);">
+                        © 2026 Nathan Coulthurst — All rights reserved
+                    </div>
+                    <div class="mono text-[11px] uppercase tracking-[0.18em]" style="color: var(--mute);">
+                        Case Study / 01
+                    </div>
+                </div>
+            </footer>
+
+        </main>
+    </div>
+
+    <script>
+        lucide.createIcons();
+
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                const loader = document.getElementById('loader');
+                const content = document.getElementById('main-content');
+                loader.style.opacity = '0';
+                content.classList.add('loaded');
+                setTimeout(() => loader.style.display = 'none', 700);
+            }, 900);
+        });
+
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+            const isOpen = !mobileMenu.classList.contains('hidden');
+            mobileMenuBtn.innerHTML = isOpen
+                ? '<i data-lucide="x" class="w-[18px] h-[18px]"></i>'
+                : '<i data-lucide="menu" class="w-[18px] h-[18px]"></i>';
+            lucide.createIcons();
+        });
+
+        const themeToggleBtn = document.getElementById('theme-toggle');
+        const root = document.documentElement;
+        themeToggleBtn.addEventListener('click', () => {
+            const nextDark = !root.classList.contains('dark');
+            root.classList.toggle('dark', nextDark);
+            root.style.colorScheme = nextDark ? 'dark' : 'light';
+            try { localStorage.setItem('nc-theme', nextDark ? 'dark' : 'light'); } catch (e) {}
+            lucide.createIcons();
+        });
+    </script>
+</body>
+</html>

@@ -3,445 +3,685 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nathan Coulthurst - Systems & Automation Engineer</title>
+    <title>Nathan Coulthurst — Automation & AI Systems</title>
+
+    <!-- Pre-paint theme: light is default; dark only if explicitly chosen -->
+    <script>
+        (function () {
+            try {
+                var stored = localStorage.getItem('nc-theme');
+                if (stored === 'dark') document.documentElement.classList.add('dark');
+                document.documentElement.style.colorScheme = stored === 'dark' ? 'dark' : 'light';
+            } catch (e) {}
+        })();
+    </script>
+
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
             darkMode: 'class',
             theme: {
                 extend: {
-                    colors: {
-                        slate: {
-                            50: '#F8FAFC',
-                            100: '#F1F5F9',
-                            900: '#0F172A',
-                        },
-                    },
                     fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
+                        display: ['Fraunces', 'serif'],
+                        sans: ['"Instrument Sans"', 'system-ui', 'sans-serif'],
+                        mono: ['"JetBrains Mono"', 'ui-monospace', 'monospace'],
+                    },
+                    colors: {
+                        paper: '#F4EDE0',
+                        'paper-2': '#FBF7EE',
+                        ink: '#141210',
+                        mute: '#6B6357',
+                        sienna: '#C8553D',
+                        'sienna-warm': '#E07A5F',
+                        coal: '#0F0E0C',
+                        'coal-2': '#1A1815',
+                        cream: '#E8E2D5',
                     },
                 },
             },
         }
     </script>
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;0,9..144,900;1,9..144,400&family=Inter:wght@400;500;600;700;800&family=Instrument+Sans:ital,wght@0,400;0,500;0,600;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest"></script>
+
     <style>
-        body {
-            transition: background-color 0.3s ease, color 0.3s ease;
+        :root {
+            --bg: #F4EDE0;
+            --surface: #FBF7EE;
+            --ink: #141210;
+            --mute: #6B6357;
+            --rule: rgba(20, 18, 16, 0.12);
+            --rule-strong: rgba(20, 18, 16, 0.22);
+            --accent: #C8553D;
+            --accent-hover: #A8412C;
+            --on-accent: #F4EDE0;
         }
-        
-        /* Loading Animation */
-        @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        .fade-in-up {
-            animation: fadeInUp 0.8s ease-out forwards;
-        }
-        #main-content {
-            opacity: 0;
-            transition: opacity 0.6s ease-out;
-        }
-        #main-content.loaded {
-            opacity: 1;
-        }
-
-        /* Refined Systems Light Mode (Default) */
-        body {
-            background-color: #F1F5F9;
-            color: #1E293B;
-        }
-        .glass-card {
-            background: #FFFFFF;
-            border: 1px solid #E2E8F0;
-            border-radius: 24px;
-            box-shadow: 0 8px 30px rgba(59, 130, 246, 0.05);
-            transition: all 0.3s ease;
-        }
-        .glass-card:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 20px 40px -10px rgba(59, 130, 246, 0.15);
-            border-color: #3B82F6;
+        .dark {
+            --bg: #0F0E0C;
+            --surface: #1A1815;
+            --ink: #E8E2D5;
+            --mute: #8A8275;
+            --rule: rgba(232, 226, 213, 0.10);
+            --rule-strong: rgba(232, 226, 213, 0.22);
+            --accent: #E07A5F;
+            --accent-hover: #ED9377;
+            --on-accent: #0F0E0C;
         }
 
-        /* Dark Mode Override */
-        .dark body {
-            background: radial-gradient(circle at top, #141418 0%, #0f0f12 100%);
-            color: #ffffff;
+        html, body { background: var(--bg); color: var(--ink); }
+        body {
+            font-family: 'Instrument Sans', system-ui, sans-serif;
+            font-feature-settings: "ss01", "ss02";
+            transition: background-color 0.4s ease, color 0.4s ease;
+            min-height: 100vh;
         }
-        .dark .glass-card {
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(255, 255, 255, 0.06);
-            box-shadow: none;
+
+        /* Subtle paper grain — adds the broadsheet feel without overpowering */
+        body::before {
+            content: "";
+            position: fixed; inset: 0;
+            pointer-events: none;
+            z-index: 3;
+            opacity: 0.4;
+            mix-blend-mode: multiply;
+            background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.08 0 0 0 0 0.07 0 0 0 0 0.06 0 0 0 0.55 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
         }
-        .dark .glass-card:hover {
-            background: rgba(255, 255, 255, 0.05);
-            border-color: rgba(74, 222, 128, 0.3);
-            box-shadow: 0 20px 40px -10px rgba(74, 222, 128, 0.1);
+        .dark body::before {
+            opacity: 0.55;
+            mix-blend-mode: screen;
+            background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.92 0 0 0 0 0.89 0 0 0 0 0.83 0 0 0 0.04 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+        }
+
+        .display { font-family: 'Fraunces', serif; font-optical-sizing: auto; letter-spacing: -0.02em; }
+        .display-italic { font-family: 'Fraunces', serif; font-style: italic; font-variation-settings: "SOFT" 100; }
+        .mono { font-family: 'JetBrains Mono', ui-monospace, monospace; }
+
+        /* Section index marker — magazine-style 01 / 02 / 03 */
+        .index-marker {
+            font-family: 'JetBrains Mono', ui-monospace, monospace;
+            font-size: 0.7rem;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: var(--mute);
+        }
+
+        .rule-t { border-top: 1px solid var(--rule); }
+        .rule-b { border-bottom: 1px solid var(--rule); }
+        .rule-l { border-left: 1px solid var(--rule); }
+        .rule-r { border-right: 1px solid var(--rule); }
+
+        /* Sticky header pill */
+        .nav-pill {
+            background: color-mix(in srgb, var(--surface) 78%, transparent);
+            border: 1px solid var(--rule);
+            backdrop-filter: blur(14px) saturate(140%);
+            -webkit-backdrop-filter: blur(14px) saturate(140%);
+        }
+        .nav-link {
+            color: var(--mute);
+            transition: color 0.2s ease;
+        }
+        .nav-link:hover { color: var(--ink); }
+
+        .cta-primary {
+            background: var(--accent);
+            color: var(--on-accent);
+            transition: transform 0.25s ease, background 0.25s ease;
+        }
+        .cta-primary:hover { background: var(--accent-hover); transform: translateY(-1px); }
+
+        .cta-ghost {
+            border: 1px solid var(--rule-strong);
+            color: var(--ink);
+            transition: border-color 0.2s ease, color 0.2s ease, background 0.2s ease;
+        }
+        .cta-ghost:hover { border-color: var(--accent); color: var(--accent); }
+
+        .icon-btn {
+            background: transparent;
+            border: 1px solid var(--rule);
+            color: var(--ink);
+            transition: border-color 0.2s ease, color 0.2s ease;
+        }
+        .icon-btn:hover { border-color: var(--accent); color: var(--accent); }
+
+        .chip {
+            font-family: 'JetBrains Mono', ui-monospace, monospace;
+            font-size: 0.68rem;
+            letter-spacing: 0.04em;
+            padding: 0.3rem 0.65rem;
+            border: 1px solid var(--rule-strong);
+            border-radius: 999px;
+            color: var(--ink);
+        }
+
+        /* Featured project block */
+        .feature-card {
+            background: var(--surface);
+            border: 1px solid var(--rule);
+            position: relative;
+            overflow: hidden;
+            transition: border-color 0.3s ease;
+        }
+        .feature-card::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(60% 80% at 90% 10%, color-mix(in srgb, var(--accent) 18%, transparent), transparent 60%);
+            pointer-events: none;
+            opacity: 0.7;
+        }
+        .feature-card:hover { border-color: var(--accent); }
+
+        /* Other-work card */
+        .work-card {
+            background: transparent;
+            transition: background 0.3s ease;
+        }
+        .work-card:hover { background: var(--surface); }
+        .work-card .arrow {
+            transition: transform 0.3s ease, color 0.3s ease;
+            color: var(--mute);
+        }
+        .work-card:hover .arrow { transform: translate(2px, -2px); color: var(--accent); }
+
+        /* Decorative serif ornament for hero */
+        .ornament {
+            font-family: 'Fraunces', serif;
+            font-style: italic;
+            font-weight: 300;
+            color: var(--accent);
+            line-height: 0.8;
+            font-variation-settings: "SOFT" 100;
+        }
+
+        /* Loader */
+        #loader {
+            position: fixed; inset: 0; z-index: 100;
+            background: var(--bg);
+            display: flex; align-items: center; justify-content: center;
+            transition: opacity 0.6s ease;
+        }
+        .loader-glyph {
+            font-family: 'Fraunces', serif;
+            font-weight: 400;
+            font-style: italic;
+            font-size: clamp(6rem, 14vw, 12rem);
+            color: var(--ink);
+            letter-spacing: -0.04em;
+            line-height: 1;
+            position: relative;
+            font-variation-settings: "SOFT" 100;
+        }
+        .loader-glyph .dot { color: var(--accent); }
+        .loader-glyph::after {
+            content: "";
+            position: absolute;
+            left: 0; right: 0; bottom: -0.2em;
+            height: 1px;
+            background: var(--ink);
+            transform-origin: left;
+            transform: scaleX(0);
+            animation: ruleDraw 1.2s 0.2s cubic-bezier(.7,0,.2,1) forwards;
+        }
+        @keyframes ruleDraw { to { transform: scaleX(1); } }
+
+        #main-content { opacity: 0; transition: opacity 0.7s ease; position: relative; z-index: 2; }
+        #main-content.loaded { opacity: 1; }
+
+        @keyframes fadeUp { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: translateY(0); } }
+        .reveal { opacity: 0; animation: fadeUp 0.9s cubic-bezier(.2,.7,.2,1) forwards; }
+        .reveal.d1 { animation-delay: 0.1s; }
+        .reveal.d2 { animation-delay: 0.2s; }
+        .reveal.d3 { animation-delay: 0.3s; }
+        .reveal.d4 { animation-delay: 0.4s; }
+        .reveal.d5 { animation-delay: 0.5s; }
+        .reveal.d6 { animation-delay: 0.6s; }
+
+        ::selection { background: var(--accent); color: var(--bg); }
+
+        /* Mobile hero adjustments */
+        @media (max-width: 640px) {
+            .hero-display { font-size: clamp(3rem, 14vw, 5rem); }
+        }
+
+        /* Editorial masthead */
+        .masthead {
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            background: var(--bg);
+            border-bottom: 1px solid var(--rule);
+        }
+        .masthead-inner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1.5rem;
+            padding: 1.25rem 0;
+        }
+        .masthead-name {
+            display: inline-flex;
+            align-items: baseline;
+            font-family: 'Fraunces', serif;
+            font-optical-sizing: auto;
+            font-size: 1.0625rem;
+            font-weight: 500;
+            letter-spacing: -0.015em;
+            line-height: 1;
+            color: var(--ink);
+        }
+        .masthead-name .dot { color: var(--accent); }
+        .masthead-nav { display: flex; align-items: center; gap: 1.5rem; }
+        .masthead-link {
+            font-family: 'JetBrains Mono', ui-monospace, monospace;
+            font-size: 0.7rem;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: var(--mute);
+            transition: color 0.2s ease;
+        }
+        .masthead-link:hover { color: var(--ink); }
+        .masthead-divider { width: 1px; height: 14px; background: var(--rule-strong); }
+        .masthead-icon {
+            background: transparent; border: 0; padding: 0; cursor: pointer;
+            color: var(--mute); display: inline-flex; align-items: center;
+            transition: color 0.2s ease;
+        }
+        .masthead-icon:hover { color: var(--ink); }
+        .masthead-mobile-menu { background: var(--bg); border-bottom: 1px solid var(--rule); }
+        @media (max-width: 768px) {
+            .masthead-inner { padding: 1rem 0; }
+            .masthead-name { font-size: 1rem; }
         }
     </style>
 </head>
-<body class="antialiased selection:bg-blue-400/30 selection:text-blue-600 dark:selection:text-blue-400">
+<body class="antialiased">
 
-    <!-- Loading Overlay -->
-    <div id="loader" class="fixed inset-0 z-[100] bg-[#F1F5F9] flex items-center justify-center transition-opacity duration-700">
-        <h1 class="text-5xl md:text-6xl font-bold tracking-tighter text-[#1E293B] fade-in-up font-['Inter']">
-            Nathan<span class="text-[#3B82F6]">.</span>
-        </h1>
+    <!-- Loader -->
+    <div id="loader">
+        <div class="loader-glyph">N<span class="dot">.</span></div>
     </div>
 
     <div id="main-content">
-        <!-- Header -->
-        <div class="sticky top-4 sm:top-6 z-50 max-w-7xl mx-auto px-4 sm:px-6 mb-8 sm:mb-12">
-            <div class="relative">
-                <header class="bg-white/80 dark:bg-[#1a1a1e]/80 backdrop-blur-lg border border-slate-200/50 dark:border-white/10 rounded-full px-5 sm:px-8 py-3 sm:py-4 flex items-center justify-between shadow-sm dark:shadow-2xl">
-                    <!-- Logo / Name -->
-                    <div class="flex items-center">
-                        <a href="#" class="text-lg sm:text-xl font-bold tracking-tight text-[#1E293B] dark:text-white hover:text-blue-400 dark:hover:text-green-500 transition-colors font-['Inter']">Nathan Coulthurst</a>
-                    </div>
 
-                    <!-- Centered Nav Pill (desktop only) -->
-                    <nav class="hidden lg:flex items-center bg-slate-200/30 dark:bg-white/5 rounded-full p-1 border border-slate-200/50 dark:border-white/5">
-                        <a href="#" class="px-6 py-2.5 text-sm font-semibold text-[#64748B] dark:text-gray-400 hover:text-slate-800 dark:hover:text-white transition-colors">About</a>
-                        <a href="#" class="px-6 py-2.5 text-sm font-semibold text-[#64748B] dark:text-gray-400 hover:text-slate-800 dark:hover:text-white transition-colors">Projects</a>
+        <header class="masthead">
+            <div class="masthead-inner max-w-[1320px] mx-auto px-4 sm:px-6">
+                <a href="#" class="block">
+                    <span class="masthead-name">Nathan Coulthurst<span class="dot">.</span></span>
+                </a>
+
+                <div class="flex items-center gap-5 sm:gap-7">
+                    <nav class="masthead-nav hidden md:flex">
+                        <a href="#about" class="masthead-link">About</a>
+                        <span class="masthead-divider"></span>
+                        <a href="#work" class="masthead-link">Projects</a>
+                        <span class="masthead-divider"></span>
+                        <a href="#contact" class="masthead-link">Contact</a>
                     </nav>
 
-                    <div class="flex items-center gap-2 sm:gap-3">
-                        <!-- Theme Toggle -->
-                        <button id="theme-toggle" class="w-10 h-10 rounded-full bg-slate-200/50 dark:bg-white/5 border border-slate-200/50 dark:border-white/5 flex items-center justify-center hover:bg-slate-200 dark:hover:bg-white/10 transition-all">
-                            <i data-lucide="sun" class="w-5 h-5 hidden dark:block"></i>
-                            <i data-lucide="moon" class="w-5 h-5 block dark:hidden text-[#64748B]"></i>
-                        </button>
+                    <button id="theme-toggle" aria-label="Toggle theme" class="masthead-icon">
+                        <i data-lucide="sun" class="w-[16px] h-[16px] hidden dark:block"></i>
+                        <i data-lucide="moon" class="w-[16px] h-[16px] block dark:hidden"></i>
+                    </button>
 
-                        <!-- CTA Button (hidden on mobile) -->
-                        <button class="hidden sm:flex bg-blue-500 text-white border border-white/10 pl-7 pr-2 py-2 rounded-full text-sm font-bold items-center gap-4 hover:bg-blue-400 dark:bg-[#4ade80] dark:text-black dark:hover:bg-green-500 transition-all duration-500 group shadow-lg">
-                            Contact Me
-                            <div class="w-8 h-8 bg-white/20 dark:bg-black/10 rounded-full flex items-center justify-center group-hover:bg-white/30 dark:group-hover:bg-black/20 transition-colors">
-                                <i data-lucide="arrow-up-right" class="w-4 h-4"></i>
-                            </div>
-                        </button>
-
-                        <!-- Hamburger (mobile only) -->
-                        <button id="mobile-menu-btn" class="lg:hidden w-10 h-10 rounded-full bg-slate-200/50 dark:bg-white/5 border border-slate-200/50 dark:border-white/5 flex items-center justify-center hover:bg-slate-200 dark:hover:bg-white/10 transition-all">
-                            <i data-lucide="menu" class="w-5 h-5 text-[#64748B] dark:text-white"></i>
-                        </button>
-                    </div>
-                </header>
-
-                <!-- Mobile Nav Dropdown -->
-                <div id="mobile-menu" class="hidden lg:hidden absolute top-full left-0 right-0 mt-3 bg-white/95 dark:bg-[#1a1a1e]/95 backdrop-blur-lg border border-slate-200/50 dark:border-white/10 rounded-2xl p-4 shadow-xl">
-                    <nav class="flex flex-col gap-1">
-                        <a href="#" class="px-4 py-3 text-sm font-semibold text-[#64748B] dark:text-gray-400 hover:text-slate-800 dark:hover:text-white hover:bg-slate-50 dark:hover:bg-white/5 rounded-xl transition-colors">About</a>
-                        <a href="#" class="px-4 py-3 text-sm font-semibold text-[#64748B] dark:text-gray-400 hover:text-slate-800 dark:hover:text-white hover:bg-slate-50 dark:hover:bg-white/5 rounded-xl transition-colors">Projects</a>
-                    </nav>
-                    <div class="mt-3 pt-3 border-t border-slate-100 dark:border-white/5">
-                        <button class="w-full bg-blue-500 text-white py-3 rounded-full text-sm font-bold hover:bg-blue-400 dark:bg-[#4ade80] dark:text-black dark:hover:bg-green-500 transition-all duration-300 shadow-lg">
-                            Contact Me
-                        </button>
-                    </div>
+                    <button id="mobile-menu-btn" aria-label="Open menu" class="masthead-icon md:hidden">
+                        <i data-lucide="menu" class="w-[20px] h-[20px]"></i>
+                    </button>
                 </div>
             </div>
-        </div>
 
-        <main class="max-w-7xl mx-auto px-4 sm:px-6 pt-4 sm:pt-8 pb-16 sm:pb-20">
-            <!-- Main Grid Layout -->
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 items-stretch">
-                
-                <!-- Column 1 -->
-                <div class="flex flex-col gap-6">
-                    <!-- About Me Card -->
-                    <div class="glass-card p-8 relative overflow-hidden group flex flex-col h-full">
-                        <div class="flex justify-between items-start mb-6">
-                            <span class="text-xs font-semibold uppercase tracking-wider text-[#64748B] dark:text-gray-500">About Me</span>
-                            <div class="flex items-center space-x-2">
-                                <span class="relative flex h-2 w-2">
-                                    <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#3B82F6] dark:bg-green-400 opacity-75"></span>
-                                    <span class="relative inline-flex rounded-full h-2 w-2 bg-[#3B82F6] dark:bg-green-500"></span>
+            <div id="mobile-menu" class="hidden md:hidden masthead-mobile-menu">
+                <nav class="max-w-[1320px] mx-auto px-4 sm:px-6 py-4 flex flex-col gap-1">
+                    <a href="#about" class="masthead-link py-3">About</a>
+                    <a href="#work" class="masthead-link py-3">Projects</a>
+                    <a href="#contact" class="masthead-link py-3">Contact</a>
+                </nav>
+            </div>
+        </header>
+
+        <main class="max-w-[1320px] mx-auto px-4 sm:px-6 pt-10 sm:pt-16 pb-24 sm:pb-32">
+
+            <!-- ========== HERO ========== -->
+            <section class="pt-2 sm:pt-6 pb-16 sm:pb-24 rule-b">
+                <div class="grid grid-cols-12 gap-6">
+
+                    <!-- Left rail meta -->
+                    <aside class="col-span-12 md:col-span-3 reveal d1">
+                        <div class="flex flex-row md:flex-col gap-10 md:gap-12 items-start md:mt-2">
+                            <div>
+                                <div class="index-marker mb-2">Status</div>
+                                <div class="flex items-center gap-2 text-sm">
+                                    <span class="relative flex h-2 w-2">
+                                        <span class="animate-ping absolute inline-flex h-full w-full rounded-full opacity-75" style="background: var(--accent);"></span>
+                                        <span class="relative inline-flex rounded-full h-2 w-2" style="background: var(--accent);"></span>
+                                    </span>
+                                    Open to work
+                                </div>
+                            </div>
+                            <div>
+                                <div class="index-marker mb-2">Located</div>
+                                <div class="text-sm">Leeds, UK</div>
+                                <div class="mono text-xs mt-1" style="color: var(--mute);">Open to remote</div>
+                            </div>
+                        </div>
+                    </aside>
+
+                    <!-- Main hero block, pushed right -->
+                    <div class="col-span-12 md:col-span-9 md:pl-2 lg:pl-6">
+                        <h1 class="leading-[1] tracking-[-0.03em] reveal d2 whitespace-nowrap"
+                            style="font-family: 'Fraunces', serif; font-optical-sizing: auto; font-weight: 500; color: var(--ink); font-size: clamp(1.75rem, 6vw, 5rem);">
+                            Nathan Coulthurst<span style="color: var(--accent);">.</span>
+                        </h1>
+
+                        <div class="mt-10 reveal d3 max-w-[44ch]">
+                            <p class="text-lg sm:text-xl leading-snug" style="color: var(--ink);">
+                                I build automation tooling and AI systems that take repetitive work off humans.
+                            </p>
+                        </div>
+
+                        <div class="mt-12 flex flex-wrap items-center gap-3 reveal d5">
+                            <a href="mailto:nathancoulthurst@hotmail.co.uk" class="cta-ghost inline-flex items-center gap-3 rounded-full px-6 py-3 text-sm">
+                                <i data-lucide="mail" class="w-4 h-4"></i>
+                                <span class="mono text-[11px] uppercase tracking-[0.16em]">Email Me</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ========== FEATURED PROJECT ========== -->
+            <section id="work" class="pt-12 sm:pt-20 pb-12 sm:pb-16">
+                <div class="flex items-baseline justify-between mb-8 sm:mb-10">
+                    <h2 class="display text-2xl sm:text-3xl font-medium tracking-tight">Featured</h2>
+                    <span class="mono text-[11px] uppercase tracking-[0.18em]" style="color: var(--mute);">Centerpiece</span>
+                </div>
+
+                <a href="/projects/ai-video-engine.html" class="feature-card block rounded-[28px] sm:rounded-[36px] p-7 sm:p-12 group">
+                    <div class="grid grid-cols-12 gap-6 relative z-10">
+                        <div class="col-span-12 lg:col-span-7">
+                            <div class="flex items-center gap-3 mb-6">
+                                <span class="mono text-[10px] uppercase tracking-[0.2em] px-2.5 py-1 rounded-full" style="background: var(--accent); color: var(--on-accent);">Latest Project</span>
+                                <span class="mono text-[11px]" style="color: var(--mute);">2026 →</span>
+                            </div>
+
+                            <h3 class="display font-medium leading-[0.95] tracking-tight"
+                                style="font-size: clamp(2.25rem, 5.5vw, 4.5rem);">
+                                The AI Video<br>
+                                Production <span class="display-italic">Engine</span>
+                            </h3>
+
+                            <p class="mt-6 text-base sm:text-lg max-w-[42ch]" style="color: var(--mute);">
+                                A multi-agent pipeline that scripts, narrates, renders and ships full video episodes — end-to-end, programmatically.
+                            </p>
+
+                            <div class="mt-7 flex flex-wrap gap-2">
+                                <span class="chip">Python</span>
+                                <span class="chip">Flask</span>
+                                <span class="chip">LLM Orchestration</span>
+                                <span class="chip">Remotion</span>
+                                <span class="chip">ElevenLabs</span>
+                                <span class="chip">React / TS</span>
+                            </div>
+                        </div>
+
+                        <div class="col-span-12 lg:col-span-5 flex flex-col justify-between gap-8 lg:items-end">
+                            <!-- Editorial monogram block -->
+                            <div class="hidden lg:block">
+                                <div class="display font-light leading-[0.85]" style="font-size: 11rem; color: var(--accent); opacity: 0.85;">
+                                    01<span class="display-italic">.</span>
+                                </div>
+                            </div>
+                            <div class="flex items-center gap-3 group-hover:gap-5 transition-all duration-300">
+                                <span class="mono text-[11px] uppercase tracking-[0.2em]">View Project</span>
+                                <span class="w-10 h-10 rounded-full flex items-center justify-center cta-primary">
+                                    <i data-lucide="arrow-up-right" class="w-4 h-4"></i>
                                 </span>
                             </div>
                         </div>
-                        <h2 class="text-xl font-semibold tracking-tight leading-tight mb-6 text-[#1E293B] dark:text-gray-200 font-['Inter']">
-                            Currently a Technical Support Engineer with a strong interest in systems and automation.
-                        </h2>
-                        <div class="mt-auto">
-                            <button class="w-full py-3 rounded-full border border-white/10 text-sm font-bold bg-blue-500 text-white hover:bg-blue-400 dark:bg-[#4ade80] dark:text-black dark:hover:bg-green-500 transition-all duration-500 shadow-lg">
-                                About me
-                            </button>
-                        </div>
                     </div>
+                </a>
+            </section>
 
-                    <!-- Work Experience Card -->
-                    <div class="glass-card p-8 flex flex-col h-full">
-                        <div class="flex items-center justify-between mb-8 pb-4 border-b border-slate-100 dark:border-white/5">
-                            <span class="text-xs font-semibold uppercase tracking-wider text-[#64748B] dark:text-gray-500">Work experience</span>
-                        </div>
-                        <div class="space-y-6">
-                            <div class="flex items-center group">
-                                <div class="text-xs text-[#64748B] dark:text-gray-500 w-24">2025 - Present</div>
-                                <div class="w-10 h-10 rounded-full bg-slate-50 dark:bg-white/5 flex items-center justify-center mr-4 border border-slate-100 dark:border-white/10">
-                                    <i data-lucide="cpu" class="w-5 h-5 text-[#3B82F6] dark:text-blue-400"></i>
-                                </div>
-                                <div>
-                                    <div class="text-sm font-medium text-[#1E293B] dark:text-white">Technical Support Engineer</div>
-                                    <div class="text-xs text-[#64748B] dark:text-gray-500">Eskens Tinting Solutions</div>
-                                </div>
-                            </div>
-                            <div class="flex items-center group">
-                                <div class="text-xs text-[#64748B] dark:text-gray-500 w-24">2024 - 2025</div>
-                                <div class="w-10 h-10 rounded-full bg-slate-50 dark:bg-white/5 flex items-center justify-center mr-4 border border-slate-100 dark:border-white/10">
-                                    <i data-lucide="layers" class="w-5 h-5 text-[#3B82F6] dark:text-blue-400"></i>
-                                </div>
-                                <div>
-                                    <div class="text-sm font-medium text-[#1E293B] dark:text-white">Helpdesk Advisor</div>
-                                    <div class="text-xs text-[#64748B] dark:text-gray-500">Eskens Tinting Solutions</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Bottom Row Column 1 -->
-                    <div class="grid grid-cols-2 gap-6 mt-auto">
-                        <div class="glass-card p-6 flex flex-col aspect-square h-full">
-                            <div class="mb-6 pb-3 border-b border-slate-100 dark:border-white/5">
-                                <span class="text-[10px] font-semibold uppercase tracking-widest text-[#64748B] dark:text-gray-500">Dissertation Score</span>
-                            </div>
-                            <div class="flex-grow flex flex-col items-center justify-center text-center">
-                                <div class="text-6xl font-bold tracking-tighter text-[#3B82F6] dark:text-gray-200">77%</div>
-                                <span class="text-[10px] font-semibold uppercase tracking-widest text-[#64748B] dark:text-gray-500 mt-2">Computer Security</span>
-                            </div>
-                        </div>
-                        <div class="glass-card p-6 flex flex-col aspect-square h-full">
-                            <div class="mb-6 pb-3 border-b border-slate-100 dark:border-white/5">
-                                <span class="text-[10px] font-semibold uppercase tracking-widest text-[#64748B] dark:text-gray-500">My CV</span>
-                            </div>
-                            <div class="flex-grow flex flex-col justify-center space-y-4">
-                                <button class="w-full flex items-center justify-between group">
-                                    <span class="text-xs font-medium text-[#3B82F6] dark:text-white">View</span>
-                                    <i data-lucide="arrow-up-right" class="w-4 h-4 text-slate-300 group-hover:text-[#3B82F6] dark:group-hover:text-white transition-colors"></i>
-                                </button>
-                                <div class="h-px bg-slate-100 dark:bg-white/5"></div>
-                                <button class="w-full flex items-center justify-between group">
-                                    <span class="text-xs font-medium text-[#3B82F6] dark:text-white">Download</span>
-                                    <i data-lucide="arrow-down" class="w-4 h-4 text-slate-300 group-hover:text-[#3B82F6] dark:group-hover:text-white transition-colors"></i>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
+            <!-- ========== OTHER WORK ========== -->
+            <section class="pt-10 sm:pt-16 pb-12 sm:pb-16 rule-t">
+                <div class="mb-8 sm:mb-10 pt-10 sm:pt-12">
+                    <h2 class="display text-2xl sm:text-3xl font-medium tracking-tight">Other work</h2>
                 </div>
 
-                <!-- Column 2 -->
-                <div class="flex flex-col gap-6 h-full">
-                    <!-- What I do Card -->
-                    <div class="glass-card p-8 flex flex-col h-full">
-                        <div class="mb-8 pb-4 border-b border-slate-100 dark:border-white/5">
-                            <span class="text-[10px] font-semibold uppercase tracking-widest text-[#64748B] dark:text-gray-500">What I do</span>
-                        </div>
-                        <div class="grid grid-cols-3 gap-4 items-stretch flex-grow">
-                            <div class="bg-slate-50 dark:bg-white/[0.03] border border-slate-100 dark:border-white/[0.05] rounded-[32px] p-4 flex flex-col items-center justify-center aspect-[4/5] hover:scale-[1.02] transition-transform w-full shadow-sm">
-                                <div class="w-14 h-14 md:w-16 md:h-16 rounded-full bg-white dark:bg-white/[0.05] flex items-center justify-center mb-3 shadow-sm border border-slate-100 dark:border-transparent">
-                                    <i data-lucide="share-2" class="w-6 h-6 md:w-7 md:h-7 text-[#3B82F6] dark:text-white/80"></i>
-                                </div>
-                                <span class="text-[10px] md:text-xs font-semibold text-[#64748B] dark:text-white/60 text-center leading-tight">API Engineering</span>
-                            </div>
-                            <div class="bg-slate-50 dark:bg-white/[0.03] border border-slate-100 dark:border-white/[0.05] rounded-[32px] p-4 flex flex-col items-center justify-center aspect-[4/5] hover:scale-[1.02] transition-transform w-full shadow-sm">
-                                <div class="w-14 h-14 md:w-16 md:h-16 rounded-full bg-white dark:bg-white/[0.05] flex items-center justify-center mb-3 shadow-sm border border-slate-100 dark:border-transparent">
-                                    <i data-lucide="shield-check" class="w-6 h-6 md:w-7 md:h-7 text-[#3B82F6] dark:text-white/80"></i>
-                                </div>
-                                <span class="text-[10px] md:text-xs font-semibold text-[#64748B] dark:text-white/60 text-center leading-tight">2nd Line IT Support</span>
-                            </div>
-                            <div class="bg-slate-50 dark:bg-white/[0.03] border border-slate-100 dark:border-white/[0.05] rounded-[32px] p-4 flex flex-col items-center justify-center aspect-[4/5] hover:scale-[1.02] transition-transform w-full shadow-sm">
-                                <div class="w-14 h-14 md:w-16 md:h-16 rounded-full bg-white dark:bg-white/[0.05] flex items-center justify-center mb-3 shadow-sm border border-slate-100 dark:border-transparent">
-                                    <i data-lucide="zap" class="w-6 h-6 md:w-7 md:h-7 text-[#3B82F6] dark:text-green-400"></i>
-                                </div>
-                                <span class="text-[10px] md:text-xs font-semibold text-[#64748B] dark:text-white/60 text-center leading-tight">Automation</span>
-                            </div>
-                            <div class="bg-slate-50 dark:bg-white/[0.03] border border-slate-100 dark:border-white/[0.05] rounded-[32px] p-4 flex flex-col items-center justify-center aspect-[4/5] hover:scale-[1.02] transition-transform w-full shadow-sm">
-                                <div class="w-14 h-14 md:w-16 md:h-16 rounded-full bg-white dark:bg-white/[0.05] flex items-center justify-center mb-3 shadow-sm border border-slate-100 dark:border-transparent">
-                                    <i data-lucide="pen-tool" class="w-6 h-6 md:w-7 md:h-7 text-[#3B82F6] dark:text-white/80"></i>
-                                </div>
-                                <span class="text-[10px] md:text-xs font-semibold text-[#64748B] dark:text-white/60 text-center leading-tight">Web Design</span>
-                            </div>
-                            <div class="bg-slate-50 dark:bg-white/[0.03] border border-slate-100 dark:border-white/[0.05] rounded-[32px] p-4 flex flex-col items-center justify-center aspect-[4/5] hover:scale-[1.02] transition-transform w-full shadow-sm">
-                                <div class="w-14 h-14 md:w-16 md:h-16 rounded-full bg-white dark:bg-white/[0.05] flex items-center justify-center mb-3 shadow-sm border border-slate-100 dark:border-transparent">
-                                    <i data-lucide="shopping-cart" class="w-6 h-6 md:w-7 md:h-7 text-[#3B82F6] dark:text-white/80"></i>
-                                </div>
-                                <span class="text-[10px] md:text-xs font-semibold text-[#64748B] dark:text-white/60 text-center leading-tight">Shopify</span>
-                            </div>
-                            <div class="bg-slate-50 dark:bg-white/[0.03] border border-slate-100 dark:border-white/[0.05] rounded-[32px] p-4 flex flex-col items-center justify-center aspect-[4/5] hover:scale-[1.02] transition-transform w-full shadow-sm">
-                                <div class="w-14 h-14 md:w-16 md:h-16 rounded-full bg-white dark:bg-white/[0.05] flex items-center justify-center mb-3 shadow-sm border border-slate-100 dark:border-transparent">
-                                    <i data-lucide="terminal" class="w-6 h-6 md:w-7 md:h-7 text-[#3B82F6] dark:text-white/80"></i>
-                                </div>
-                                <span class="text-[10px] md:text-xs font-semibold text-[#64748B] dark:text-white/60 text-center leading-tight">Python</span>
-                            </div>
-                        </div>
-                    </div>
+                <div class="grid grid-cols-1 md:grid-cols-3 rounded-[24px] overflow-hidden" style="border:1px solid var(--rule-strong); background: var(--surface);">
 
-                    <!-- Latest Projects Card -->
-                    <div class="glass-card p-8 flex flex-col h-full mt-auto">
-                        <div class="mb-8 pb-4 border-b border-slate-100 dark:border-white/5">
-                            <span class="text-[10px] font-semibold uppercase tracking-widest text-[#64748B] dark:text-gray-500">Latest projects</span>
+                    <article class="work-card p-6 sm:p-8 md:rule-r border-b md:border-b-0" style="border-bottom-color: var(--rule-strong); border-right-color: var(--rule-strong);">
+                        <div class="flex items-start justify-between mb-12">
+                            <span class="mono text-[11px]" style="color: var(--mute);">/ 01</span>
+                            <i data-lucide="arrow-up-right" class="w-5 h-5 arrow"></i>
                         </div>
-                        <div class="space-y-6 flex-grow flex flex-col justify-center">
-                            <div class="flex items-center group">
-                                <div class="text-xs text-[#64748B] dark:text-gray-500 w-24">2024</div>
-                                <div class="w-10 h-10 rounded-full bg-slate-50 dark:bg-white/5 flex items-center justify-center mr-4 border border-slate-100 dark:border-white/10">
-                                    <i data-lucide="monitor" class="w-5 h-5 text-[#3B82F6] dark:text-green-400"></i>
-                                </div>
-                                <div class="flex-grow">
-                                    <div class="flex items-center justify-between">
-                                        <div class="text-sm font-medium text-[#1E293B] dark:text-white">Vinted Listing Monitor</div>
-                                        <i data-lucide="arrow-up-right" class="w-4 h-4 text-slate-300 group-hover:text-[#3B82F6] dark:group-hover:text-white transition-colors"></i>
-                                    </div>
-                                    <div class="text-xs text-[#64748B] dark:text-gray-500">Automation / Python</div>
-                                </div>
-                            </div>
-                            <div class="flex items-center group opacity-50">
-                                <div class="text-xs text-[#64748B] dark:text-gray-500 w-24">2023</div>
-                                <div class="w-10 h-10 rounded-full bg-slate-50 dark:bg-white/5 flex items-center justify-center mr-4 border border-slate-100 dark:border-white/10">
-                                    <i data-lucide="database" class="w-5 h-5 text-[#3B82F6] dark:text-blue-400"></i>
-                                </div>
-                                <div class="flex-grow">
-                                    <div class="flex items-center justify-between">
-                                        <div class="text-sm font-medium text-[#1E293B] dark:text-white">Inventory API</div>
-                                        <i data-lucide="arrow-up-right" class="w-4 h-4 text-slate-300 group-hover:text-[#3B82F6] dark:group-hover:text-white transition-colors"></i>
-                                    </div>
-                                    <div class="text-xs text-[#64748B] dark:text-gray-500">Cloud Infrastructure</div>
-                                </div>
-                            </div>
+                        <div class="flex items-center gap-3 mb-3">
+                            <i data-lucide="terminal-square" class="w-4 h-4" style="color: var(--accent);"></i>
+                            <span class="mono text-[11px] uppercase tracking-[0.18em]" style="color: var(--mute);">PowerShell</span>
                         </div>
-                    </div>
+                        <h3 class="display text-2xl font-medium leading-tight tracking-tight mb-3">PC-Build Automation</h3>
+                        <p class="text-sm leading-relaxed mb-6" style="color: var(--mute);">
+                            One-shot post-install script: drivers, dev tooling, dotfiles, and OS hardening — scripted from bare metal to working machine.
+                        </p>
+                        <div class="flex flex-wrap gap-1.5">
+                            <span class="chip">PowerShell</span>
+                            <span class="chip">Winget</span>
+                            <span class="chip">DSC</span>
+                        </div>
+                    </article>
+
+                    <article class="work-card p-6 sm:p-8 md:rule-r border-b md:border-b-0" style="border-bottom-color: var(--rule-strong); border-right-color: var(--rule-strong);">
+                        <div class="flex items-start justify-between mb-12">
+                            <span class="mono text-[11px]" style="color: var(--mute);">/ 02</span>
+                            <i data-lucide="arrow-up-right" class="w-5 h-5 arrow"></i>
+                        </div>
+                        <div class="flex items-center gap-3 mb-3">
+                            <i data-lucide="shopping-bag" class="w-4 h-4" style="color: var(--accent);"></i>
+                            <span class="mono text-[11px] uppercase tracking-[0.18em]" style="color: var(--mute);">Shopify</span>
+                        </div>
+                        <h3 class="display text-2xl font-medium leading-tight tracking-tight mb-3">Eskens Storefront</h3>
+                        <p class="text-sm leading-relaxed mb-6" style="color: var(--mute);">
+                            Custom Liquid sections, theme-level UX work, and bespoke automation glue across the Eskens Tinting Solutions storefront.
+                        </p>
+                        <div class="flex flex-wrap gap-1.5">
+                            <span class="chip">Liquid</span>
+                            <span class="chip">Shopify</span>
+                            <span class="chip">JS</span>
+                        </div>
+                    </article>
+
+                    <article class="work-card p-6 sm:p-8">
+                        <div class="flex items-start justify-between mb-12">
+                            <span class="mono text-[11px]" style="color: var(--mute);">/ 03</span>
+                            <i data-lucide="arrow-up-right" class="w-5 h-5 arrow"></i>
+                        </div>
+                        <div class="flex items-center gap-3 mb-3">
+                            <i data-lucide="calendar-sync" class="w-4 h-4" style="color: var(--accent);"></i>
+                            <span class="mono text-[11px] uppercase tracking-[0.18em]" style="color: var(--mute);">Python</span>
+                        </div>
+                        <h3 class="display text-2xl font-medium leading-tight tracking-tight mb-3">Calendar ↔ Excel Sync</h3>
+                        <p class="text-sm leading-relaxed mb-6" style="color: var(--mute);">
+                            Two-way sync between an Outlook calendar and a shared Excel workbook — the kind of plumbing that quietly removes hours of weekly admin.
+                        </p>
+                        <div class="flex flex-wrap gap-1.5">
+                            <span class="chip">Python</span>
+                            <span class="chip">Graph API</span>
+                            <span class="chip">openpyxl</span>
+                        </div>
+                    </article>
+
                 </div>
+            </section>
 
-                <!-- Column 3 -->
-                <div class="flex flex-col gap-6 h-full">
-                    <!-- Stay with me Card -->
-                    <div class="glass-card p-8 flex flex-col">
-                        <div class="flex items-center justify-between mb-8 pb-4 border-b border-slate-100 dark:border-white/5">
-                            <span class="text-xs font-semibold uppercase tracking-wider text-[#64748B] dark:text-gray-500">Stay with me</span>
-                        </div>
-                        <div class="flex items-center justify-between">
-                            <button class="w-12 h-12 rounded-full bg-slate-50 dark:bg-white/5 border border-slate-100 dark:border-white/5 flex items-center justify-center hover:bg-[#3B82F6] dark:hover:bg-white hover:text-white dark:hover:text-black transition-all duration-300 group shadow-sm">
-                                <i data-lucide="twitter" class="w-5 h-5 text-[#64748B] group-hover:text-white dark:group-hover:text-black"></i>
-                            </button>
-                            <button class="w-12 h-12 rounded-full bg-slate-50 dark:bg-white/5 border border-slate-100 dark:border-white/5 flex items-center justify-center hover:bg-[#3B82F6] dark:hover:bg-white hover:text-white dark:hover:text-black transition-all duration-300 group shadow-sm">
-                                <i data-lucide="video" class="w-5 h-5 text-[#64748B] group-hover:text-white dark:group-hover:text-black"></i>
-                            </button>
-                            <button class="w-12 h-12 rounded-full bg-slate-50 dark:bg-white/5 border border-slate-100 dark:border-white/5 flex items-center justify-center hover:bg-[#3B82F6] dark:hover:bg-white hover:text-white dark:hover:text-black transition-all duration-300 group shadow-sm">
-                                <i data-lucide="facebook" class="w-5 h-5 text-[#64748B] group-hover:text-white dark:group-hover:text-black"></i>
-                            </button>
-                            <button class="w-12 h-12 rounded-full bg-slate-50 dark:bg-white/5 border border-slate-100 dark:border-white/5 flex items-center justify-center hover:bg-[#3B82F6] dark:hover:bg-white hover:text-white dark:hover:text-black transition-all duration-300 group shadow-sm">
-                                <i data-lucide="instagram" class="w-5 h-5 text-[#64748B] group-hover:text-white dark:group-hover:text-black"></i>
-                            </button>
-                            <button class="w-12 h-12 rounded-full bg-slate-50 dark:bg-white/5 border border-slate-100 dark:border-white/5 flex items-center justify-center hover:bg-[#3B82F6] dark:hover:bg-white hover:text-white dark:hover:text-black transition-all duration-300 group shadow-sm">
-                                <i data-lucide="dribbble" class="w-5 h-5 text-[#64748B] group-hover:text-white dark:group-hover:text-black"></i>
-                            </button>
-                        </div>
+            <!-- ========== ABOUT ========== -->
+            <section id="about" class="pt-16 sm:pt-24 pb-12 sm:pb-20 rule-t">
+                <div class="grid grid-cols-12 gap-6 pt-10 sm:pt-12">
+                    <div class="col-span-12 md:col-span-4 lg:col-span-3">
+                        <h2 class="display text-3xl sm:text-4xl font-medium tracking-tight">About<br><span class="display-italic">me.</span></h2>
+                        <div class="mono text-[11px] uppercase tracking-[0.18em] mt-6" style="color: var(--mute);">A short intro</div>
                     </div>
+                    <div class="col-span-12 md:col-span-8 lg:col-span-9">
+                        <p class="display font-light leading-[1.25] tracking-tight" style="font-size: clamp(1.4rem, 2.4vw, 2rem);">
+                            <span class="display-italic" style="font-size:1.6em; float:left; line-height:0.9; padding: 0.05em 0.1em 0 0; color: var(--accent);">[</span>
+                            REPLACE: about copy — 3–5 sentences. Cover the move from technical support into automation/AI engineering, the kinds of problems that pull you in (multi-agent systems, programmatic rendering, glue between brittle enterprise tools), and what you're looking for next.
+                            <span class="display-italic" style="color: var(--accent);">]</span>
+                        </p>
 
-                    <!-- Education Card -->
-                    <div class="glass-card p-6 flex flex-col">
-                        <div class="flex items-center justify-between mb-4 pb-3 border-b border-slate-100 dark:border-white/5">
-                            <span class="text-[10px] font-semibold uppercase tracking-widest text-[#64748B] dark:text-gray-500">Education</span>
-                        </div>
-                        <div class="flex items-center group">
-                            <div class="w-8 h-8 rounded-full bg-slate-50 dark:bg-white/5 flex items-center justify-center mr-3 border border-slate-100 dark:border-white/10 shrink-0">
-                                <i data-lucide="graduation-cap" class="w-4 h-4 text-[#3B82F6] dark:text-indigo-400"></i>
+                        <div class="grid grid-cols-2 sm:grid-cols-3 gap-x-6 gap-y-6 mt-12 pt-10" style="border-top:1px solid var(--rule);">
+                            <div>
+                                <div class="index-marker mb-2">Now</div>
+                                <div class="text-sm">Technical Support Engineer</div>
+                                <div class="mono text-xs" style="color: var(--mute);">Eskens Tinting Solutions · 2025 →</div>
                             </div>
                             <div>
-                                <div class="text-xs font-bold text-[#1E293B] dark:text-white leading-tight">BSc (Hons) Computer Security</div>
-                                <div class="text-[10px] text-[#64748B] dark:text-gray-500">Liverpool John Moores University</div>
+                                <div class="index-marker mb-2">Before</div>
+                                <div class="text-sm">Helpdesk Advisor</div>
+                                <div class="mono text-xs" style="color: var(--mute);">Eskens Tinting Solutions · 2024–25</div>
+                            </div>
+                            <div>
+                                <div class="index-marker mb-2">Education</div>
+                                <div class="text-sm">BSc Computer Security</div>
+                                <div class="mono text-xs" style="color: var(--mute);">Liverpool John Moores University · 2:1</div>
                             </div>
                         </div>
                     </div>
+                </div>
+            </section>
 
-                    <!-- Ready for next Card -->
-                    <div class="glass-card p-8 bg-[#1E293B] dark:bg-white/5 flex flex-col flex-grow relative overflow-hidden group">
-                        <div class="relative z-10 mb-2">
-                            <h2 class="text-2xl font-bold tracking-tight mb-3 text-white dark:text-white leading-tight font-['Inter']">
-                                Ready for my next technical challenge. 🚀
-                            </h2>
-                            <p class="text-slate-400 dark:text-gray-400 text-sm font-medium">
-                                Currently open to Systems, Automation, or Security-focused roles.
-                            </p>
-                        </div>
-                        
-                        <div class="mt-4 relative z-10 flex flex-col items-center gap-2">
-                            <a href="mailto:nathancoulthurst@hotmail.co.uk?subject=Getting in touch"
-                               class="w-full py-4 rounded-full bg-[#3B82F6] hover:bg-blue-600 dark:bg-[#4ade80] dark:hover:bg-green-500 text-white dark:text-black text-center font-bold transition-all duration-300 shadow-xl flex items-center justify-center gap-3">
-                                <i data-lucide="mail" class="w-5 h-5"></i>
-                                Email Nathan
+            <!-- ========== CONTACT ========== -->
+            <section id="contact" class="pt-16 sm:pt-24 pb-8 rule-t">
+                <div class="grid grid-cols-12 gap-6 pt-10 sm:pt-12">
+                    <div class="col-span-12 md:col-span-4 lg:col-span-3">
+                        <h2 class="display text-3xl sm:text-4xl font-medium tracking-tight">Get<br>in <span class="display-italic">touch.</span></h2>
+                        <div class="mono text-[11px] uppercase tracking-[0.18em] mt-6" style="color: var(--mute);">Contact</div>
+                    </div>
+
+                    <div class="col-span-12 md:col-span-8 lg:col-span-9">
+                        <a href="mailto:nathancoulthurst@hotmail.co.uk" class="block group">
+                            <div class="display font-medium leading-[0.95] tracking-[-0.02em] break-all sm:break-normal"
+                                 style="font-size: clamp(1.75rem, 5.5vw, 4.25rem);">
+                                nathancoulthurst<wbr>@hotmail.co.uk
+                            </div>
+                        </a>
+
+                        <div class="mt-8 flex flex-wrap items-center gap-3">
+                            <a href="mailto:nathancoulthurst@hotmail.co.uk?subject=Hello" class="cta-primary inline-flex items-center gap-3 rounded-full pl-6 pr-2 py-2.5 text-sm">
+                                <span class="mono text-[11px] uppercase tracking-[0.16em]">Send Email</span>
+                                <span class="w-8 h-8 rounded-full flex items-center justify-center" style="background: color-mix(in srgb, var(--bg) 18%, transparent);">
+                                    <i data-lucide="arrow-up-right" class="w-4 h-4"></i>
+                                </span>
                             </a>
-                            
-                            <button onclick="copyEmail()" class="flex items-center gap-2 text-xs font-semibold text-slate-400 dark:text-gray-500 hover:text-white transition-colors group/copy">
-                                <i data-lucide="copy" class="w-3.5 h-3.5 group-hover/copy:scale-110 transition-transform"></i>
-                                <span>copy email address</span>
+                            <button onclick="copyEmail(event)" class="cta-ghost inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-sm">
+                                <i data-lucide="copy" class="w-4 h-4"></i>
+                                <span class="mono text-[11px] uppercase tracking-[0.16em]" id="copy-label">Copy address</span>
                             </button>
                         </div>
 
-                        <!-- Decorative Gradient -->
-                        <div class="absolute -bottom-20 -right-20 w-64 h-64 bg-[#3B82F6] dark:bg-[#4ade80] opacity-20 dark:opacity-[0.03] blur-[100px] pointer-events-none"></div>
+                        <div class="mt-12 grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-2xl">
+                            <a href="[REPLACE: LinkedIn URL]" class="cta-ghost flex items-center justify-between rounded-2xl px-5 py-4 group">
+                                <span class="flex items-center gap-3">
+                                    <i data-lucide="linkedin" class="w-4 h-4"></i>
+                                    <span class="mono text-[11px] uppercase tracking-[0.16em]">LinkedIn</span>
+                                </span>
+                                <i data-lucide="arrow-up-right" class="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform"></i>
+                            </a>
+                            <a href="[REPLACE: GitHub URL]" class="cta-ghost flex items-center justify-between rounded-2xl px-5 py-4 group">
+                                <span class="flex items-center gap-3">
+                                    <i data-lucide="github" class="w-4 h-4"></i>
+                                    <span class="mono text-[11px] uppercase tracking-[0.16em]">GitHub</span>
+                                </span>
+                                <i data-lucide="arrow-up-right" class="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform"></i>
+                            </a>
+                        </div>
                     </div>
                 </div>
+            </section>
 
-            </div>
+            <!-- Footer -->
+            <footer class="pt-16 mt-16 rule-t">
+                <div class="flex flex-col sm:flex-row items-start sm:items-end justify-between gap-8">
+                    <div>
+                        <a href="#" class="display text-3xl sm:text-4xl font-medium tracking-tight">
+                            Nathan Coulthurst<span style="color: var(--accent);">.</span>
+                        </a>
+                        <div class="mt-3 flex items-center gap-2 text-sm" style="color: var(--mute);">
+                            <span class="relative flex h-2 w-2">
+                                <span class="absolute inline-flex h-full w-full rounded-full opacity-60" style="background: var(--accent);"></span>
+                                <span class="relative inline-flex rounded-full h-2 w-2" style="background: var(--accent);"></span>
+                            </span>
+                            Open to work · Leeds, UK
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-3">
+                        <a href="[REPLACE: LinkedIn URL]" aria-label="LinkedIn" class="icon-btn w-10 h-10 rounded-full flex items-center justify-center">
+                            <i data-lucide="linkedin" class="w-4 h-4"></i>
+                        </a>
+                        <a href="[REPLACE: GitHub URL]" aria-label="GitHub" class="icon-btn w-10 h-10 rounded-full flex items-center justify-center">
+                            <i data-lucide="github" class="w-4 h-4"></i>
+                        </a>
+                        <a href="mailto:nathancoulthurst@hotmail.co.uk" aria-label="Email" class="icon-btn w-10 h-10 rounded-full flex items-center justify-center">
+                            <i data-lucide="mail" class="w-4 h-4"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="mt-10 pt-6 rule-t mono text-[11px] uppercase tracking-[0.18em]" style="color: var(--mute);">
+                    © 2026 Nathan Coulthurst — All rights reserved
+                </div>
+            </footer>
+
         </main>
     </div>
 
     <script>
-        // Initialize Lucide icons
         lucide.createIcons();
 
-        // Initial Loader Logic
+        // Loader
         window.addEventListener('load', () => {
             setTimeout(() => {
                 const loader = document.getElementById('loader');
                 const content = document.getElementById('main-content');
-                
                 loader.style.opacity = '0';
                 content.classList.add('loaded');
-                
-                setTimeout(() => {
-                    loader.style.display = 'none';
-                }, 700);
-            }, 1500);
+                setTimeout(() => loader.style.display = 'none', 700);
+            }, 1100);
         });
 
-        // Mobile Menu Toggle
+        // Mobile menu
         const mobileMenuBtn = document.getElementById('mobile-menu-btn');
         const mobileMenu = document.getElementById('mobile-menu');
         mobileMenuBtn.addEventListener('click', () => {
             mobileMenu.classList.toggle('hidden');
             const isOpen = !mobileMenu.classList.contains('hidden');
             mobileMenuBtn.innerHTML = isOpen
-                ? '<i data-lucide="x" class="w-5 h-5 text-[#64748B] dark:text-white"></i>'
-                : '<i data-lucide="menu" class="w-5 h-5 text-[#64748B] dark:text-white"></i>';
+                ? '<i data-lucide="x" class="w-[18px] h-[18px]"></i>'
+                : '<i data-lucide="menu" class="w-[18px] h-[18px]"></i>';
             lucide.createIcons();
         });
 
-        // Theme Toggle Logic
+        // Theme toggle — persisted
         const themeToggleBtn = document.getElementById('theme-toggle');
-        const htmlElement = document.documentElement;
-
+        const root = document.documentElement;
         themeToggleBtn.addEventListener('click', () => {
-            htmlElement.classList.toggle('dark');
+            const nextDark = !root.classList.contains('dark');
+            root.classList.toggle('dark', nextDark);
+            root.style.colorScheme = nextDark ? 'dark' : 'light';
+            try { localStorage.setItem('nc-theme', nextDark ? 'dark' : 'light'); } catch (e) {}
             lucide.createIcons();
         });
 
-        // Copy Email Logic
-        function copyEmail() {
+        // Copy email
+        function copyEmail(event) {
             const email = "nathancoulthurst@hotmail.co.uk";
             navigator.clipboard.writeText(email).then(() => {
-                const btn = event.currentTarget;
-                const originalText = btn.innerHTML;
-                btn.innerHTML = `<i data-lucide="check" class="w-3.5 h-3.5 text-green-400"></i><span class="text-green-400">email copied!</span>`;
-                lucide.createIcons();
-                setTimeout(() => {
-                    btn.innerHTML = originalText;
-                    lucide.createIcons();
-                }, 2000);
+                const label = document.getElementById('copy-label');
+                const original = label.textContent;
+                label.textContent = 'Copied ✓';
+                setTimeout(() => label.textContent = original, 1800);
             });
         }
     </script>
