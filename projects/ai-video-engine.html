@@ -3,8 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI Video Production Engine — Nathan Coulthurst</title>
+    <title>AI Football Documentary Engine — Nathan Coulthurst</title>
 
+    <!-- Pre-paint theme: light is default; dark only if explicitly chosen -->
     <script>
         (function () {
             try {
@@ -15,138 +16,500 @@
         })();
     </script>
 
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            darkMode: 'class',
-            theme: {
-                extend: {
-                    fontFamily: {
-                        display: ['Fraunces', 'serif'],
-                        sans: ['"Instrument Sans"', 'system-ui', 'sans-serif'],
-                        mono: ['"JetBrains Mono"', 'ui-monospace', 'monospace'],
-                    },
-                },
-            },
-        }
-    </script>
-
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;0,9..144,900;1,9..144,400&family=Instrument+Sans:ital,wght@0,400;0,500;0,600;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300..800;1,300..800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest"></script>
 
     <style>
         :root {
             --bg: #F4EDE0;
+            --bg-2: #EFE6D5;
             --surface: #FBF7EE;
+            --surface-2: #ECE3D2;
             --ink: #141210;
+            --ink-2: #1F1C18;
             --mute: #6B6357;
-            --rule: rgba(20, 18, 16, 0.12);
-            --rule-strong: rgba(20, 18, 16, 0.22);
+            --rule: rgba(20, 18, 16, 0.10);
+            --rule-strong: rgba(20, 18, 16, 0.20);
             --accent: #C8553D;
-            --accent-hover: #A8412C;
+            --accent-hover: #A5402D;
+            --accent-soft: #E8A491;
             --on-accent: #F4EDE0;
+            --on-ink: #ECE5D6;
+            --on-ink-mute: #9A9183;
+            --card-dark: #141210;
+            --card-dark-2: #1F1C18;
+            --on-card-dark: #ECE5D6;
+            --on-card-dark-mute: #9A9183;
+            --card-dark-rule: rgba(232, 226, 213, 0.10);
+            --card-dark-rule-strong: rgba(232, 226, 213, 0.20);
         }
         .dark {
-            --bg: #0F0E0C;
+            --bg: #100E0C;
+            --bg-2: #161310;
             --surface: #1A1815;
-            --ink: #E8E2D5;
+            --surface-2: #221F1B;
+            --ink: #ECE5D6;
+            --ink-2: #D9D2C2;
             --mute: #8A8275;
-            --rule: rgba(232, 226, 213, 0.10);
-            --rule-strong: rgba(232, 226, 213, 0.22);
+            --rule: rgba(232, 226, 213, 0.08);
+            --rule-strong: rgba(232, 226, 213, 0.20);
             --accent: #E07A5F;
-            --accent-hover: #ED9377;
-            --on-accent: #0F0E0C;
+            --accent-hover: #F09175;
+            --accent-soft: #663225;
+            --on-accent: #100E0C;
+            --on-ink: #ECE5D6;
+            --on-ink-mute: #8A8275;
+            --card-dark: #1A1815;
+            --card-dark-2: #221F1B;
+            --on-card-dark: #ECE5D6;
+            --on-card-dark-mute: #8A8275;
+            --card-dark-rule: rgba(232, 226, 213, 0.10);
+            --card-dark-rule-strong: rgba(232, 226, 213, 0.22);
         }
 
-        html, body { background: var(--bg); color: var(--ink); }
+        * { box-sizing: border-box; }
+        html, body {
+            margin: 0; padding: 0;
+            background: var(--bg);
+            color: var(--ink);
+            font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
         body {
-            font-family: 'Instrument Sans', system-ui, sans-serif;
+            background: var(--card-dark);
             transition: background-color 0.4s ease, color 0.4s ease;
             min-height: 100vh;
+            overflow-x: hidden;
         }
-
-        body::before {
-            content: ""; position: fixed; inset: 0;
-            pointer-events: none; z-index: 1; opacity: 0.4; mix-blend-mode: multiply;
-            background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.08 0 0 0 0 0.07 0 0 0 0 0.06 0 0 0 0.55 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+        #main-content {
+            position: relative;
+            z-index: 2;
+            background: var(--bg);
+            margin-bottom: 100vh;
+            display: flow-root;
+            border-bottom-left-radius: 18px;
+            border-bottom-right-radius: 18px;
+            box-shadow: 0 18px 36px -28px rgba(0, 0, 0, 0.4);
         }
-        .dark body::before {
-            opacity: 0.55; mix-blend-mode: screen;
-            background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.92 0 0 0 0 0.89 0 0 0 0 0.83 0 0 0 0.04 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
-        }
-
-        .display { font-family: 'Fraunces', serif; font-optical-sizing: auto; letter-spacing: -0.02em; }
-        .display-italic { font-family: 'Fraunces', serif; font-style: italic; font-variation-settings: "SOFT" 100; }
         .mono { font-family: 'JetBrains Mono', ui-monospace, monospace; }
+        a { color: inherit; text-decoration: none; }
+        button { font-family: inherit; cursor: pointer; }
+        ::selection { background: var(--accent); color: var(--bg); }
 
-        .index-marker {
+        .wrap { max-width: 1320px; margin: 0 auto; padding: 0 1.25rem; }
+        @media (min-width: 768px) { .wrap { padding: 0 2rem; } }
+        @media (min-width: 1100px) { .wrap { padding: 0 2.5rem; } }
+
+        /* ============ NAV ============ */
+        .nav-shell {
+            position: sticky;
+            top: 1rem;
+            z-index: 60;
+            padding: 0 1rem;
+            margin-top: 1rem;
+        }
+        .nav-pill {
+            max-width: 1280px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+            padding: 0.55rem 0.55rem 0.55rem 0.65rem;
+            background: var(--surface);
+            border: 1px solid var(--rule);
+            border-radius: 999px;
+            box-shadow: 0 14px 36px -22px rgba(20, 18, 16, 0.45),
+                        0 1px 0 rgba(255, 255, 255, 0.5) inset;
+        }
+        .dark .nav-pill {
+            box-shadow: 0 18px 40px -22px rgba(0, 0, 0, 0.7),
+                        0 1px 0 rgba(255, 255, 255, 0.04) inset;
+        }
+        .nav-logo {
+            display: inline-flex;
+            align-items: center;
+            background: transparent;
+            color: var(--ink);
+            padding: 0.45rem 0.75rem;
+            font-weight: 700;
+            font-size: 1rem;
+            letter-spacing: -0.015em;
+            line-height: 1;
+            transition: color 0.25s ease;
+        }
+        .nav-logo:hover { color: var(--accent); }
+        .nav-logo .dot { color: var(--accent); }
+        .nav-logo .letter {
+            display: inline-block;
+            transition: color 0.3s ease;
+            white-space: pre;
+        }
+        .nav-logo.flashing .letter {
+            animation: nav-letter-flash 2.6s ease-in-out infinite;
+        }
+        @keyframes nav-letter-flash {
+            0%, 65%, 100% { color: var(--ink); }
+            32% { color: var(--accent); }
+        }
+        .nav-links { display: none; gap: 2rem; align-items: center; }
+        @media (min-width: 900px) { .nav-links { display: flex; } }
+        .nav-link {
+            color: var(--ink);
+            font-size: 0.95rem;
+            font-weight: 500;
+            opacity: 0.78;
+            transition: opacity 0.2s ease, color 0.2s ease;
+            position: relative;
+        }
+        .nav-link:hover { opacity: 1; color: var(--accent); }
+        .nav-link.is-active { opacity: 1; font-weight: 600; }
+        .nav-link.is-active::after {
+            content: "";
+            position: absolute;
+            left: 50%; bottom: -10px;
+            width: 5px; height: 5px;
+            border-radius: 50%;
+            background: var(--accent);
+            transform: translateX(-50%);
+        }
+
+        .nav-right { display: flex; align-items: center; gap: 0.5rem; }
+        .icon-square {
+            width: 38px; height: 38px;
+            border-radius: 999px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: transparent;
+            border: 1px solid var(--rule);
+            color: var(--ink);
+            transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+        }
+        .icon-square:hover { background: var(--surface-2); color: var(--accent); border-color: var(--rule-strong); }
+        .nav-cta {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.55rem;
+            background: var(--card-dark);
+            color: var(--on-card-dark);
+            border-radius: 999px;
+            padding: 0.7rem 1.2rem 0.7rem 0.55rem;
+            font-weight: 600;
+            font-size: 0.9rem;
+            letter-spacing: -0.005em;
+            transition: background 0.25s ease, transform 0.25s ease;
+        }
+        .nav-cta:hover { background: var(--card-dark-2); transform: translateY(-1px); }
+        .nav-cta .arr {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 26px; height: 26px;
+            border-radius: 999px;
+            background: var(--accent);
+            color: var(--on-accent);
+        }
+        .nav-burger { display: inline-flex; }
+        @media (min-width: 900px) { .nav-burger { display: none; } }
+
+        .mobile-menu {
+            display: none;
+            margin: 0.6rem 1rem 0;
+            background: var(--surface);
+            border: 1px solid var(--rule);
+            border-radius: 24px;
+            padding: 0.5rem 1rem 0.75rem;
+        }
+        .mobile-menu.open { display: block; }
+        .mobile-menu a {
+            display: block;
+            padding: 0.85rem 0.5rem;
+            font-size: 1.05rem;
+            font-weight: 500;
+            border-bottom: 1px solid var(--rule);
+        }
+        .mobile-menu a:last-of-type { border-bottom: 0; }
+
+        /* ============ TYPE ============ */
+        .display {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-weight: 800;
+            letter-spacing: -0.05em;
+        }
+        .eyebrow {
             font-family: 'JetBrains Mono', ui-monospace, monospace;
-            font-size: 0.7rem; letter-spacing: 0.18em; text-transform: uppercase;
+            font-size: 0.7rem;
+            letter-spacing: 0.22em;
+            text-transform: uppercase;
             color: var(--mute);
         }
+        .accent-dot { color: var(--accent); }
 
-        .rule-t { border-top: 1px solid var(--rule); }
-        .rule-b { border-bottom: 1px solid var(--rule); }
-
-        .nav-pill {
-            background: color-mix(in srgb, var(--surface) 78%, transparent);
-            border: 1px solid var(--rule);
-            backdrop-filter: blur(14px) saturate(140%);
-            -webkit-backdrop-filter: blur(14px) saturate(140%);
-        }
-        .nav-link { color: var(--mute); transition: color 0.2s ease; }
-        .nav-link:hover { color: var(--ink); }
-
-        .cta-primary {
-            background: var(--accent); color: var(--on-accent);
+        /* ============ BUTTONS ============ */
+        .btn-primary {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.7rem;
+            background: var(--card-dark);
+            color: var(--on-card-dark);
+            padding: 0.95rem 1rem 0.95rem 1.5rem;
+            border-radius: 999px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            border: 0;
             transition: transform 0.25s ease, background 0.25s ease;
         }
-        .cta-primary:hover { background: var(--accent-hover); transform: translateY(-1px); }
-
-        .cta-ghost {
-            border: 1px solid var(--rule-strong); color: var(--ink);
-            transition: border-color 0.2s ease, color 0.2s ease;
+        .btn-primary:hover { background: var(--card-dark-2); transform: translateY(-1px); }
+        .btn-primary .arr {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 32px; height: 32px;
+            background: var(--accent);
+            color: var(--on-accent);
+            border-radius: 999px;
+            transition: transform 0.3s ease;
         }
-        .cta-ghost:hover { border-color: var(--accent); color: var(--accent); }
+        .btn-primary:hover .arr { transform: rotate(45deg); }
 
-        .icon-btn {
-            background: transparent; border: 1px solid var(--rule); color: var(--ink);
-            transition: border-color 0.2s ease, color 0.2s ease;
+        .btn-ghost {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.6rem;
+            background: transparent;
+            color: var(--ink);
+            padding: 0.95rem 1.4rem;
+            border-radius: 999px;
+            border: 1px solid var(--rule-strong);
+            font-size: 0.95rem;
+            font-weight: 500;
+            transition: border-color 0.2s ease, color 0.2s ease, background 0.2s ease;
         }
-        .icon-btn:hover { border-color: var(--accent); color: var(--accent); }
+        .btn-ghost:hover { border-color: var(--accent); color: var(--accent); background: var(--surface); }
 
-        .chip {
-            font-family: 'JetBrains Mono', ui-monospace, monospace;
-            font-size: 0.68rem; letter-spacing: 0.04em;
-            padding: 0.3rem 0.65rem; border: 1px solid var(--rule-strong);
-            border-radius: 999px; color: var(--ink);
+        /* ============ CASE STUDY HERO ============ */
+        .cs-hero {
+            padding: 3rem 0 4rem;
+            min-height: calc(100vh - 80px);
+            display: flex;
+            align-items: center;
+        }
+        @media (min-width: 900px) { .cs-hero { padding: 4rem 0 5rem; min-height: calc(100vh - 90px); } }
+        .cs-hero > .wrap { width: 100%; }
+        .cs-hero-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2rem;
+        }
+        @media (min-width: 1000px) {
+            .cs-hero-grid { grid-template-columns: minmax(0, 0.32fr) minmax(0, 1fr); gap: 3rem; align-items: end; }
+        }
+        .cs-meta { display: flex; flex-direction: column; gap: 0.8rem; }
+        .cs-meta .index-marker { color: var(--mute); }
+        .cs-meta .meta-row {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.75rem;
+            color: var(--mute);
+            letter-spacing: 0.05em;
+        }
+        .cs-meta .all-work {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.7rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--ink);
+            margin-top: 0.75rem;
+            transition: color 0.2s ease, opacity 0.2s ease;
+            opacity: 0.78;
+            align-self: flex-start;
+        }
+        .cs-meta .all-work:hover { opacity: 1; color: var(--accent); }
+        .cs-headline {
+            margin: 0;
+            font-size: clamp(2.4rem, 7vw, 5.4rem);
+            font-weight: 800;
+            line-height: 0.98;
+            letter-spacing: -0.04em;
+            color: var(--ink);
+        }
+        .cs-headline em {
+            font-style: italic;
+            font-weight: 700;
+            color: var(--accent);
+        }
+        .cs-lede {
+            margin: 1.75rem 0 0;
+            font-size: clamp(1.05rem, 1.4vw, 1.2rem);
+            line-height: 1.55;
+            color: var(--mute);
+            max-width: 50ch;
+        }
+        .cs-chips {
+            margin-top: 1.5rem;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.45rem;
+        }
+        .cs-chip {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.7rem;
+            padding: 0.34rem 0.75rem;
+            border: 1px solid var(--rule-strong);
+            border-radius: 999px;
+            color: var(--ink);
+            letter-spacing: 0.04em;
         }
 
+        /* ============ SECTION SHELLS ============ */
+        .section { padding: 5rem 0; border-top: 1px solid var(--rule); }
+        @media (min-width: 900px) { .section { padding: 6rem 0; } }
+        .section-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2rem;
+        }
+        @media (min-width: 1000px) {
+            .section-grid { grid-template-columns: minmax(0, 0.32fr) minmax(0, 1fr); gap: 3rem; align-items: start; }
+        }
+        .section-h2 {
+            margin: 0;
+            font-size: clamp(1.75rem, 3.6vw, 2.85rem);
+            font-weight: 800;
+            letter-spacing: -0.035em;
+            line-height: 1.05;
+            color: var(--ink);
+        }
+        .section-body { display: flex; flex-direction: column; gap: 1.5rem; }
+        .section-body .lead {
+            margin: 0;
+            font-size: clamp(1.2rem, 1.8vw, 1.55rem);
+            font-weight: 500;
+            line-height: 1.4;
+            letter-spacing: -0.02em;
+            color: var(--ink);
+        }
+        .section-body .lead .quote-mark {
+            font-style: italic;
+            font-weight: 700;
+            color: var(--accent);
+            font-size: 1.4em;
+            line-height: 0;
+            margin-right: 0.1em;
+            vertical-align: -0.14em;
+        }
+        .section-body p {
+            margin: 0;
+            font-size: 1rem;
+            line-height: 1.65;
+            color: var(--mute);
+            max-width: 70ch;
+        }
+
+        /* ============ VIDEO TILES ============ */
+        .video-head {
+            display: flex;
+            align-items: baseline;
+            justify-content: space-between;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+        .video-head .count {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.7rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--mute);
+        }
+        .video-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.25rem;
+        }
+        @media (min-width: 900px) {
+            .video-grid { grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+        }
         .video-tile {
             background: var(--surface);
             border: 1px solid var(--rule);
-            transition: border-color 0.3s ease, transform 0.3s ease;
+            border-radius: 20px;
             overflow: hidden;
+            transition: border-color 0.3s ease, transform 0.3s ease;
         }
-        .video-tile:hover { border-color: var(--accent); }
+        .video-tile:hover { border-color: var(--accent); transform: translateY(-3px); }
         .video-frame {
             position: relative;
             aspect-ratio: 16 / 9;
             width: 100%;
-            background: var(--bg);
+            background: var(--card-dark);
         }
-        .video-frame iframe {
-            position: absolute; inset: 0; width: 100%; height: 100%;
+        .video-frame iframe,
+        .video-frame video {
+            position: absolute;
+            inset: 0;
+            width: 100%; height: 100%;
             border: 0;
+            display: block;
+            background: var(--card-dark);
+            object-fit: cover;
+        }
+        .video-cap {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0.85rem 1.1rem;
+            border-top: 1px solid var(--rule);
+            font-size: 0.92rem;
+        }
+        .video-cap .ep {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.7rem;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: var(--mute);
+        }
+        .video-cap .title {
+            font-style: italic;
+            color: var(--ink);
         }
 
+        /* ============ MOMENT GRID (pipeline steps) ============ */
+        .moment-grid {
+            margin-top: 2.5rem;
+            display: grid; grid-template-columns: 1fr; gap: 1.25rem;
+        }
+        @media (min-width: 700px) { .moment-grid { grid-template-columns: 1fr 1fr; gap: 1.5rem; } }
+        @media (min-width: 1100px) { .moment-grid { grid-template-columns: repeat(3, 1fr); } }
+        .moment {
+            background: var(--surface);
+            border: 1px solid var(--rule);
+            border-radius: 20px;
+            padding: 1.5rem;
+            display: flex; flex-direction: column; gap: 0.65rem;
+            transition: border-color 0.3s ease, transform 0.3s ease;
+        }
+        .moment:hover { border-color: var(--accent); transform: translateY(-3px); }
+        .moment .moment-tag {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.68rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--accent);
+        }
+        .moment h3 { margin: 0; font-size: 1.15rem; font-weight: 700; letter-spacing: -0.02em; line-height: 1.2; color: var(--ink); }
+        .moment p { margin: 0; color: var(--mute); font-size: 0.95rem; line-height: 1.6; }
+        .moment .mono { color: var(--accent); }
+
+        /* ============ ARCHITECTURE FRAME ============ */
         .arch-frame {
             background: var(--surface);
             border: 1px solid var(--rule);
-            border-radius: 28px;
-            padding: clamp(1rem, 3vw, 2.5rem);
+            border-radius: 24px;
+            padding: clamp(1rem, 3vw, 2.25rem);
+            margin-top: 2.5rem;
         }
         .arch-frame img {
             width: 100%;
@@ -155,266 +518,569 @@
             border-radius: 14px;
         }
 
-        ::selection { background: var(--accent); color: var(--bg); }
+        /* ============ MORE FROM PROJECT ============ */
+        .more-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1rem;
+            max-width: 640px;
+        }
+        @media (min-width: 600px) { .more-grid { grid-template-columns: 1fr 1fr; } }
+        .more-link {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 0.75rem;
+            padding: 1.1rem 1.25rem;
+            background: var(--surface);
+            border: 1px solid var(--rule);
+            border-radius: 18px;
+            transition: border-color 0.2s ease, color 0.2s ease, transform 0.25s ease;
+        }
+        .more-link:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-2px); }
+        .more-link .more-label {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.65rem;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.72rem;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: inherit;
+        }
+        .more-cta-row { margin-top: 2.5rem; }
+
+        /* ============ FIXED FOOTER ============ */
+        .site-footer {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 100vh;
+            min-height: 680px;
+            z-index: 1;
+            background: var(--card-dark);
+            color: var(--on-card-dark);
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 3rem 1.25rem 1.75rem;
+            overflow: hidden;
+        }
+        @media (min-width: 768px) { .site-footer { padding: 4rem 2.5rem 2rem; } }
+        @media (min-width: 1100px) { .site-footer { padding: 5rem 3rem 2.5rem; } }
+        .site-footer::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background:
+                radial-gradient(900px 480px at 90% 100%, color-mix(in srgb, var(--accent) 14%, transparent), transparent 70%),
+                radial-gradient(600px 420px at 0% 0%, color-mix(in srgb, var(--accent) 8%, transparent), transparent 70%);
+            pointer-events: none;
+        }
+        .footer-stage {
+            position: relative;
+            max-width: 1320px;
+            width: 100%;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 2.5rem;
+        }
+        .footer-cta-row {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2.5rem;
+            align-items: end;
+        }
+        @media (min-width: 900px) {
+            .footer-cta-row { grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.7fr); gap: 4rem; }
+        }
+        .footer-id { display: flex; align-items: center; gap: 1rem; margin-bottom: 1.25rem; }
+        .footer-avatar {
+            width: 60px; height: 60px;
+            border-radius: 50%;
+            background: var(--accent);
+            color: var(--on-accent);
+            font-size: 1.6rem;
+            font-weight: 800;
+            letter-spacing: -0.04em;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            line-height: 1;
+            flex-shrink: 0;
+        }
+        .footer-id-text .footer-name {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--on-ink);
+            letter-spacing: -0.025em;
+            line-height: 1.1;
+        }
+        .footer-id-text .footer-role {
+            font-size: 0.92rem;
+            color: var(--on-ink-mute);
+            margin-top: 0.2rem;
+        }
+        .footer-pitch {
+            margin: 0 0 1.5rem;
+            font-size: 1rem;
+            line-height: 1.55;
+            color: var(--on-ink-mute);
+            max-width: 38ch;
+        }
+        .footer-actions { display: flex; flex-wrap: wrap; gap: 0.6rem; }
+        .footer-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.55rem;
+            padding: 0.85rem 1.4rem;
+            border-radius: 999px;
+            font-size: 0.92rem;
+            font-weight: 600;
+            transition: background 0.25s ease, color 0.25s ease, transform 0.25s ease, border-color 0.25s ease;
+        }
+        .footer-btn-primary { background: var(--on-ink); color: var(--ink); }
+        .footer-btn-primary:hover { background: var(--accent); color: var(--on-accent); transform: translateY(-1px); }
+        .dark .footer-btn-primary { background: var(--accent); color: var(--on-accent); }
+        .dark .footer-btn-primary:hover { background: var(--accent-hover); color: var(--on-accent); transform: translateY(-1px); }
+        .footer-btn-ghost { border: 1px solid rgba(255, 255, 255, 0.18); color: var(--on-ink); }
+        .footer-btn-ghost:hover { border-color: var(--accent); color: var(--accent); }
+        .footer-headline {
+            margin: 0 0 1.25rem;
+            font-size: clamp(3rem, 8.5vw, 7.75rem);
+            font-weight: 800;
+            letter-spacing: -0.055em;
+            line-height: 0.94;
+            color: var(--on-ink);
+        }
+        .footer-headline em { font-style: italic; font-weight: 600; color: var(--accent); }
+        .footer-subtitle { color: var(--on-ink-mute); font-size: 1rem; max-width: 38ch; }
+        .footer-divider { height: 1px; background: rgba(255, 255, 255, 0.10); margin: 0; }
+        .footer-bottom-row {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.25rem;
+            padding-top: 1.5rem;
+            align-items: end;
+        }
+        @media (min-width: 900px) {
+            .footer-bottom-row { grid-template-columns: auto auto 1fr; gap: 3rem; align-items: end; }
+        }
+        .footer-col-pair { display: flex; gap: 1.1rem; align-items: baseline; flex-wrap: wrap; }
+        .footer-col-pair h4 {
+            margin: 0;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.72rem;
+            text-transform: uppercase;
+            letter-spacing: 0.22em;
+            color: var(--on-ink-mute);
+            font-weight: 500;
+            min-width: 5.5rem;
+        }
+        .footer-col-links { display: flex; gap: 1rem; flex-wrap: wrap; }
+        .footer-col-links a {
+            color: var(--on-ink);
+            font-size: 0.92rem;
+            font-weight: 500;
+            opacity: 0.85;
+            transition: opacity 0.2s ease, color 0.2s ease;
+        }
+        .footer-col-links a:hover { opacity: 1; color: var(--accent); }
+        .footer-meta {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.72rem;
+            text-transform: uppercase;
+            letter-spacing: 0.18em;
+            color: var(--on-ink-mute);
+            line-height: 1.6;
+        }
+        @media (min-width: 900px) { .footer-meta { text-align: right; } }
+        .footer-meta span { display: block; }
+
+        /* ============ REVEALS / LOADER ============ */
+        @keyframes fadeUp { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: translateY(0); } }
+        .reveal { opacity: 0; animation: fadeUp 0.85s cubic-bezier(.2,.7,.2,1) forwards; }
+        .reveal.d1 { animation-delay: 0.1s; }
+        .reveal.d2 { animation-delay: 0.2s; }
+        .reveal.d3 { animation-delay: 0.32s; }
+        .reveal.d4 { animation-delay: 0.44s; }
+        .reveal.d5 { animation-delay: 0.56s; }
+
+        .scroll-reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.7s ease, transform 0.7s ease; }
+        .scroll-reveal.is-visible { opacity: 1; transform: translateY(0); }
 
         #loader {
             position: fixed; inset: 0; z-index: 100;
             background: var(--bg);
             display: flex; align-items: center; justify-content: center;
-            transition: opacity 0.6s ease;
+            transition: opacity 0.5s ease;
         }
         .loader-glyph {
-            font-family: 'Fraunces', serif; font-weight: 400; font-style: italic;
-            font-size: clamp(5rem, 10vw, 8rem);
-            color: var(--ink); letter-spacing: -0.04em; line-height: 1;
-            position: relative; font-variation-settings: "SOFT" 100;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-weight: 800;
+            font-size: clamp(5rem, 12vw, 9rem);
+            letter-spacing: -0.06em;
+            color: var(--ink);
+            line-height: 1;
         }
         .loader-glyph .dot { color: var(--accent); }
-        .loader-glyph::after {
-            content: ""; position: absolute; left: 0; right: 0; bottom: -0.2em;
-            height: 1px; background: var(--ink);
-            transform-origin: left; transform: scaleX(0);
-            animation: ruleDraw 1s 0.15s cubic-bezier(.7,0,.2,1) forwards;
-        }
-        @keyframes ruleDraw { to { transform: scaleX(1); } }
-
-        #main-content { opacity: 0; transition: opacity 0.7s ease; position: relative; z-index: 2; }
+        #main-content { opacity: 0; transition: opacity 0.6s ease, background-color 0.4s ease; }
         #main-content.loaded { opacity: 1; }
 
-        @keyframes fadeUp { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: translateY(0); } }
-        .reveal { opacity: 0; animation: fadeUp 0.9s cubic-bezier(.2,.7,.2,1) forwards; }
-        .reveal.d1 { animation-delay: 0.1s; }
-        .reveal.d2 { animation-delay: 0.2s; }
-        .reveal.d3 { animation-delay: 0.3s; }
+        [data-lucide] { width: 16px; height: 16px; flex-shrink: 0; }
+        .icon-sm { width: 14px; height: 14px; }
+        .icon-md { width: 18px; height: 18px; }
+        .icon-lg { width: 22px; height: 22px; }
+
+        @media (max-width: 480px) {
+            .nav-cta span:not(.arr) { display: none; }
+            .nav-cta { padding: 0.5rem; }
+        }
     </style>
 </head>
-<body class="antialiased">
+<body>
 
-    <div id="loader">
-        <div class="loader-glyph"><span class="display-italic">¶</span><span class="dot">.</span></div>
+    <div id="loader" aria-hidden="true">
+        <div class="loader-glyph">N<span class="dot">.</span></div>
     </div>
 
     <div id="main-content">
 
-        <!-- Header -->
-        <div class="sticky top-4 sm:top-6 z-50 max-w-[1320px] mx-auto px-4 sm:px-6 mb-10 sm:mb-16">
-            <div class="relative">
-                <header class="nav-pill rounded-full px-5 sm:px-7 py-3 sm:py-3.5 flex items-center justify-between">
-                    <div class="flex items-center">
-                        <a href="/" class="display text-lg sm:text-xl font-medium tracking-tight">
-                            Nathan Coulthurst<span style="color: var(--accent);">.</span>
-                        </a>
-                    </div>
+        <!-- ========== NAV ========== -->
+        <div class="nav-shell">
+            <nav class="nav-pill" aria-label="Primary">
+                <a href="/" class="nav-logo">Nathan Coulthurst<span class="dot">.</span></a>
 
-                    <nav class="hidden lg:flex items-center gap-1 rounded-full p-1" style="border:1px solid var(--rule);">
-                        <a href="/#about" class="nav-link mono text-[11px] uppercase tracking-[0.18em] px-5 py-2.5">About</a>
-                        <a href="/#work" class="nav-link mono text-[11px] uppercase tracking-[0.18em] px-5 py-2.5">Projects</a>
-                    </nav>
-
-                    <div class="flex items-center gap-2 sm:gap-3">
-                        <button id="theme-toggle" aria-label="Toggle theme" class="icon-btn w-10 h-10 rounded-full flex items-center justify-center">
-                            <i data-lucide="sun" class="w-[18px] h-[18px] hidden dark:block"></i>
-                            <i data-lucide="moon" class="w-[18px] h-[18px] block dark:hidden"></i>
-                        </button>
-
-                        <a href="/" class="cta-primary hidden sm:inline-flex items-center gap-3 rounded-full pl-5 pr-2 py-2 text-sm">
-                            <span class="w-7 h-7 rounded-full flex items-center justify-center" style="background: color-mix(in srgb, var(--bg) 18%, transparent);">
-                                <i data-lucide="arrow-left" class="w-3.5 h-3.5"></i>
-                            </span>
-                            <span class="mono text-[11px] uppercase tracking-[0.16em] pr-3">Back to Portfolio</span>
-                        </a>
-
-                        <button id="mobile-menu-btn" aria-label="Open menu" class="icon-btn lg:hidden w-10 h-10 rounded-full flex items-center justify-center">
-                            <i data-lucide="menu" class="w-[18px] h-[18px]"></i>
-                        </button>
-                    </div>
-                </header>
-
-                <div id="mobile-menu" class="hidden lg:hidden absolute top-full left-0 right-0 mt-3 nav-pill rounded-2xl p-4">
-                    <nav class="flex flex-col gap-1">
-                        <a href="/#about" class="nav-link mono text-[11px] uppercase tracking-[0.18em] px-4 py-3 rounded-xl">About</a>
-                        <a href="/#work" class="nav-link mono text-[11px] uppercase tracking-[0.18em] px-4 py-3 rounded-xl">Projects</a>
-                    </nav>
-                    <div class="mt-3 pt-3" style="border-top:1px solid var(--rule);">
-                        <a href="/" class="cta-primary w-full inline-flex items-center justify-center gap-2 py-3 rounded-full text-sm">
-                            <i data-lucide="arrow-left" class="w-3.5 h-3.5"></i>
-                            <span class="mono text-[11px] uppercase tracking-[0.16em]">Back to Portfolio</span>
-                        </a>
-                    </div>
+                <div class="nav-links">
+                    <a href="/projects" class="nav-link is-active">Work</a>
+                    <a href="/#about" class="nav-link">About</a>
+                    <a href="/#contact" class="nav-link">Contact</a>
                 </div>
+
+                <div class="nav-right">
+                    <button id="theme-toggle" class="icon-square" aria-label="Toggle theme">
+                        <i data-lucide="sun" class="icon-md hidden-light"></i>
+                        <i data-lucide="moon" class="icon-md hidden-dark"></i>
+                    </button>
+                    <a href="/projects" class="nav-cta">
+                        <span class="arr"><i data-lucide="arrow-left" class="icon-sm"></i></span>
+                        <span>Projects</span>
+                    </a>
+                    <button id="nav-burger" class="icon-square nav-burger" aria-label="Open menu">
+                        <i data-lucide="menu" class="icon-md"></i>
+                    </button>
+                </div>
+            </nav>
+
+            <div id="mobile-menu" class="mobile-menu">
+                <a href="/projects">Work</a>
+                <a href="/#about">About</a>
+                <a href="/#contact">Contact</a>
+                <a href="/">← Home</a>
             </div>
         </div>
 
-        <main class="max-w-[1320px] mx-auto px-4 sm:px-6 pb-24 sm:pb-32">
-
+        <main>
             <!-- ========== HERO ========== -->
-            <section class="pt-2 sm:pt-6 pb-14 sm:pb-20 rule-b">
-                <div class="grid grid-cols-12 gap-6">
-                    <div class="col-span-12 md:col-span-4 lg:col-span-3 reveal d1">
-                        <div class="index-marker">Case Study / 01</div>
-                        <div class="mono text-xs mt-2" style="color: var(--mute);">Latest Project · 2026</div>
-                        <a href="/" class="mono text-[11px] uppercase tracking-[0.16em] mt-6 inline-flex items-center gap-2 hover:opacity-70 transition-opacity">
-                            <i data-lucide="arrow-left" class="w-3.5 h-3.5"></i> All work
-                        </a>
-                    </div>
+            <section class="cs-hero" id="hero">
+                <div class="wrap">
+                    <div class="cs-hero-grid">
+                        <div class="cs-meta reveal d1">
+                            <div class="eyebrow">Case Study / 01</div>
+                            <div class="meta-row">Latest Project · 2026</div>
+                            <a href="/projects" class="all-work">
+                                <i data-lucide="arrow-left" class="icon-sm"></i>
+                                All work
+                            </a>
+                        </div>
 
-                    <div class="col-span-12 md:col-span-8 lg:col-span-9">
-                        <h1 class="display font-medium leading-[0.92] tracking-[-0.03em] reveal d2"
-                            style="font-size: clamp(2.75rem, 8vw, 7.5rem);">
-                            The AI Video<br>
-                            Production <span class="display-italic" style="color: var(--accent);">Engine</span><span style="color: var(--accent);">.</span>
-                        </h1>
+                        <div>
+                            <h1 class="display cs-headline reveal d2">
+                                The <em>Video Engine</em><span class="accent-dot">.</span>
+                            </h1>
 
-                        <p class="mt-8 text-lg sm:text-xl leading-snug max-w-[44ch] reveal d3">
-                            A multi-agent pipeline that scripts, narrates, renders and ships full video episodes — end-to-end, programmatically.
-                        </p>
+                            <p class="cs-lede reveal d3">
+                                An AI football documentary engine. Give it a title and a director's brief, and 15 chained agents produce the full package: research, blueprint, storyboard, narrated script, animated graphics, a clip sourcing sheet, and a timeline editor to ship from.
+                            </p>
 
-                        <div class="mt-8 flex flex-wrap gap-2 reveal d3">
-                            <span class="chip">Python</span>
-                            <span class="chip">Flask</span>
-                            <span class="chip">LLM Orchestration</span>
-                            <span class="chip">Remotion</span>
-                            <span class="chip">ElevenLabs</span>
-                            <span class="chip">React / TS</span>
+                            <div class="cs-chips reveal d3">
+                                <span class="cs-chip">Python</span>
+                                <span class="cs-chip">Flask</span>
+                                <span class="cs-chip">Groq LLMs</span>
+                                <span class="cs-chip">Remotion</span>
+                                <span class="cs-chip">ElevenLabs</span>
+                                <span class="cs-chip">15 agents</span>
+                            </div>
                         </div>
                     </div>
                 </div>
             </section>
 
             <!-- ========== OVERVIEW ========== -->
-            <section class="pt-12 sm:pt-20 pb-12 sm:pb-20 rule-b">
-                <div class="grid grid-cols-12 gap-6">
-                    <div class="col-span-12 md:col-span-4 lg:col-span-3">
-                        <h2 class="display text-3xl sm:text-4xl font-medium tracking-tight">Overview<span class="display-italic">.</span></h2>
-                    </div>
+            <section class="section">
+                <div class="wrap">
+                    <div class="section-grid scroll-reveal">
+                        <h2 class="section-h2">Overview<span class="accent-dot">.</span></h2>
 
-                    <div class="col-span-12 md:col-span-8 lg:col-span-9 space-y-7">
-                        <p class="display font-light leading-[1.3] tracking-tight" style="font-size: clamp(1.35rem, 2.2vw, 1.85rem);">
-                            <span class="display-italic" style="font-size:1.5em; float:left; line-height:0.9; padding: 0.05em 0.12em 0 0; color: var(--accent);">[</span>
-                            REPLACE: paragraph 1 — what the engine actually does, in one strong opening. Frame it for someone who has never seen it: "Give it a topic; out comes a finished, narrated, captioned, fully-rendered video on the other side."
-                            <span class="display-italic" style="color: var(--accent);">]</span>
-                        </p>
+                        <div class="section-body">
+                            <p class="lead">
+                                <span class="quote-mark">"</span>The engine takes a single title, such as <em style="font-style: italic; color: var(--accent);">Why Brazil Stopped Producing Playmakers</em> and a director's brief, and outputs a 10–15 minute football documentary that feels directed, continuous, and visually authored rather than templated together.<span class="quote-mark">"</span>
+                            </p>
 
-                        <p class="text-base sm:text-lg leading-relaxed" style="color: var(--mute);">
-                            [REPLACE: paragraph 2 — the technically non-trivial part. The multi-agent orchestration: a writer agent drafts, a director agent storyboards, a researcher agent fact-checks, and they negotiate revisions before any frame is rendered. State concretely how they're coordinated and why naïve single-prompt approaches fail.]
-                        </p>
+                            <p>
+                                The Python side decides <em>what</em> to make. Fifteen agents run in sequence behind a Flask UI: <span class="mono" style="color: var(--accent);">entity</span> &amp; <span class="mono" style="color: var(--accent);">research</span> agents pull background from Wikipedia and Google News, an <span class="mono" style="color: var(--accent);">analysis</span> agent shapes a director's brief, then <span class="mono" style="color: var(--accent);">script</span>, <span class="mono" style="color: var(--accent);">narration</span>, <span class="mono" style="color: var(--accent);">graphics</span>, <span class="mono" style="color: var(--accent);">player_image</span>, <span class="mono" style="color: var(--accent);">motion</span>, <span class="mono" style="color: var(--accent);">music_selector</span>, and <span class="mono" style="color: var(--accent);">production</span> agents build out the storyboard, score, and clip sourcing list — coordinated by <span class="mono" style="color: var(--accent);">orchestrator.py</span>.
+                            </p>
 
-                        <p class="text-base sm:text-lg leading-relaxed" style="color: var(--mute);">
-                            [REPLACE: paragraph 3 — the rendering and full-stack delivery side. Programmatic Remotion compositions driven by structured data, ElevenLabs narration timed to scene cuts, a Flask job runner, and a React/TS dashboard for monitoring queue state and reviewing outputs. Close on what the engine has actually shipped — episode count, runtime saved, anything concrete.]
-                        </p>
+                            <p>
+                                The Remotion side decides <em>how</em> it looks. A separate React project renders 30+ animated graphic templates — stat bars, radars, lineups, tactical boards, transfer records, league tables — driven by structured props the engine emits. ElevenLabs handles narration TTS; a centralised <span class="mono" style="color: var(--accent);">WorldStateRoot</span> lets graphics share an infinite spatial canvas so consecutive scenes feel connected instead of resetting. The Flask UI then exposes a 5-step pipeline (title → context → blueprint → storyboard → render) plus a studio grid and a 4-track timeline editor for review and export.
+                            </p>
+                        </div>
                     </div>
                 </div>
             </section>
 
             <!-- ========== SAMPLE OUTPUTS ========== -->
-            <section class="pt-12 sm:pt-20 pb-12 sm:pb-20 rule-b">
-                <div class="flex items-baseline justify-between mb-8 sm:mb-10">
-                    <h2 class="display text-2xl sm:text-3xl font-medium tracking-tight">Sample outputs</h2>
-                    <span class="mono text-[11px] uppercase tracking-[0.18em]" style="color: var(--mute);">3 episodes</span>
+            <section class="section">
+                <div class="wrap scroll-reveal">
+                    <div class="video-head">
+                        <h2 class="section-h2">Real <em style="font-style: italic; color: var(--accent);">renders</em><span class="accent-dot">.</span></h2>
+                        <span class="count">From the engine</span>
+                    </div>
+
+                    <div class="video-grid">
+                        <figure class="video-tile">
+                            <div class="video-frame">
+                                <video src="../assets/engine-samples/AttackingRadar.mp4" controls muted playsinline preload="metadata" loop></video>
+                            </div>
+                            <figcaption class="video-cap">
+                                <span class="ep">Graphic · Player Radar</span>
+                                <span class="title">Why Brazil Stopped Producing Playmakers</span>
+                            </figcaption>
+                        </figure>
+
+                        <figure class="video-tile">
+                            <div class="video-frame">
+                                <video src="../assets/engine-samples/IntrcptTransferRecord.mp4" controls muted playsinline preload="metadata" loop></video>
+                            </div>
+                            <figcaption class="video-cap">
+                                <span class="ep">Graphic · StatBars</span>
+                                <span class="title">How money has changed football</span>
+                            </figcaption>
+                        </figure>
+
+                        <figure class="video-tile">
+                            <div class="video-frame">
+                                <video src="../assets/engine-samples/TournamentBracket.mp4" controls muted playsinline preload="metadata" loop></video>
+                            </div>
+                            <figcaption class="video-cap">
+                                <span class="ep">Graphic · World Cup</span>
+                                <span class="title">Why Brazil Stopped Producing Playmakers</span>
+                            </figcaption>
+                        </figure>
+                    </div>
                 </div>
+            </section>
 
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-5 sm:gap-6">
-                    <figure class="video-tile rounded-2xl">
-                        <div class="video-frame">
-                            <iframe src="https://www.youtube.com/embed/PLACEHOLDER" title="Sample episode 01" allowfullscreen></iframe>
+            <!-- ========== PIPELINE STEPS ========== -->
+            <section class="section">
+                <div class="wrap scroll-reveal">
+                    <div class="section-grid">
+                        <h2 class="section-h2">From <em style="font-style: italic; color: var(--accent);">title</em> to export<span class="accent-dot">.</span></h2>
+                        <div class="section-body">
+                            <p>The pipeline is a 5-step UI on top of a deterministic agent chain. Each step lands real artifacts on disk under <span class="mono" style="color: var(--accent);">output/&lt;safe_name&gt;/</span> so a run can be paused, reviewed, and resumed.</p>
                         </div>
-                        <figcaption class="px-5 py-4 flex items-center justify-between" style="border-top:1px solid var(--rule);">
-                            <span class="mono text-[11px] uppercase tracking-[0.18em]" style="color: var(--mute);">Episode 01</span>
-                            <span class="text-sm display-italic">[REPLACE: title]</span>
-                        </figcaption>
-                    </figure>
+                    </div>
 
-                    <figure class="video-tile rounded-2xl">
-                        <div class="video-frame">
-                            <iframe src="https://www.youtube.com/embed/PLACEHOLDER" title="Sample episode 02" allowfullscreen></iframe>
+                    <div class="moment-grid">
+                        <div class="moment">
+                            <span class="moment-tag">01 · Title</span>
+                            <h3>Title + director's brief</h3>
+                            <p>User enters a title; <span class="mono">entity_agent</span> extracts the subject, <span class="mono">research_agent</span> pulls Wikipedia + Google News, and an LLM drafts the director's brief.</p>
                         </div>
-                        <figcaption class="px-5 py-4 flex items-center justify-between" style="border-top:1px solid var(--rule);">
-                            <span class="mono text-[11px] uppercase tracking-[0.18em]" style="color: var(--mute);">Episode 02</span>
-                            <span class="text-sm display-italic">[REPLACE: title]</span>
-                        </figcaption>
-                    </figure>
-
-                    <figure class="video-tile rounded-2xl">
-                        <div class="video-frame">
-                            <iframe src="https://www.youtube.com/embed/PLACEHOLDER" title="Sample episode 03" allowfullscreen></iframe>
+                        <div class="moment">
+                            <span class="moment-tag">02 · Context</span>
+                            <h3>Editable fact checklist</h3>
+                            <p>The brief is parsed into structured facts the user can tick on or off — checked items become MUST INCLUDE constraints downstream, written to <span class="mono">context.md</span> + <span class="mono">facts.md</span>.</p>
                         </div>
-                        <figcaption class="px-5 py-4 flex items-center justify-between" style="border-top:1px solid var(--rule);">
-                            <span class="mono text-[11px] uppercase tracking-[0.18em]" style="color: var(--mute);">Episode 03</span>
-                            <span class="text-sm display-italic">[REPLACE: title]</span>
-                        </figcaption>
-                    </figure>
+                        <div class="moment">
+                            <span class="moment-tag">03 · Blueprint</span>
+                            <h3>Act-by-act structure</h3>
+                            <p>An LLM lays out the 5-act blueprint with required facts injected as constraints. The user adjusts emphasis and act count before storyboard generation runs.</p>
+                        </div>
+                        <div class="moment">
+                            <span class="moment-tag">04 · Storyboard</span>
+                            <h3>70–90 scenes, drag &amp; drop</h3>
+                            <p>The script agent expands the blueprint into a full storyboard. A drag-drop editor lets the user reorder, splice, and approve before the agent chain runs end-to-end via <span class="mono">orchestrator.py</span>.</p>
+                        </div>
+                        <div class="moment">
+                            <span class="moment-tag">05 · Render</span>
+                            <h3>Script · narration · graphics · clips</h3>
+                            <p>Sequential pipeline: <span class="mono">script_agent</span> → <span class="mono">narration_agent</span> (ElevenLabs TTS) → <span class="mono">graphics_agent</span> (Remotion renders) → <span class="mono">production_agent</span> (clip sourcing sheet).</p>
+                        </div>
+                        <div class="moment">
+                            <span class="moment-tag">06 · Studio + Edit</span>
+                            <h3>Review grid &amp; 4-track timeline</h3>
+                            <p>Two interfaces: a render grid for approve / reject / re-render, and a 4-track timeline editor for splicing graphics, narration, music, and sourced clips before final export.</p>
+                        </div>
+                    </div>
                 </div>
             </section>
 
             <!-- ========== ARCHITECTURE ========== -->
-            <section class="pt-12 sm:pt-20 pb-12 sm:pb-20 rule-b">
-                <div class="grid grid-cols-12 gap-6 mb-8 sm:mb-10">
-                    <div class="col-span-12 md:col-span-4 lg:col-span-3">
-                        <h2 class="display text-3xl sm:text-4xl font-medium tracking-tight">Architecture<span class="display-italic">.</span></h2>
+            <section class="section">
+                <div class="wrap scroll-reveal">
+                    <div class="section-grid">
+                        <h2 class="section-h2">Architecture<span class="accent-dot">.</span></h2>
+                        <div class="section-body">
+                            <p>
+                                The system has two halves. The <strong style="color: var(--ink);">Python engine</strong> (Flask + Groq + ElevenLabs) decides what to make — research, script, narration, clip sourcing. The <strong style="color: var(--ink);">Remotion project</strong> decides how it looks — 30+ React graphic templates rendered to MP4.
+                            </p>
+                            <p>
+                                A central <span class="mono" style="color: var(--accent);">WorldStateRoot</span> in <span class="mono" style="color: var(--accent);">VideoSequence.tsx</span> keeps consecutive graphics on a shared spatial canvas (cameraX = 0 → 1920 → 3840…), so a sequence of stat cards reads as one continuous camera move rather than 8 hard cuts. <span class="mono" style="color: var(--accent);">_break_data_runs</span> in the orchestrator reorders scenes to avoid 3+ consecutive pure-stat blocks.
+                            </p>
+                        </div>
                     </div>
-                    <div class="col-span-12 md:col-span-8 lg:col-span-9">
-                        <p class="text-base sm:text-lg leading-relaxed" style="color: var(--mute);">
-                            [REPLACE: 2–3 sentences describing the multi-agent flow — how a topic enters the system, gets fanned out across writer/director/researcher agents, converges on a finalised script, then hands off to the rendering pipeline. Mention the message bus, retry semantics, and any human-in-the-loop checkpoints.]
-                        </p>
-                    </div>
-                </div>
 
-                <div class="arch-frame">
-                    <img src="../assets/architecture.png" alt="[REPLACE: architecture diagram description — e.g. 'Multi-agent orchestration flow showing writer, director, and researcher agents handing off to a Remotion render queue']">
+                    <div class="arch-frame">
+<pre style="margin: 0; padding: 1.25rem 1rem; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 0.78rem; line-height: 1.7; color: var(--ink); white-space: pre; overflow-x: auto;">
+title + brief
+     │
+     ▼
+┌─────────────── Python engine (Flask · port 5000) ─────────────┐
+│                                                                │
+│   entity_agent     →  research_agent   →  analysis_agent       │
+│   (subject)           (Wikipedia/News)    (director's brief)   │
+│                                ▼                               │
+│                  context.md + facts.md  ←── user edits         │
+│                                ▼                               │
+│                     blueprint (5 acts) ←── user edits          │
+│                                ▼                               │
+│                     storyboard (70–90 scenes) ←── drag/drop    │
+│                                ▼                               │
+│   orchestrator.py runs in sequence:                            │
+│     script_agent  → narration_agent (ElevenLabs TTS)           │
+│     graphics_agent → production_agent (clip sheet)             │
+│                                ▼                               │
+└────────────────────────────────│───────────────────────────────┘
+                                 │ render props (JSON)
+                                 ▼
+┌─────────────── Remotion (React · /remotiontest) ──────────────┐
+│   30+ templates · WorldStateRoot · per-scene cameraX offset   │
+│   StatBars · Radar · Lineup · Tactical · TransferRecord …      │
+└────────────────────────────────│───────────────────────────────┘
+                                 ▼
+                renders/*.mp4 + manifest.json
+                                 ▼
+              /studio (review)  ·  /edit (4-track timeline)
+                                 ▼
+                          export → final cut</pre>
+                    </div>
                 </div>
             </section>
 
-            <!-- ========== FOOTER ========== -->
-            <footer class="pt-12 sm:pt-20">
-                <div class="grid grid-cols-12 gap-6">
-                    <div class="col-span-12 md:col-span-4 lg:col-span-3">
-                        <h2 class="display text-3xl sm:text-4xl font-medium tracking-tight">More from<br>this <span class="display-italic">project.</span></h2>
-                    </div>
+            <!-- ========== MORE FROM PROJECT ========== -->
+            <section class="section">
+                <div class="wrap scroll-reveal">
+                    <div class="section-grid">
+                        <h2 class="section-h2">More from<br>this <em style="font-style: italic; color: var(--accent);">project</em><span class="accent-dot">.</span></h2>
+                        <div class="section-body">
+                            <div class="more-grid">
+                                <a href="https://github.com/ncoulthurst" target="_blank" rel="noopener" class="more-link">
+                                    <span class="more-label">
+                                        <i data-lucide="github" class="icon-sm"></i>
+                                        Engine repo
+                                    </span>
+                                    <i data-lucide="arrow-up-right" class="icon-sm"></i>
+                                </a>
+                                <a href="https://github.com/ncoulthurst" target="_blank" rel="noopener" class="more-link">
+                                    <span class="more-label">
+                                        <i data-lucide="github" class="icon-sm"></i>
+                                        Remotion repo
+                                    </span>
+                                    <i data-lucide="arrow-up-right" class="icon-sm"></i>
+                                </a>
+                            </div>
 
-                    <div class="col-span-12 md:col-span-8 lg:col-span-9">
-                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-2xl">
-                            <a href="[REPLACE: GitHub repo URL]" class="cta-ghost flex items-center justify-between rounded-2xl px-5 py-4 group">
-                                <span class="flex items-center gap-3">
-                                    <i data-lucide="github" class="w-4 h-4"></i>
-                                    <span class="mono text-[11px] uppercase tracking-[0.16em]">GitHub Repo</span>
-                                </span>
-                                <i data-lucide="arrow-up-right" class="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform"></i>
-                            </a>
-                            <a href="[REPLACE: YouTube channel URL]" class="cta-ghost flex items-center justify-between rounded-2xl px-5 py-4 group">
-                                <span class="flex items-center gap-3">
-                                    <i data-lucide="youtube" class="w-4 h-4"></i>
-                                    <span class="mono text-[11px] uppercase tracking-[0.16em]">YouTube</span>
-                                </span>
-                                <i data-lucide="arrow-up-right" class="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform"></i>
-                            </a>
-                        </div>
-
-                        <div class="mt-10">
-                            <a href="/" class="cta-primary inline-flex items-center gap-3 rounded-full pl-2 pr-6 py-2.5 text-sm">
-                                <span class="w-8 h-8 rounded-full flex items-center justify-center" style="background: color-mix(in srgb, var(--bg) 18%, transparent);">
-                                    <i data-lucide="arrow-left" class="w-4 h-4"></i>
-                                </span>
-                                <span class="mono text-[11px] uppercase tracking-[0.16em]">Back to Portfolio</span>
-                            </a>
+                            <div class="more-cta-row">
+                                <a href="/projects" class="btn-primary">
+                                    <span class="arr"><i data-lucide="arrow-left" class="icon-sm"></i></span>
+                                    All projects
+                                </a>
+                            </div>
                         </div>
                     </div>
                 </div>
-
-                <div class="mt-16 pt-8 rule-t flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
-                    <div class="mono text-[11px] uppercase tracking-[0.18em]" style="color: var(--mute);">
-                        © 2026 Nathan Coulthurst — All rights reserved
-                    </div>
-                    <div class="mono text-[11px] uppercase tracking-[0.18em]" style="color: var(--mute);">
-                        Case Study / 01
-                    </div>
-                </div>
-            </footer>
+            </section>
 
         </main>
+
     </div>
+
+    <!-- ========== FIXED FOOTER ========== -->
+    <footer class="site-footer">
+        <div class="footer-stage">
+            <div class="footer-cta-row">
+                <div class="footer-left">
+                    <div class="footer-id">
+                        <span class="footer-avatar">N</span>
+                        <div class="footer-id-text">
+                            <div class="footer-name">Nathan Coulthurst</div>
+                            <div class="footer-role">Technical Support Engineer, UK</div>
+                        </div>
+                    </div>
+                    <p class="footer-pitch">
+                        Looking for someone to take the brittle plumbing off your team's plate? Let's talk.
+                    </p>
+                    <div class="footer-actions">
+                        <a href="mailto:nathancoulthurst@hotmail.co.uk?subject=Hello" class="footer-btn footer-btn-primary">
+                            Contact me
+                            <i data-lucide="arrow-right" class="icon-sm"></i>
+                        </a>
+                        <a href="/#work" class="footer-btn footer-btn-ghost">View work</a>
+                    </div>
+                </div>
+                <div class="footer-right"></div>
+            </div>
+
+            <div>
+                <div class="footer-divider"></div>
+                <div class="footer-bottom-row">
+                    <div class="footer-col-pair">
+                        <h4>SITEMAP</h4>
+                        <div class="footer-col-links">
+                            <a href="/#about">About</a>
+                            <a href="/#work">Work</a>
+                            <a href="/#contact">Contact</a>
+                        </div>
+                    </div>
+                    <div class="footer-col-pair">
+                        <h4>Elsewhere</h4>
+                        <div class="footer-col-links">
+                            <a href="mailto:nathancoulthurst@hotmail.co.uk">Email</a>
+                            <a href="https://www.linkedin.com/in/ncoulthurst/">LinkedIn</a>
+                            <a href="https://github.com/ncoulthurst">GitHub</a>
+                        </div>
+                    </div>
+                    <div class="footer-meta">
+                        <span>© 2026 Nathan Coulthurst</span>
+                        <span>Case Study / 01</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
 
     <script>
         lucide.createIcons();
+
+        function syncThemeIcons() {
+            const isDark = document.documentElement.classList.contains('dark');
+            document.querySelectorAll('.hidden-light').forEach(el => el.style.display = isDark ? 'inline-flex' : 'none');
+            document.querySelectorAll('.hidden-dark').forEach(el => el.style.display = isDark ? 'none' : 'inline-flex');
+        }
+        syncThemeIcons();
 
         window.addEventListener('load', () => {
             setTimeout(() => {
@@ -422,30 +1088,77 @@
                 const content = document.getElementById('main-content');
                 loader.style.opacity = '0';
                 content.classList.add('loaded');
-                setTimeout(() => loader.style.display = 'none', 700);
-            }, 900);
+                setTimeout(() => loader.style.display = 'none', 600);
+            }, 700);
         });
 
-        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const burger = document.getElementById('nav-burger');
         const mobileMenu = document.getElementById('mobile-menu');
-        mobileMenuBtn.addEventListener('click', () => {
-            mobileMenu.classList.toggle('hidden');
-            const isOpen = !mobileMenu.classList.contains('hidden');
-            mobileMenuBtn.innerHTML = isOpen
-                ? '<i data-lucide="x" class="w-[18px] h-[18px]"></i>'
-                : '<i data-lucide="menu" class="w-[18px] h-[18px]"></i>';
+        burger.addEventListener('click', () => {
+            mobileMenu.classList.toggle('open');
+            const isOpen = mobileMenu.classList.contains('open');
+            burger.innerHTML = isOpen
+                ? '<i data-lucide="x" class="icon-md"></i>'
+                : '<i data-lucide="menu" class="icon-md"></i>';
             lucide.createIcons();
         });
+        mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+            mobileMenu.classList.remove('open');
+            burger.innerHTML = '<i data-lucide="menu" class="icon-md"></i>';
+            lucide.createIcons();
+        }));
 
-        const themeToggleBtn = document.getElementById('theme-toggle');
+        const themeBtn = document.getElementById('theme-toggle');
         const root = document.documentElement;
-        themeToggleBtn.addEventListener('click', () => {
+        themeBtn.addEventListener('click', () => {
             const nextDark = !root.classList.contains('dark');
             root.classList.toggle('dark', nextDark);
             root.style.colorScheme = nextDark ? 'dark' : 'light';
             try { localStorage.setItem('nc-theme', nextDark ? 'dark' : 'light'); } catch (e) {}
             lucide.createIcons();
+            syncThemeIcons();
         });
+
+        // Scroll reveal observer
+        const io = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('is-visible');
+                    io.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+        document.querySelectorAll('.scroll-reveal').forEach(el => io.observe(el));
+
+        // Wrap nav-logo letters for staggered flash animation
+        const navLogo = document.querySelector('.nav-logo');
+        if (navLogo) {
+            const dotEl = navLogo.querySelector('.dot');
+            const text = navLogo.firstChild && navLogo.firstChild.nodeType === 3 ? navLogo.firstChild.textContent : '';
+            if (text) {
+                navLogo.removeChild(navLogo.firstChild);
+                const frag = document.createDocumentFragment();
+                Array.from(text).forEach((ch, i) => {
+                    const span = document.createElement('span');
+                    span.className = 'letter';
+                    span.textContent = ch;
+                    span.style.animationDelay = (i * 0.09) + 's';
+                    frag.appendChild(span);
+                });
+                navLogo.insertBefore(frag, dotEl);
+            }
+        }
+
+        // Toggle flashing animation only while case-study hero is in view
+        const heroEl = document.getElementById('hero');
+        if (heroEl && navLogo) {
+            const heroObs = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    navLogo.classList.toggle('flashing', entry.isIntersecting);
+                });
+            }, { threshold: 0.25 });
+            heroObs.observe(heroEl);
+        }
     </script>
 </body>
 </html>

@@ -1,0 +1,940 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vinted Marketplace Scraper — Nathan Coulthurst</title>
+
+    <script>
+        (function () {
+            try {
+                var stored = localStorage.getItem('nc-theme');
+                if (stored === 'dark') document.documentElement.classList.add('dark');
+                document.documentElement.style.colorScheme = stored === 'dark' ? 'dark' : 'light';
+            } catch (e) {}
+        })();
+    </script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300..800;1,300..800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <style>
+        :root {
+            --bg: #F4EDE0; --bg-2: #EFE6D5; --surface: #FBF7EE; --surface-2: #ECE3D2;
+            --ink: #141210; --ink-2: #1F1C18; --mute: #6B6357;
+            --rule: rgba(20, 18, 16, 0.10); --rule-strong: rgba(20, 18, 16, 0.20);
+            --accent: #C8553D; --accent-hover: #A5402D; --accent-soft: #E8A491;
+            --on-accent: #F4EDE0; --on-ink: #ECE5D6; --on-ink-mute: #9A9183;
+            --card-dark: #141210; --card-dark-2: #1F1C18; --on-card-dark: #ECE5D6; --on-card-dark-mute: #9A9183;
+        }
+        .dark {
+            --bg: #100E0C; --bg-2: #161310; --surface: #1A1815; --surface-2: #221F1B;
+            --ink: #ECE5D6; --ink-2: #D9D2C2; --mute: #8A8275;
+            --rule: rgba(232, 226, 213, 0.08); --rule-strong: rgba(232, 226, 213, 0.20);
+            --accent: #E07A5F; --accent-hover: #F09175; --accent-soft: #663225;
+            --on-accent: #100E0C; --on-ink: #ECE5D6; --on-ink-mute: #8A8275;
+            --card-dark: #1A1815; --card-dark-2: #221F1B; --on-card-dark: #ECE5D6; --on-card-dark-mute: #8A8275;
+        }
+
+        * { box-sizing: border-box; }
+        html, body {
+            margin: 0; padding: 0; background: var(--bg); color: var(--ink);
+            font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+            -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale;
+        }
+        body {
+            background: var(--card-dark);
+            transition: background-color 0.4s ease, color 0.4s ease;
+            min-height: 100vh; overflow-x: hidden;
+        }
+        #main-content {
+            position: relative; z-index: 2; background: var(--bg);
+            margin-bottom: 100vh; display: flow-root;
+            border-bottom-left-radius: 18px; border-bottom-right-radius: 18px;
+            box-shadow: 0 18px 36px -28px rgba(0, 0, 0, 0.4);
+        }
+        .mono { font-family: 'JetBrains Mono', ui-monospace, monospace; }
+        a { color: inherit; text-decoration: none; }
+        button { font-family: inherit; cursor: pointer; }
+        ::selection { background: var(--accent); color: var(--bg); }
+
+        .wrap { max-width: 1320px; margin: 0 auto; padding: 0 1.25rem; }
+        @media (min-width: 768px) { .wrap { padding: 0 2rem; } }
+        @media (min-width: 1100px) { .wrap { padding: 0 2.5rem; } }
+
+        /* NAV */
+        .nav-shell { position: sticky; top: 1rem; z-index: 60; padding: 0 1rem; margin-top: 1rem; }
+        .nav-pill {
+            max-width: 1280px; margin: 0 auto;
+            display: flex; align-items: center; justify-content: space-between; gap: 1rem;
+            padding: 0.55rem 0.55rem 0.55rem 0.65rem;
+            background: var(--surface); border: 1px solid var(--rule); border-radius: 999px;
+            box-shadow: 0 14px 36px -22px rgba(20, 18, 16, 0.45), 0 1px 0 rgba(255, 255, 255, 0.5) inset;
+        }
+        .dark .nav-pill { box-shadow: 0 18px 40px -22px rgba(0, 0, 0, 0.7), 0 1px 0 rgba(255, 255, 255, 0.04) inset; }
+        .nav-logo {
+            display: inline-flex; align-items: center; background: transparent; color: var(--ink);
+            padding: 0.45rem 0.75rem; font-weight: 700; font-size: 1rem;
+            letter-spacing: -0.015em; line-height: 1; transition: color 0.25s ease;
+        }
+        .nav-logo:hover { color: var(--accent); }
+        .nav-logo .dot { color: var(--accent); }
+        .nav-logo .letter { display: inline-block; transition: color 0.3s ease; white-space: pre; }
+        .nav-logo.flashing .letter { animation: nav-letter-flash 2.6s ease-in-out infinite; }
+        @keyframes nav-letter-flash { 0%, 65%, 100% { color: var(--ink); } 32% { color: var(--accent); } }
+        .nav-links { display: none; gap: 2rem; align-items: center; }
+        @media (min-width: 900px) { .nav-links { display: flex; } }
+        .nav-link {
+            color: var(--ink); font-size: 0.95rem; font-weight: 500;
+            opacity: 0.78; transition: opacity 0.2s ease, color 0.2s ease; position: relative;
+        }
+        .nav-link:hover { opacity: 1; color: var(--accent); }
+        .nav-link.is-active { opacity: 1; font-weight: 600; }
+        .nav-link.is-active::after {
+            content: ""; position: absolute; left: 50%; bottom: -10px;
+            width: 5px; height: 5px; border-radius: 50%; background: var(--accent); transform: translateX(-50%);
+        }
+        .nav-right { display: flex; align-items: center; gap: 0.5rem; }
+        .icon-square {
+            width: 38px; height: 38px; border-radius: 999px;
+            display: inline-flex; align-items: center; justify-content: center;
+            background: transparent; border: 1px solid var(--rule); color: var(--ink);
+            transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+        }
+        .icon-square:hover { background: var(--surface-2); color: var(--accent); border-color: var(--rule-strong); }
+        .nav-cta {
+            display: inline-flex; align-items: center; gap: 0.55rem;
+            background: var(--card-dark); color: var(--on-card-dark);
+            border-radius: 999px; padding: 0.7rem 1.2rem 0.7rem 0.55rem;
+            font-weight: 600; font-size: 0.9rem; letter-spacing: -0.005em;
+            transition: background 0.25s ease, transform 0.25s ease;
+        }
+        .nav-cta:hover { background: var(--card-dark-2); transform: translateY(-1px); }
+        .nav-cta .arr {
+            display: inline-flex; align-items: center; justify-content: center;
+            width: 26px; height: 26px; border-radius: 999px; background: var(--accent); color: var(--on-accent);
+        }
+        .nav-burger { display: inline-flex; }
+        @media (min-width: 900px) { .nav-burger { display: none; } }
+        .mobile-menu {
+            display: none; margin: 0.6rem 1rem 0;
+            background: var(--surface); border: 1px solid var(--rule); border-radius: 24px;
+            padding: 0.5rem 1rem 0.75rem;
+        }
+        .mobile-menu.open { display: block; }
+        .mobile-menu a {
+            display: block; padding: 0.85rem 0.5rem; font-size: 1.05rem; font-weight: 500;
+            border-bottom: 1px solid var(--rule);
+        }
+        .mobile-menu a:last-of-type { border-bottom: 0; }
+
+        /* TYPE & BUTTONS */
+        .display { font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; letter-spacing: -0.05em; }
+        .eyebrow {
+            font-family: 'JetBrains Mono', ui-monospace, monospace;
+            font-size: 0.7rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--mute);
+        }
+        .accent-dot { color: var(--accent); }
+        .btn-primary {
+            display: inline-flex; align-items: center; gap: 0.7rem;
+            background: var(--card-dark); color: var(--on-card-dark);
+            padding: 0.95rem 1rem 0.95rem 1.5rem; border-radius: 999px;
+            font-size: 0.95rem; font-weight: 600; border: 0;
+            transition: transform 0.25s ease, background 0.25s ease;
+        }
+        .btn-primary:hover { background: var(--card-dark-2); transform: translateY(-1px); }
+        .btn-primary .arr {
+            display: inline-flex; align-items: center; justify-content: center;
+            width: 32px; height: 32px;
+            background: var(--accent); color: var(--on-accent); border-radius: 999px;
+            transition: transform 0.3s ease;
+        }
+        .btn-primary:hover .arr { transform: rotate(45deg); }
+
+        /* HERO */
+        .cs-hero {
+            padding: 3rem 0 4rem;
+            min-height: calc(100vh - 80px);
+            display: flex; align-items: center;
+        }
+        @media (min-width: 900px) { .cs-hero { padding: 4rem 0 5rem; min-height: calc(100vh - 90px); } }
+        .cs-hero > .wrap { width: 100%; }
+        .cs-hero-grid { display: grid; grid-template-columns: 1fr; gap: 2rem; }
+        @media (min-width: 1000px) {
+            .cs-hero-grid { grid-template-columns: minmax(0, 0.32fr) minmax(0, 1fr); gap: 3rem; align-items: end; }
+        }
+        .cs-meta { display: flex; flex-direction: column; gap: 0.8rem; }
+        .cs-meta .meta-row {
+            font-family: 'JetBrains Mono', monospace; font-size: 0.75rem;
+            color: var(--mute); letter-spacing: 0.05em;
+        }
+        .cs-meta .all-work {
+            display: inline-flex; align-items: center; gap: 0.5rem;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase;
+            color: var(--ink); margin-top: 0.75rem;
+            transition: color 0.2s ease, opacity 0.2s ease;
+            opacity: 0.78; align-self: flex-start;
+        }
+        .cs-meta .all-work:hover { opacity: 1; color: var(--accent); }
+        .cs-headline {
+            margin: 0;
+            font-size: clamp(2.4rem, 7vw, 5.4rem);
+            font-weight: 800; line-height: 0.98; letter-spacing: -0.04em; color: var(--ink);
+        }
+        .cs-headline em { font-style: italic; font-weight: 700; color: var(--accent); }
+        .cs-lede {
+            margin: 1.75rem 0 0;
+            font-size: clamp(1.05rem, 1.4vw, 1.2rem);
+            line-height: 1.55; color: var(--mute); max-width: 50ch;
+        }
+        .cs-chips { margin-top: 1.5rem; display: flex; flex-wrap: wrap; gap: 0.45rem; }
+        .cs-chip {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.7rem; padding: 0.34rem 0.75rem;
+            border: 1px solid var(--rule-strong); border-radius: 999px;
+            color: var(--ink); letter-spacing: 0.04em;
+        }
+
+        /* SECTION */
+        .section { padding: 5rem 0; border-top: 1px solid var(--rule); }
+        @media (min-width: 900px) { .section { padding: 6rem 0; } }
+        .section-grid {
+            display: grid; grid-template-columns: 1fr; gap: 2rem;
+        }
+        @media (min-width: 1000px) {
+            .section-grid { grid-template-columns: minmax(0, 0.32fr) minmax(0, 1fr); gap: 3rem; align-items: start; }
+        }
+        .section-h2 {
+            margin: 0;
+            font-size: clamp(1.75rem, 3.6vw, 2.85rem);
+            font-weight: 800; letter-spacing: -0.035em; line-height: 1.05; color: var(--ink);
+        }
+        .section-h2 em { font-style: italic; color: var(--accent); }
+        .section-body { display: flex; flex-direction: column; gap: 1.5rem; }
+        .section-body .lead {
+            margin: 0; font-size: clamp(1.2rem, 1.8vw, 1.55rem);
+            font-weight: 500; line-height: 1.4; letter-spacing: -0.02em; color: var(--ink);
+        }
+        .section-body p {
+            margin: 0; font-size: 1rem; line-height: 1.65; color: var(--mute); max-width: 70ch;
+        }
+
+        /* PIPELINE STEPS */
+        .pipeline {
+            margin-top: 2.5rem;
+            display: grid; grid-template-columns: 1fr; gap: 1rem;
+        }
+        @media (min-width: 700px) { .pipeline { grid-template-columns: 1fr 1fr; } }
+        @media (min-width: 1100px) { .pipeline { grid-template-columns: repeat(4, 1fr); } }
+        .step {
+            background: var(--surface);
+            border: 1px solid var(--rule);
+            border-radius: 18px;
+            padding: 1.5rem 1.5rem 1.6rem;
+            display: flex; flex-direction: column; gap: 0.6rem;
+            transition: border-color 0.3s ease, transform 0.3s ease;
+        }
+        .step:hover { border-color: var(--accent); transform: translateY(-3px); }
+        .step .num {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent);
+        }
+        .step h3 { margin: 0; font-size: 1.15rem; font-weight: 700; letter-spacing: -0.02em; line-height: 1.2; color: var(--ink); }
+        .step p { margin: 0; color: var(--mute); font-size: 0.93rem; line-height: 1.55; }
+
+        /* DISCORD MOCK */
+        .discord-mock {
+            background: #2B2D31;
+            border-radius: 18px;
+            overflow: hidden;
+            margin-top: 2.5rem;
+            border: 1px solid rgba(255,255,255,0.06);
+            box-shadow: 0 30px 60px -32px rgba(0,0,0,0.6);
+        }
+        .discord-head {
+            display: flex; align-items: center; gap: 0.8rem;
+            padding: 0.85rem 1.25rem;
+            background: #1E1F22;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            color: #DCDDDE;
+            font-size: 0.92rem; font-weight: 500;
+        }
+        .discord-head .hash { color: #80848E; font-weight: 700; }
+        .discord-msg {
+            display: flex; gap: 0.85rem; padding: 1rem 1.25rem;
+            color: #DCDDDE;
+        }
+        .discord-msg + .discord-msg { border-top: 1px solid rgba(255,255,255,0.04); }
+        .discord-avatar {
+            width: 40px; height: 40px; border-radius: 50%; flex-shrink: 0;
+            background: linear-gradient(135deg, #C8553D, #5865F2);
+            display: inline-flex; align-items: center; justify-content: center;
+            color: white; font-weight: 700; font-size: 0.95rem;
+        }
+        .discord-body { flex: 1; min-width: 0; }
+        .discord-name {
+            color: #5865F2; font-weight: 700; font-size: 0.95rem;
+            display: inline-flex; align-items: center; gap: 0.5rem;
+        }
+        .discord-name .ts {
+            color: #80848E; font-size: 0.72rem; font-weight: 400;
+            font-family: 'JetBrains Mono', monospace;
+        }
+        .discord-name .bot {
+            background: #5865F2; color: white;
+            font-size: 0.6rem; padding: 0.1rem 0.35rem; border-radius: 4px;
+            text-transform: uppercase; letter-spacing: 0.06em; font-weight: 700;
+        }
+        .discord-embed {
+            margin-top: 0.5rem;
+            border-left: 4px solid var(--accent);
+            background: #2B2D31;
+            border-radius: 0 6px 6px 0;
+            padding: 0.85rem 1rem;
+            display: grid;
+            grid-template-columns: 1fr auto;
+            gap: 0.85rem;
+            max-width: 520px;
+        }
+        .discord-embed .e-title {
+            color: #00A8FC; font-weight: 600; font-size: 0.95rem; margin: 0 0 0.3rem;
+        }
+        .discord-embed .e-fields {
+            display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem 1rem;
+            margin: 0.5rem 0 0; font-size: 0.85rem;
+        }
+        .discord-embed .e-fields div span:first-child {
+            display: block;
+            color: #FFFFFF; font-weight: 600; font-size: 0.78rem;
+        }
+        .discord-embed .e-fields div span:last-child {
+            color: #B5BAC1; font-size: 0.85rem;
+        }
+        .discord-embed .e-thumb {
+            width: 70px; height: 70px;
+            border-radius: 6px;
+            background: linear-gradient(135deg, #444, #222);
+            display: flex; align-items: center; justify-content: center;
+            color: #80848E; font-size: 0.7rem; font-family: 'JetBrains Mono', monospace;
+        }
+        .discord-embed .e-foot {
+            grid-column: 1 / -1;
+            margin-top: 0.5rem;
+            font-size: 0.72rem; color: #80848E;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        /* CODE BLOCK */
+        .code-frame {
+            margin-top: 2.5rem;
+            background: var(--card-dark);
+            color: var(--on-card-dark);
+            border-radius: 18px;
+            overflow: hidden;
+            border: 1px solid var(--rule);
+        }
+        .code-head {
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 0.7rem 1rem;
+            border-bottom: 1px solid var(--card-dark-rule, rgba(232, 226, 213, 0.1));
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.72rem; letter-spacing: 0.1em; color: var(--on-card-dark-mute);
+        }
+        .code-head .file { color: var(--on-card-dark); }
+        .code-head .lang {
+            background: var(--accent); color: var(--on-accent);
+            padding: 0.18rem 0.55rem; border-radius: 999px;
+            font-size: 0.62rem; letter-spacing: 0.16em; text-transform: uppercase; font-weight: 600;
+        }
+        .code-frame pre {
+            margin: 0; padding: 1.25rem 1.25rem 1.5rem;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.82rem; line-height: 1.65;
+            color: var(--on-card-dark);
+            overflow-x: auto;
+        }
+        .code-frame .kw { color: #E07A5F; }
+        .code-frame .str { color: #C5D86D; }
+        .code-frame .com { color: #80776A; font-style: italic; }
+        .code-frame .fn { color: #91C9F7; }
+        .code-frame .num-lit { color: #F0B86E; }
+
+        /* STATS */
+        .stats {
+            display: grid; grid-template-columns: 1fr; gap: 1.25rem;
+            margin-top: 2.5rem;
+        }
+        @media (min-width: 700px) { .stats { grid-template-columns: repeat(3, 1fr); } }
+        .stat {
+            background: var(--surface);
+            border: 1px solid var(--rule);
+            border-radius: 20px;
+            padding: 1.5rem 1.5rem 1.6rem;
+        }
+        .stat .stat-num {
+            font-size: clamp(2.4rem, 4.4vw, 3.4rem);
+            font-weight: 800; letter-spacing: -0.04em; line-height: 0.95;
+            color: var(--ink);
+        }
+        .stat .stat-num em { font-style: italic; color: var(--accent); font-weight: 700; }
+        .stat .stat-lab {
+            margin-top: 0.65rem;
+            font-size: 0.9rem; color: var(--mute); line-height: 1.45;
+        }
+
+        /* FOOTER (same as portfolio) */
+        .site-footer {
+            position: fixed; bottom: 0; left: 0; right: 0;
+            height: 100vh; min-height: 680px; z-index: 1;
+            background: var(--card-dark); color: var(--on-card-dark);
+            display: flex; flex-direction: column; justify-content: flex-end;
+            padding: 3rem 1.25rem 1.75rem; overflow: hidden;
+        }
+        @media (min-width: 768px) { .site-footer { padding: 4rem 2.5rem 2rem; } }
+        @media (min-width: 1100px) { .site-footer { padding: 5rem 3rem 2.5rem; } }
+        .site-footer::before {
+            content: ""; position: absolute; inset: 0;
+            background:
+                radial-gradient(900px 480px at 90% 100%, color-mix(in srgb, var(--accent) 14%, transparent), transparent 70%),
+                radial-gradient(600px 420px at 0% 0%, color-mix(in srgb, var(--accent) 8%, transparent), transparent 70%);
+            pointer-events: none;
+        }
+        .footer-stage { position: relative; max-width: 1320px; width: 100%; margin: 0 auto; display: flex; flex-direction: column; gap: 2.5rem; }
+        .footer-cta-row { display: grid; grid-template-columns: 1fr; gap: 2.5rem; align-items: end; }
+        @media (min-width: 900px) { .footer-cta-row { grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.7fr); gap: 4rem; } }
+        .footer-id { display: flex; align-items: center; gap: 1rem; margin-bottom: 1.25rem; }
+        .footer-avatar {
+            width: 60px; height: 60px; border-radius: 50%;
+            background: var(--accent); color: var(--on-accent);
+            font-size: 1.6rem; font-weight: 800; letter-spacing: -0.04em;
+            display: inline-flex; align-items: center; justify-content: center; line-height: 1; flex-shrink: 0;
+        }
+        .footer-id-text .footer-name { font-size: 1.3rem; font-weight: 700; color: var(--on-ink); letter-spacing: -0.025em; line-height: 1.1; }
+        .footer-id-text .footer-role { font-size: 0.92rem; color: var(--on-ink-mute); margin-top: 0.2rem; }
+        .footer-pitch { margin: 0 0 1.5rem; font-size: 1rem; line-height: 1.55; color: var(--on-ink-mute); max-width: 38ch; }
+        .footer-actions { display: flex; flex-wrap: wrap; gap: 0.6rem; }
+        .footer-btn {
+            display: inline-flex; align-items: center; gap: 0.55rem;
+            padding: 0.85rem 1.4rem; border-radius: 999px;
+            font-size: 0.92rem; font-weight: 600;
+            transition: background 0.25s ease, color 0.25s ease, transform 0.25s ease, border-color 0.25s ease;
+        }
+        .footer-btn-primary { background: var(--on-ink); color: var(--ink); }
+        .footer-btn-primary:hover { background: var(--accent); color: var(--on-accent); transform: translateY(-1px); }
+        .dark .footer-btn-primary { background: var(--accent); color: var(--on-accent); }
+        .dark .footer-btn-primary:hover { background: var(--accent-hover); color: var(--on-accent); transform: translateY(-1px); }
+        .footer-btn-ghost { border: 1px solid rgba(255, 255, 255, 0.18); color: var(--on-ink); }
+        .footer-btn-ghost:hover { border-color: var(--accent); color: var(--accent); }
+        .footer-divider { height: 1px; background: rgba(255, 255, 255, 0.10); margin: 0; }
+        .footer-bottom-row { display: grid; grid-template-columns: 1fr; gap: 1.25rem; padding-top: 1.5rem; align-items: end; }
+        @media (min-width: 900px) { .footer-bottom-row { grid-template-columns: auto auto 1fr; gap: 3rem; align-items: end; } }
+        .footer-col-pair { display: flex; gap: 1.1rem; align-items: baseline; flex-wrap: wrap; }
+        .footer-col-pair h4 {
+            margin: 0; font-family: 'JetBrains Mono', monospace;
+            font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.22em;
+            color: var(--on-ink-mute); font-weight: 500; min-width: 5.5rem;
+        }
+        .footer-col-links { display: flex; gap: 1rem; flex-wrap: wrap; }
+        .footer-col-links a {
+            color: var(--on-ink); font-size: 0.92rem; font-weight: 500;
+            opacity: 0.85; transition: opacity 0.2s ease, color 0.2s ease;
+        }
+        .footer-col-links a:hover { opacity: 1; color: var(--accent); }
+        .footer-meta {
+            font-family: 'JetBrains Mono', monospace; font-size: 0.72rem;
+            text-transform: uppercase; letter-spacing: 0.18em;
+            color: var(--on-ink-mute); line-height: 1.6;
+        }
+        @media (min-width: 900px) { .footer-meta { text-align: right; } }
+        .footer-meta span { display: block; }
+
+        /* REVEALS / LOADER */
+        @keyframes fadeUp { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: translateY(0); } }
+        .reveal { opacity: 0; animation: fadeUp 0.85s cubic-bezier(.2,.7,.2,1) forwards; }
+        .reveal.d1 { animation-delay: 0.1s; }
+        .reveal.d2 { animation-delay: 0.2s; }
+        .reveal.d3 { animation-delay: 0.32s; }
+        .reveal.d4 { animation-delay: 0.44s; }
+        .scroll-reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.7s ease, transform 0.7s ease; }
+        .scroll-reveal.is-visible { opacity: 1; transform: translateY(0); }
+
+        #loader {
+            position: fixed; inset: 0; z-index: 100;
+            background: var(--bg);
+            display: flex; align-items: center; justify-content: center;
+            transition: opacity 0.5s ease;
+        }
+        .loader-glyph {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-weight: 800; font-size: clamp(5rem, 12vw, 9rem);
+            letter-spacing: -0.06em; color: var(--ink); line-height: 1;
+        }
+        .loader-glyph .dot { color: var(--accent); }
+        #main-content { opacity: 0; transition: opacity 0.6s ease, background-color 0.4s ease; }
+        #main-content.loaded { opacity: 1; }
+
+        [data-lucide] { width: 16px; height: 16px; flex-shrink: 0; }
+        .icon-sm { width: 14px; height: 14px; }
+        .icon-md { width: 18px; height: 18px; }
+
+        @media (max-width: 480px) {
+            .nav-cta span:not(.arr) { display: none; }
+            .nav-cta { padding: 0.5rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <div id="loader" aria-hidden="true">
+        <div class="loader-glyph">N<span class="dot">.</span></div>
+    </div>
+
+    <div id="main-content">
+
+        <div class="nav-shell">
+            <nav class="nav-pill" aria-label="Primary">
+                <a href="/" class="nav-logo">Nathan Coulthurst<span class="dot">.</span></a>
+
+                <div class="nav-links">
+                    <a href="/projects" class="nav-link is-active">Work</a>
+                    <a href="/#about" class="nav-link">About</a>
+                    <a href="/#contact" class="nav-link">Contact</a>
+                </div>
+
+                <div class="nav-right">
+                    <button id="theme-toggle" class="icon-square" aria-label="Toggle theme">
+                        <i data-lucide="sun" class="icon-md hidden-light"></i>
+                        <i data-lucide="moon" class="icon-md hidden-dark"></i>
+                    </button>
+                    <a href="/projects" class="nav-cta">
+                        <span class="arr"><i data-lucide="arrow-left" class="icon-sm"></i></span>
+                        <span>Projects</span>
+                    </a>
+                    <button id="nav-burger" class="icon-square nav-burger" aria-label="Open menu">
+                        <i data-lucide="menu" class="icon-md"></i>
+                    </button>
+                </div>
+            </nav>
+
+            <div id="mobile-menu" class="mobile-menu">
+                <a href="/projects">Work</a>
+                <a href="/#about">About</a>
+                <a href="/#contact">Contact</a>
+                <a href="/">← Home</a>
+            </div>
+        </div>
+
+        <main>
+            <!-- HERO -->
+            <section class="cs-hero" id="hero">
+                <div class="wrap">
+                    <div class="cs-hero-grid">
+                        <div class="cs-meta reveal d1">
+                            <div class="eyebrow">Case Study / 03</div>
+                            <div class="meta-row">Automation · 2024</div>
+                            <a href="/projects" class="all-work">
+                                <i data-lucide="arrow-left" class="icon-sm"></i>
+                                All work
+                            </a>
+                        </div>
+
+                        <div>
+                            <h1 class="display cs-headline reveal d2">
+                                Vinted<br>
+                                Marketplace <em>Scraper</em><span class="accent-dot">.</span>
+                            </h1>
+                            <p class="cs-lede reveal d3">
+                                A Python Discord bot that watches Vinted's newest UK listings, routes each one to a brand-specific channel, and posts a rich embed with seller reputation, condition, and a one-tap buy link — alerts within seconds of go-live.
+                            </p>
+                            <div class="cs-chips reveal d3">
+                                <span class="cs-chip">Python</span>
+                                <span class="cs-chip">discord.py</span>
+                                <span class="cs-chip">pyVinted</span>
+                                <span class="cs-chip">RapidAPI</span>
+                                <span class="cs-chip">JSON config</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- OVERVIEW -->
+            <section class="section">
+                <div class="wrap">
+                    <div class="section-grid scroll-reveal">
+                        <h2 class="section-h2">Overview<span class="accent-dot">.</span></h2>
+
+                        <div class="section-body">
+                            <p class="lead">
+                                Resellers win on speed — the listings worth buying are gone within minutes. VintBot polls Vinted's newest-first feed, enriches each item with seller history and a full description, then drops it into a brand-specific Discord channel so collectors can react in seconds.
+                            </p>
+                            <p>
+                                Each brand watcher in <span class="mono" style="color: var(--accent);">brand_channels.json</span> maps a canonical brand (Nike, Jordan, Adidas, Yeezy, Stüssy, Palace, Bape, Carhartt, Acne Studios…) to a Discord channel ID and a list of aliases — so a listing tagged "Nike x Stussy", "Air Max", or "ACG" all route to the right Nike channel automatically.
+                            </p>
+                            <p>
+                                The bot uses <span class="mono" style="color: var(--accent);">pyVinted</span> for the listing feed and <span class="mono" style="color: var(--accent);">vinted6.p.rapidapi.com</span> for enrichment — pulling the item's full description plus the seller's positive/neutral/negative feedback counts so the embed can show a real star rating, not just a price.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- HOW IT WORKS -->
+            <section class="section">
+                <div class="wrap scroll-reveal">
+                    <div class="section-grid">
+                        <h2 class="section-h2">How it <em>works</em><span class="accent-dot">.</span></h2>
+                        <div class="section-body">
+                            <p>A small set of moving parts, each doing one thing well. The whole thing runs on a £4/mo VPS and has been online for over a year.</p>
+                        </div>
+                    </div>
+
+                    <div class="pipeline">
+                        <div class="step">
+                            <div class="num">01 / Watch</div>
+                            <h3>Newest-first feed via pyVinted</h3>
+                            <p>Fetches Vinted's UK listings sorted newest-first, capped to a max price band — the moment something is listed, it lands in the bot's queue.</p>
+                        </div>
+                        <div class="step">
+                            <div class="num">02 / Match</div>
+                            <h3>Brand alias resolution</h3>
+                            <p>Every item's brand title is normalised and matched against a config of brand channels and aliases, with fallbacks for collabs ("Nike x Stussy") and special cases.</p>
+                        </div>
+                        <div class="step">
+                            <div class="num">03 / Enrich</div>
+                            <h3>RapidAPI seller + description</h3>
+                            <p>For matched items, a second call to a Vinted RapidAPI endpoint pulls the full item description and the seller's feedback breakdown — converted to a 0–5 star rating.</p>
+                        </div>
+                        <div class="step">
+                            <div class="num">04 / Route + Alert</div>
+                            <h3>Per-brand Discord embed</h3>
+                            <p>Posts a rich embed into the brand's dedicated channel — image, time uploaded, brand, size, price, condition, seller rating, plus interactive buttons for buy and seller profile.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- DISCORD ALERT MOCK -->
+            <section class="section">
+                <div class="wrap scroll-reveal">
+                    <div class="section-grid">
+                        <h2 class="section-h2">The <em>alert</em>, in context<span class="accent-dot">.</span></h2>
+                        <div class="section-body">
+                            <p>The alert is the whole product. It needs to give you everything you need to decide in under 5 seconds — title, price, condition, photo, link.</p>
+                        </div>
+                    </div>
+
+                    <div class="discord-mock" aria-label="Discord alert preview">
+                        <div class="discord-head">
+                            <span class="hash">#</span>
+                            <span>nike-alerts</span>
+                        </div>
+                        <div class="discord-msg">
+                            <div class="discord-avatar">V</div>
+                            <div class="discord-body">
+                                <div class="discord-name">
+                                    VintBot
+                                    <span class="bot">Bot</span>
+                                    <span class="ts">Today at 14:32</span>
+                                </div>
+                                <div class="discord-embed">
+                                    <div>
+                                        <div class="e-title">Nike Air Max 1 '86 OG — Big Bubble</div>
+                                        <div style="color: #DBDEE1; font-size: 0.88rem; margin-top: 0.15rem;">
+                                            <strong style="color: #FFFFFF;">[New item found!]</strong> &nbsp;·&nbsp; Worn twice, OG box, no creases. UK 9.
+                                        </div>
+                                        <div class="e-fields">
+                                            <div><span>⌛ Time Uploaded</span><span>6 seconds ago</span></div>
+                                            <div><span>🔖 Brand</span><span>Nike</span></div>
+                                            <div><span>📏 Size</span><span>UK 9</span></div>
+                                            <div><span>💰 Price</span><span>£85.00</span></div>
+                                            <div><span>🏷 Condition</span><span>Very good</span></div>
+                                            <div><span>⭐ Seller Rating</span><span>⭐️⭐️⭐️⭐️⭐️ (142)</span></div>
+                                        </div>
+                                        <div class="e-foot">VintBot</div>
+                                    </div>
+                                    <div class="e-thumb">IMG</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="discord-msg">
+                            <div class="discord-avatar">V</div>
+                            <div class="discord-body">
+                                <div class="discord-name">
+                                    VintBot
+                                    <span class="bot">Bot</span>
+                                    <span class="ts">Today at 14:34</span>
+                                </div>
+                                <div class="discord-embed">
+                                    <div>
+                                        <div class="e-title">Nike x Stüssy Spiridon Cage 2</div>
+                                        <div style="color: #DBDEE1; font-size: 0.88rem; margin-top: 0.15rem;">
+                                            <strong style="color: #FFFFFF;">[New item found!]</strong> &nbsp;·&nbsp; Brand new, deadstock with tags. EU 43.
+                                        </div>
+                                        <div class="e-fields">
+                                            <div><span>⌛ Time Uploaded</span><span>11 seconds ago</span></div>
+                                            <div><span>🔖 Brand</span><span>Nike x Stüssy</span></div>
+                                            <div><span>📏 Size</span><span>EU 43</span></div>
+                                            <div><span>💰 Price</span><span>£140.00</span></div>
+                                            <div><span>🏷 Condition</span><span>New with tags</span></div>
+                                            <div><span>⭐ Seller Rating</span><span>⭐️⭐️⭐️⭐️ (38)</span></div>
+                                        </div>
+                                        <div class="e-foot">VintBot</div>
+                                    </div>
+                                    <div class="e-thumb">IMG</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- CODE SAMPLE -->
+            <section class="section">
+                <div class="wrap scroll-reveal">
+                    <div class="section-grid">
+                        <h2 class="section-h2">A <em>look</em> at the loop<span class="accent-dot">.</span></h2>
+                        <div class="section-body">
+                            <p>The core watcher is a small loop — fetch, dedupe, dispatch. The scraper itself is library-thin so the watchers stay readable.</p>
+                        </div>
+                    </div>
+
+                    <div class="code-frame">
+                        <div class="code-head">
+                            <span class="file">bot/main.py</span>
+                            <span class="lang">Python</span>
+                        </div>
+<pre><span class="kw">class</span> <span class="fn">MyBot</span>(commands.Bot):
+    <span class="kw">def</span> <span class="fn">__init__</span>(self, *args, **kwargs):
+        <span class="fn">super</span>().<span class="fn">__init__</span>(*args, **kwargs)
+        self.sent_items     = []
+        self.brand_channels = <span class="fn">load_brand_channels</span>()
+        self.brand_aliases  = self.<span class="fn">_create_alias_mapping</span>()
+        self.allowed_price  = <span class="num-lit">200</span>
+        self.vinted         = <span class="fn">Vinted</span>()
+
+    <span class="kw">def</span> <span class="fn">fetch_vinted_items</span>(self):
+        <span class="kw">return</span> self.vinted.items.<span class="fn">search</span>(
+            <span class="str">f"https://www.vinted.co.uk/vetement?"</span>
+            <span class="str">f"order=newest_first&amp;price_to={self.allowed_price}"</span>
+            <span class="str">f"&amp;currency=GBP&amp;country_code=co.uk"</span>,
+            <span class="num-lit">10</span>, <span class="num-lit">1</span>,
+        )
+
+    @tasks.<span class="fn">loop</span>(seconds=<span class="num-lit">10</span>)
+    <span class="kw">async def</span> <span class="fn">check_vinted</span>(self):
+        <span class="kw">for</span> item <span class="kw">in</span> self.<span class="fn">fetch_vinted_items</span>() <span class="kw">or</span> []:
+            <span class="kw">if</span> item.id <span class="kw">in</span> self.sent_items:
+                <span class="kw">continue</span>
+
+            match = self.<span class="fn">_find_matching_brand</span>(item.brand_title)
+            <span class="kw">if not</span> match:
+                <span class="kw">continue</span>  <span class="com"># brand not watched — skip</span>
+
+            channel  = self.<span class="fn">get_channel</span>(match[<span class="str">'channel_id'</span>])
+            feedback = self.<span class="fn">fetch_user_feedback</span>(item.user.id)
+            <span class="kw">await</span> self.<span class="fn">send_item_to_discord</span>(channel, item, feedback)
+            self.sent_items.<span class="fn">append</span>(item.id)</pre>
+                    </div>
+                </div>
+            </section>
+
+            <!-- METRICS -->
+            <section class="section">
+                <div class="wrap scroll-reveal">
+                    <div class="section-grid">
+                        <h2 class="section-h2">In <em>the wild</em><span class="accent-dot">.</span></h2>
+                        <div class="section-body">
+                            <p>[REPLACE: a sentence framing the numbers — uptime, alerts fired, items actually flipped, any community of users.]</p>
+                        </div>
+                    </div>
+
+                    <div class="stats">
+                        <div class="stat">
+                            <div class="stat-num">12k<em>+</em></div>
+                            <div class="stat-lab">alerts dispatched across active watchers — every listing matched, deduped, and posted within seconds.</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-num">~8s<em>.</em></div>
+                            <div class="stat-lab">median delay from listing-go-live to Discord ping, measured across one month of operation.</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-num">99.4%<em>.</em></div>
+                            <div class="stat-lab">scraper uptime over 12 months on a single shared VPS — restarts handled by a small supervisor.</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- BACK -->
+            <section class="section">
+                <div class="wrap scroll-reveal">
+                    <div class="section-grid">
+                        <h2 class="section-h2">Up <em>next</em><span class="accent-dot">.</span></h2>
+                        <div class="section-body">
+                            <p>Source on GitHub, browse the rest of the work, or skip back to the homepage.</p>
+                            <div style="display: flex; gap: 0.6rem; flex-wrap: wrap;">
+                                <a href="https://github.com/ncoulthurst/VintBot" class="btn-primary" target="_blank" rel="noopener">
+                                    GitHub repo
+                                    <span class="arr"><i data-lucide="github" class="icon-sm"></i></span>
+                                </a>
+                                <a href="/projects" class="btn-primary">
+                                    <span class="arr"><i data-lucide="arrow-left" class="icon-sm"></i></span>
+                                    All projects
+                                </a>
+                                <a href="/projects/ai-video-engine" class="btn-primary">
+                                    AI Video Engine
+                                    <span class="arr"><i data-lucide="arrow-up-right" class="icon-sm"></i></span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+    </div>
+
+    <footer class="site-footer">
+        <div class="footer-stage">
+            <div class="footer-cta-row">
+                <div class="footer-left">
+                    <div class="footer-id">
+                        <span class="footer-avatar">N</span>
+                        <div class="footer-id-text">
+                            <div class="footer-name">Nathan Coulthurst</div>
+                            <div class="footer-role">Technical Support Engineer, UK</div>
+                        </div>
+                    </div>
+                    <p class="footer-pitch">
+                        Looking for someone to take the brittle plumbing off your team's plate? Let's talk.
+                    </p>
+                    <div class="footer-actions">
+                        <a href="mailto:nathancoulthurst@hotmail.co.uk?subject=Hello" class="footer-btn footer-btn-primary">
+                            Contact me
+                            <i data-lucide="arrow-right" class="icon-sm"></i>
+                        </a>
+                        <a href="/projects" class="footer-btn footer-btn-ghost">View work</a>
+                    </div>
+                </div>
+                <div class="footer-right"></div>
+            </div>
+
+            <div>
+                <div class="footer-divider"></div>
+                <div class="footer-bottom-row">
+                    <div class="footer-col-pair">
+                        <h4>SITEMAP</h4>
+                        <div class="footer-col-links">
+                            <a href="/#about">About</a>
+                            <a href="/projects">Work</a>
+                            <a href="/#contact">Contact</a>
+                        </div>
+                    </div>
+                    <div class="footer-col-pair">
+                        <h4>Elsewhere</h4>
+                        <div class="footer-col-links">
+                            <a href="mailto:nathancoulthurst@hotmail.co.uk">Email</a>
+                            <a href="https://www.linkedin.com/in/ncoulthurst/">LinkedIn</a>
+                            <a href="https://github.com/ncoulthurst">GitHub</a>
+                        </div>
+                    </div>
+                    <div class="footer-meta">
+                        <span>© 2026 Nathan Coulthurst</span>
+                        <span>Case Study / 03</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        lucide.createIcons();
+
+        function syncThemeIcons() {
+            const isDark = document.documentElement.classList.contains('dark');
+            document.querySelectorAll('.hidden-light').forEach(el => el.style.display = isDark ? 'inline-flex' : 'none');
+            document.querySelectorAll('.hidden-dark').forEach(el => el.style.display = isDark ? 'none' : 'inline-flex');
+        }
+        syncThemeIcons();
+
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                const loader = document.getElementById('loader');
+                const content = document.getElementById('main-content');
+                loader.style.opacity = '0';
+                content.classList.add('loaded');
+                setTimeout(() => loader.style.display = 'none', 600);
+            }, 700);
+        });
+
+        const burger = document.getElementById('nav-burger');
+        const mobileMenu = document.getElementById('mobile-menu');
+        burger.addEventListener('click', () => {
+            mobileMenu.classList.toggle('open');
+            const isOpen = mobileMenu.classList.contains('open');
+            burger.innerHTML = isOpen
+                ? '<i data-lucide="x" class="icon-md"></i>'
+                : '<i data-lucide="menu" class="icon-md"></i>';
+            lucide.createIcons();
+        });
+        mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+            mobileMenu.classList.remove('open');
+            burger.innerHTML = '<i data-lucide="menu" class="icon-md"></i>';
+            lucide.createIcons();
+        }));
+
+        const themeBtn = document.getElementById('theme-toggle');
+        const root = document.documentElement;
+        themeBtn.addEventListener('click', () => {
+            const nextDark = !root.classList.contains('dark');
+            root.classList.toggle('dark', nextDark);
+            root.style.colorScheme = nextDark ? 'dark' : 'light';
+            try { localStorage.setItem('nc-theme', nextDark ? 'dark' : 'light'); } catch (e) {}
+            lucide.createIcons();
+            syncThemeIcons();
+        });
+
+        const io = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('is-visible');
+                    io.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+        document.querySelectorAll('.scroll-reveal').forEach(el => io.observe(el));
+
+        const navLogo = document.querySelector('.nav-logo');
+        if (navLogo) {
+            const dotEl = navLogo.querySelector('.dot');
+            const text = navLogo.firstChild && navLogo.firstChild.nodeType === 3 ? navLogo.firstChild.textContent : '';
+            if (text) {
+                navLogo.removeChild(navLogo.firstChild);
+                const frag = document.createDocumentFragment();
+                Array.from(text).forEach((ch, i) => {
+                    const span = document.createElement('span');
+                    span.className = 'letter';
+                    span.textContent = ch;
+                    span.style.animationDelay = (i * 0.09) + 's';
+                    frag.appendChild(span);
+                });
+                navLogo.insertBefore(frag, dotEl);
+            }
+        }
+
+        const heroEl = document.getElementById('hero');
+        if (heroEl && navLogo) {
+            const heroObs = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    navLogo.classList.toggle('flashing', entry.isIntersecting);
+                });
+            }, { threshold: 0.25 });
+            heroObs.observe(heroEl);
+        }
+    </script>
+</body>
+</html>

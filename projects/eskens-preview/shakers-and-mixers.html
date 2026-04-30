@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Shakers & Mixers | Eskens Tinting Solutions</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <header class="site-header" id="siteHeader">
+    <div class="shell header-inner">
+      <a href="./" class="logo">
+        <img src="img/ESKENS ONLINE LOGO.png" alt="Eskens Tinting" style="height: 38px; width: auto;">
+      </a>
+
+      <nav class="main-nav desktop-only">
+        <a href="tinting-machines" class="nav-link">Tinting Machines</a>
+        <a href="shakers-and-mixers" class="nav-link active">Shakers & Mixers</a>
+        <a href="./#faq" class="nav-link">FAQ</a>
+      </nav>
+
+      <div class="header-right">
+        <a href="#contact" class="btn btn-pill desktop-only">Contact Us</a>
+        <button class="mobile-toggle" id="mobileToggleBtn" aria-label="Toggle Menu" aria-expanded="false" aria-controls="mobileMenu">
+          <div class="bar top"></div>
+          <div class="bar mid"></div>
+          <div class="bar bot"></div>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <div class="mobile-menu-overlay" id="mobileMenu" aria-hidden="true">
+    <div class="mobile-menu-inner">
+      <a href="./" class="mobile-link">Home</a>
+      <a href="tinting-machines" class="mobile-link">Tinting Machines</a>
+      <a href="shakers-and-mixers" class="mobile-link">Shakers & Mixers</a>
+      <a href="./#faq" class="mobile-link">FAQ</a>
+      <a href="./#contact" class="mobile-link">Contact</a>
+      <button class="btn btn-pill mobile-btn">Get Started</button>
+    </div>
+  </div>
+
+  <main>
+    <section class="page-hero interactive-container">
+      <div class="hero-blobs">
+        <div class="blob hero-blob-1" data-speed="2"></div>
+        <div class="blob hero-blob-2" data-speed="-1.5"></div>
+      </div>
+      
+      <div class="shell hero-inner" style="padding-top: 60px;">
+        <h1 class="hero-title reveal-text" style="margin-bottom: 20px;">
+            High-Performance Mixing
+        </h1>
+        <p class="hero-subtitle" style="margin-bottom: 0;">
+          Shakers and mixers ensure rapid and optimal mixing of different components. 
+          Mixed directly in the sales packaging for maximum efficiency in retail and wholesale.
+        </p>
+      </div>
+    </section>
+
+    <section class="section-products">
+      <div class="shell-wide catalog-layout"> 
+        
+        <aside class="filter-sidebar">
+            <div class="filter-group">
+                <h3 class="filter-title">Brands</h3>
+                <ul class="filter-list" id="filterList">
+                    <li>
+                        <button class="filter-btn active" data-filter="all">
+                            All Models <span class="count" id="count-all">(14)</span>
+                        </button>
+                    </li>
+                    <li>
+                        <button class="filter-btn" data-filter="collomix">
+                            Collomix <span class="count" id="count-collomix">(0)</span>
+                        </button>
+                    </li>
+                    <li>
+                        <button class="filter-btn" data-filter="corob">
+                            Corob <span class="count" id="count-corob">(0)</span>
+                        </button>
+                    </li>
+                </ul>
+            </div>
+        </aside>
+
+        <div class="catalog-content">
+            <div class="product-bar">
+                <span id="showing-text" aria-live="polite">Showing All Models</span>
+                <div class="filter-line"></div>
+            </div>
+
+            <div class="product-grid" id="productGrid">
+                
+                <div class="product-card" data-brand="collomix">
+                    <div class="product-image"><img src="img/viro-neo.png" alt="Collomix VIRO neo" width="200" height="200"></div>
+                    <div class="product-info">
+                        <h3>Collomix VIRO neo</h3>
+                        <ul class="spec-list">
+                            <li>Biaxial Mixer</li>
+                            <li>Max weight: 35 kg</li>
+                            <li>Height: 50 – 400 mm</li>
+                            <li>Auto clamping</li>
+                        </ul>
+                        <button class="btn btn-pill btn-sm">View Details</button>
+                    </div>
+                </div>
+
+                <div class="product-card" data-brand="collomix">
+                    <div class="product-image"><img src="img/viba x30.png" alt="Collomix Viba X.30" width="200" height="200"></div>
+                    <div class="product-info">
+                        <h3>Collomix Viba X.30</h3>
+                        <ul class="spec-list">
+                            <li>Vibrational Shaker</li>
+                            <li>Max weight: 40 kg</li>
+                            <li>Height: 50 – 400 mm</li>
+                            <li>Retail optimized</li>
+                        </ul>
+                        <button class="btn btn-pill btn-sm">View Details</button>
+                    </div>
+                </div>
+
+                <div class="product-card" data-brand="collomix">
+                    <div class="product-image"><img src="img/viba x30v.png" alt="Collomix Viba X.30 V" width="200" height="200"></div>
+                    <div class="product-info">
+                        <h3>Collomix Viba X.30 V</h3>
+                        <ul class="spec-list">
+                            <li>Vibrational Shaker</li>
+                            <li>Max weight: 40 kg</li>
+                            <li>Height: 50 – 400 mm</li>
+                            <li>Vertical door mechanism</li>
+                        </ul>
+                        <button class="btn btn-pill btn-sm">View Details</button>
+                    </div>
+                </div>
+
+                <div class="product-card" data-brand="corob">
+                    <div class="product-image"><img src="img/evoshake500.png" alt="Corob EVOshake 500" width="200" height="200"></div>
+                    <div class="product-info">
+                        <h3>Corob EVOshake 500</h3>
+                        <ul class="spec-list">
+                            <li>Vibrational Shaker</li>
+                            <li>Max weight: 35 kg</li>
+                            <li>Height: 50 – 410 mm</li>
+                            <li>High speed mixing</li>
+                        </ul>
+                        <button class="btn btn-pill btn-sm">View Details</button>
+                    </div>
+                </div>
+
+                <div class="product-card" data-brand="collomix">
+                    <div class="product-image"><img src="img/toro neo.png" alt="Collomix TORO neo" width="200" height="200"></div>
+                    <div class="product-info">
+                        <h3>Collomix TORO neo</h3>
+                        <ul class="spec-list">
+                            <li>Biaxial Mixer</li>
+                            <li>Max weight: 35 kg</li>
+                            <li>Height: 60 – 400 mm</li>
+                            <li>Heavy duty cycle</li>
+                        </ul>
+                        <button class="btn btn-pill btn-sm">View Details</button>
+                    </div>
+                </div>
+
+                <div class="product-card" data-brand="collomix">
+                    <div class="product-image"><img src="img/rotax40.jpg" alt="Collomix ROTA X.40" width="200" height="200"></div>
+                    <div class="product-info">
+                        <h3>Collomix ROTA X.40</h3>
+                        <ul class="spec-list">
+                            <li>Biaxial Mixer</li>
+                            <li>Max weight: 35 kg</li>
+                            <li>Height: 60 – 400 mm</li>
+                            <li>Automatic speed adjust</li>
+                        </ul>
+                        <button class="btn btn-pill btn-sm">View Details</button>
+                    </div>
+                </div>
+
+                <div class="product-card" data-brand="collomix">
+                    <div class="product-image"><img src="img/biax 35.png" alt="Collomix Biax 35" width="200" height="200"></div>
+                    <div class="product-info">
+                        <h3>Collomix Biax 35</h3>
+                        <ul class="spec-list">
+                            <li>Biaxial Mixer</li>
+                            <li>Max weight: 35 kg</li>
+                            <li>Height: 70 – 400 mm</li>
+                            <li>Compact footprint</li>
+                        </ul>
+                        <button class="btn btn-pill btn-sm">View Details</button>
+                    </div>
+                </div>
+
+                <div class="product-card" data-brand="collomix">
+                    <div class="product-image"><img src="img/biax45.png" alt="Collomix Biax 45" width="200" height="200"></div>
+                    <div class="product-info">
+                        <h3>Collomix Biax 45</h3>
+                        <ul class="spec-list">
+                            <li>Biaxial Mixer</li>
+                            <li>Max weight: 40 kg</li>
+                            <li>Height: 120 – 450 mm</li>
+                            <li>Industrial performance</li>
+                        </ul>
+                        <button class="btn btn-pill btn-sm">View Details</button>
+                    </div>
+                </div>
+
+                <div class="product-card" data-brand="collomix">
+                    <div class="product-image"><img src="img/biax45s.png" alt="Collomix Biax 45S" width="200" height="200"></div>
+                    <div class="product-info">
+                        <h3>Collomix Biax 45S</h3>
+                        <ul class="spec-list">
+                            <li>Biaxial Mixer</li>
+                            <li>Max weight: 40 kg</li>
+                            <li>Height: 120 – 450 mm</li>
+                            <li>High throughput</li>
+                        </ul>
+                        <button class="btn btn-pill btn-sm">View Details</button>
+                    </div>
+                </div>
+
+                <div class="product-card" data-brand="collomix">
+                    <div class="product-image"><img src="img/biax45p.png" alt="Collomix Biax 45P" width="200" height="200"></div>
+                    <div class="product-info">
+                        <h3>Collomix Biax 45P</h3>
+                        <ul class="spec-list">
+                            <li>Biaxial Mixer</li>
+                            <li>Max weight: 40 kg</li>
+                            <li>Height: 130 – 450 mm</li>
+                            <li>Programmable cycles</li>
+                        </ul>
+                        <button class="btn btn-pill btn-sm">View Details</button>
+                    </div>
+                </div>
+
+                <div class="product-card" data-brand="collomix">
+                    <div class="product-image"><img src="img/dynax550.png" alt="Collomix Dynax 550" width="200" height="200"></div>
+                    <div class="product-info">
+                        <h3>Collomix Dynax 550</h3>
+                        <ul class="spec-list">
+                            <li>Gyroscopic Mixer</li>
+                            <li>Max weight: 40 kg</li>
+                            <li>Height: 120 – 450 mm</li>
+                            <li>Total can access</li>
+                        </ul>
+                        <button class="btn btn-pill btn-sm">View Details</button>
+                    </div>
+                </div>
+
+                <div class="product-card" data-brand="collomix">
+                    <div class="product-image"><img src="img/dynax450.png" alt="Collomix Dynax 450" width="200" height="200"></div>
+                    <div class="product-info">
+                        <h3>Collomix Dynax 450</h3>
+                        <ul class="spec-list">
+                            <li>Gyroscopic Mixer</li>
+                            <li>Max weight: 40 kg</li>
+                            <li>Height: 120 – 450 mm</li>
+                            <li>Slide door entry</li>
+                        </ul>
+                        <button class="btn btn-pill btn-sm">View Details</button>
+                    </div>
+                </div>
+
+                <div class="product-card" data-brand="collomix">
+                    <div class="product-image"><img src="img/visco550.png" alt="Collomix Visco 550" width="200" height="200"></div>
+                    <div class="product-info">
+                        <h3>Collomix Visco 550</h3>
+                        <ul class="spec-list">
+                            <li>Viscosity Mixer</li>
+                            <li>Max weight: 12.5 kg</li>
+                            <li>Height: 90 – 300 mm</li>
+                            <li>For high viscosity materials</li>
+                        </ul>
+                        <button class="btn btn-pill btn-sm">View Details</button>
+                    </div>
+                </div>
+
+                <div class="product-card" data-brand="corob">
+                    <div class="product-image"><img src="img/clevermix 700.png" alt="Corob CLEVERmix 700" width="200" height="200"></div>
+                    <div class="product-info">
+                        <h3>Corob CLEVERmix 700</h3>
+                        <ul class="spec-list">
+                            <li>Gyroscopic Mixer</li>
+                            <li>Max weight: 35 kg</li>
+                            <li>Height: 80 – 470 mm</li>
+                            <li>Smart mixing intelligence</li>
+                        </ul>
+                        <button class="btn btn-pill btn-sm">View Details</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="mega-footer">
+    <div class="shell footer-content">
+        <div class="footer-grid">
+
+            <div class="footer-col brand-col">
+                <a href="./" class="logo mb-4">
+                    <img src="img/ESKENS ONLINE LOGO.png" alt="Eskens Tinting" style="height: 38px; width: auto;">
+                </a>
+                <p class="address-block" style="margin-bottom: 32px;">
+                    Smart tinting tools designed to automate your workflow, streamline communication, and help you focus on what truly matters.
+                </p>
+                <div class="social-links">
+                    <a href="#" class="social-btn" aria-label="Facebook"><svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg></a>
+                    <a href="#" class="social-btn" aria-label="Twitter"><svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path></svg></a>
+                    <a href="#" class="social-btn" aria-label="Instagram"><svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg></a>
+                    <a href="#" class="social-btn" aria-label="LinkedIn"><svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg></a>
+                </div>
+            </div>
+
+            <div class="footer-col company-col">
+                <h5>Site Map</h5>
+                <ul class="footer-links">
+                    <li><a href="tinting-machines">Tinting Machines</a></li>
+                    <li><a href="shakers-and-mixers">Shakers & Mixers</a></li>
+                    <li><a href="./#faq">FAQ</a></li>
+                    <li><a href="./#contact">Contact</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-col contact-col">
+                <h5>Contact Information</h5>
+                <ul class="contact-list">
+                    <li>
+                        <div class="icon-circle-sm"><svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg></div>
+                        <div class="contact-text"><span>Phone:</span><a href="tel:+441925578400">+44 1925 578400</a></div>
+                    </li>
+                    <li>
+                        <div class="icon-circle-sm"><svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg></div>
+                        <div class="contact-text"><span>Email:</span><a href="mailto:info@eskens.com">info@eskens.com</a></div>
+                    </li>
+                    <li>
+                        <div class="icon-circle-sm"><svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg></div>
+                        <div class="contact-text"><span>Eskens Tinting UK</span>3 Colville Court, Warrington,<br>Cheshire WA2 8QT</div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+          <span>&copy; 2025 Eskens Tinting Solutions.</span>
+          <div class="legal-links">
+            <a href="#">Eskens NL</a>
+            <a href="#">Eskens FR</a>
+            <a href="#">Eskens Group</a>
+          </div>
+        </div>
+    </div>
+  </footer>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        // 1. MOBILE MENU
+        const mobileToggle = document.getElementById('mobileToggleBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+        const mobileLinks = mobileMenu.querySelectorAll('.mobile-link, button');
+        const body = document.body;
+
+        const toggleMenu = () => {
+            const isExpanded = mobileToggle.getAttribute('aria-expanded') === 'true';
+            if (isExpanded) {
+                mobileMenu.classList.remove('active');
+                mobileToggle.setAttribute('aria-expanded', 'false');
+                mobileMenu.setAttribute('aria-hidden', 'true');
+                body.style.overflow = '';
+            } else {
+                mobileMenu.classList.add('active');
+                mobileToggle.setAttribute('aria-expanded', 'true');
+                mobileMenu.setAttribute('aria-hidden', 'false');
+                body.style.overflow = 'hidden';
+            }
+        };
+        
+        mobileToggle.addEventListener('click', toggleMenu);
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                if(mobileMenu.classList.contains('active')) toggleMenu();
+            });
+        });
+
+        // 2. FILTER & COUNT LOGIC (Updated for Shakers: Collomix & Corob)
+        const cards = document.querySelectorAll('.product-card');
+        const filterBtns = document.querySelectorAll('.filter-btn');
+        const showingText = document.getElementById("showing-text");
+
+        // A. Update Counts
+        const counts = {
+            all: cards.length,
+            collomix: 0,
+            corob: 0
+        };
+
+        cards.forEach(card => {
+            const brand = card.getAttribute('data-brand');
+            if(counts[brand] !== undefined) counts[brand]++;
+        });
+
+        if(document.getElementById('count-all')) document.getElementById('count-all').innerText = `(${counts.all})`;
+        if(document.getElementById('count-collomix')) document.getElementById('count-collomix').innerText = `(${counts.collomix})`;
+        if(document.getElementById('count-corob')) document.getElementById('count-corob').innerText = `(${counts.corob})`;
+
+        // B. Filter Function
+        const applyFilter = (category) => {
+            let visibleCount = 0;
+            cards.forEach(card => {
+                const brand = card.getAttribute('data-brand');
+                if (category === 'all' || brand === category) {
+                    card.classList.add("show");
+                    visibleCount++;
+                } else {
+                    card.classList.remove("show");
+                }
+            });
+
+            // Update Text
+            let catName = 'All';
+            if (category === 'collomix') catName = 'Collomix';
+            if (category === 'corob') catName = 'Corob';
+            
+            if(showingText) showingText.innerText = `Showing ${catName} Models (${visibleCount})`;
+
+            // Update Active Button
+            filterBtns.forEach(btn => {
+                btn.classList.remove("active");
+                if(btn.getAttribute('data-filter') === category) {
+                    btn.classList.add("active");
+                }
+            });
+        };
+
+        // C. Initialize Listeners
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                applyFilter(btn.getAttribute('data-filter'));
+            });
+        });
+
+        // Initialize view
+        applyFilter('all');
+
+        // 3. REVEAL TEXT
+        const revealElements = document.querySelectorAll('.reveal-text');
+        revealElements.forEach(element => {
+            const text = element.innerText;
+            element.innerHTML = '';
+            text.split(' ').forEach((word, i) => {
+                 const span = document.createElement('span');
+                 span.innerText = word + ' ';
+                 setTimeout(() => span.classList.add('active'), i * 50);
+                 element.appendChild(span);
+            });
+        });
+        
+        // 4. HEADER SCROLL
+        const header = document.getElementById('siteHeader');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 20) header.classList.add('scrolled'); 
+            else header.classList.remove('scrolled');
+        });
+        
+        // 5. MOUSE BLOB TRACKING (Throttled for performance)
+        const interactiveContainers = document.querySelectorAll('.interactive-container');
+        interactiveContainers.forEach(container => {
+            const blobs = container.querySelectorAll('.blob, .mesh-blob');
+            let ticking = false;
+            container.addEventListener('mousemove', (e) => {
+                if(!ticking) {
+                    window.requestAnimationFrame(() => {
+                        const rect = container.getBoundingClientRect();
+                        const x = e.clientX - rect.left - rect.width / 2;
+                        const y = e.clientY - rect.top - rect.height / 2;
+                        blobs.forEach(blob => {
+                            const speed = blob.getAttribute('data-speed') || 1;
+                            blob.style.setProperty('--mouse-x', `${(x * speed) / 10}px`);
+                            blob.style.setProperty('--mouse-y', `${(y * speed) / 10}px`);
+                        });
+                        ticking = false;
+                    });
+                    ticking = true;
+                }
+            });
+        });
+    });
+  </script>
+</body>
+</html>
