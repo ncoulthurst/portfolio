@@ -1,0 +1,22 @@
+# Local-only project folders not deployed
+projects/VintBot/
+projects/engine/
+projects/remotiontest/
+
+# Python build artifacts inside engine
+**/__pycache__/
+*.pyc
+
+# Windows / WSL crud
+*:Zone.Identifier
+.DS_Store
+Thumbs.db
+
+# Editor / OS
+.vscode/
+.idea/
+
+# Misc
+node_modules/
+.env
+.env.local
