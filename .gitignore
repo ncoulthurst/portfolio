@@ -20,3 +20,11 @@ Thumbs.db
 node_modules/
 .env
 .env.local
+
+# Local-only reference images / scratch notes
+ref.png
+reff.png
+what.png
+image[0-9].png
+IMAGE[0-9].png
+GEMINI_SESSION.md
