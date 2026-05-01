@@ -40,9 +40,9 @@
       <a href="/projects/eskens-preview/tinting-machines" class="mobile-link">Tinting Machines</a>
       <a href="/projects/eskens-preview/shakers-and-mixers" class="mobile-link">Shakers & Mixers</a>
       <a href="/projects/eskens-preview/about" class="mobile-link">About</a>
-      <a href="/projects/eskens-preview/#faq" class="mobile-link">FAQ</a>
-      <a href="/projects/eskens-preview/#contact" class="mobile-link">Contact</a>
-      <button class="btn btn-pill mobile-btn">Get Started</button>
+      <a href="#faq" class="mobile-link">FAQ</a>
+      <a href="#contact" class="mobile-link">Contact</a>
+      <a href="/projects/eskens-preview/tinting-machines" class="btn btn-pill mobile-btn">Get Started</a>
     </div>
   </div>
 
@@ -63,8 +63,8 @@
           Eskens Tinting Solutions supplies tinting machines, paint shakers & mixers to paint producers, wholesalers, paint shops and DIY retailers.
         </p>
         <div class="hero-actions animate-in delay-2">
-          <button class="btn-hero-primary btn-dynamic">Get Started</button>
-          <button class="btn-hero-secondary">View Machines</button>
+          <a href="/projects/eskens-preview/tinting-machines" class="btn-hero-primary btn-dynamic">Get Started</a>
+          <a href="/projects/eskens-preview/tinting-machines" class="btn-hero-secondary">View Machines</a>
         </div>
 
         <p class="hero-trusted-label">Trusted by global industry leaders</p>
@@ -651,6 +651,67 @@
       
       
 
+<section id="contact" class="section-pad contact-section">
+    <div class="shell">
+      <div class="contact-layout">
+        <div class="contact-text-side animate-in">
+          <span class="overline">Contact</span>
+          <h2 class="section-title">
+            Let's talk about <span class="serif-italic">your setup.</span>
+          </h2>
+          <p class="contact-desc">
+            Whether you're scaling a single store or rolling out across hundreds of sites, we'll help spec the right machines, dispensers and shakers for your throughput. Drop us a note and the team will be in touch within one working day.
+          </p>
+          <ul class="contact-meta">
+            <li><strong>Email</strong><a href="mailto:hello@eskenstinting.co.uk">hello@eskenstinting.co.uk</a></li>
+            <li><strong>Phone</strong><a href="tel:+441132345678">+44 113 234 5678</a></li>
+            <li><strong>Hours</strong><span>Mon&ndash;Fri · 08:30&ndash;17:00 GMT</span></li>
+          </ul>
+        </div>
+
+        <form class="contact-form animate-in delay-1" id="contactForm" novalidate>
+          <div class="form-row form-row-split">
+            <label class="form-field">
+              <span class="form-label">Name</span>
+              <input type="text" name="name" placeholder="Your name" required>
+            </label>
+            <label class="form-field">
+              <span class="form-label">Company</span>
+              <input type="text" name="company" placeholder="Optional">
+            </label>
+          </div>
+          <div class="form-row">
+            <label class="form-field">
+              <span class="form-label">Email</span>
+              <input type="email" name="email" placeholder="you@company.com" required>
+            </label>
+          </div>
+          <div class="form-row">
+            <label class="form-field">
+              <span class="form-label">Topic</span>
+              <select name="topic">
+                <option>New installation</option>
+                <option>Service &amp; maintenance</option>
+                <option>Spare parts</option>
+                <option>General enquiry</option>
+              </select>
+            </label>
+          </div>
+          <div class="form-row">
+            <label class="form-field">
+              <span class="form-label">Message</span>
+              <textarea name="message" rows="5" placeholder="Tell us about your sites, throughput, or what you're trying to solve."></textarea>
+            </label>
+          </div>
+          <div class="form-actions">
+            <button type="submit" class="btn-hero-primary btn-dynamic">Send message</button>
+            <span class="form-status" id="formStatus" aria-live="polite"></span>
+          </div>
+        </form>
+      </div>
+    </div>
+  </section>
+
 </main> <footer class="mega-footer">
 <div class="shell footer-content">
     <div class="footer-grid">
@@ -988,8 +1049,27 @@ bigText.style.transform = `translateY(${60 - percent * 60}px)`;
     }
   });
 
-
-
+  // Contact form: fake submit (visual only)
+  const contactForm = document.getElementById('contactForm');
+  if (contactForm) {
+    contactForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const status = document.getElementById('formStatus');
+      const submitBtn = contactForm.querySelector('button[type="submit"]');
+      const original = submitBtn.textContent;
+      submitBtn.textContent = 'Sending…';
+      submitBtn.disabled = true;
+      setTimeout(() => {
+        submitBtn.textContent = original;
+        submitBtn.disabled = false;
+        contactForm.reset();
+        status.textContent = "Thanks — we'll be in touch within one working day.";
+        status.classList.remove('error');
+        status.classList.add('visible');
+        setTimeout(() => status.classList.remove('visible'), 6000);
+      }, 700);
+    });
+  }
 
   </script>
 </body>
