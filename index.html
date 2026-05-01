@@ -358,17 +358,18 @@
         .hero-card::before {
             content: "";
             position: absolute;
-            inset: 0;
+            inset: -10%;
             background:
-                radial-gradient(120% 90% at 100% 0%, color-mix(in srgb, var(--accent) 40%, transparent), transparent 60%),
-                radial-gradient(80% 80% at 0% 100%, color-mix(in srgb, var(--accent) 14%, transparent), transparent 70%),
+                radial-gradient(circle at 50% 50%, color-mix(in srgb, var(--accent) 18%, transparent), transparent 80%),
+                radial-gradient(120% 90% at 100% 0%, color-mix(in srgb, var(--accent) 45%, transparent), transparent 65%),
+                radial-gradient(80% 80% at 0% 100%, color-mix(in srgb, var(--accent) 18%, transparent), transparent 75%),
                 linear-gradient(180deg, rgba(255,255,255,0.04), rgba(0,0,0,0.18));
             pointer-events: none;
         }
         .hero-card::after {
             content: "";
             position: absolute;
-            inset: 0;
+            inset: -8%;
             background-image:
                 linear-gradient(rgba(232, 226, 213, 0.04) 1px, transparent 1px),
                 linear-gradient(90deg, rgba(232, 226, 213, 0.04) 1px, transparent 1px);
@@ -1079,15 +1080,16 @@
         .feat-visual::before {
             content: "";
             position: absolute;
-            inset: 0;
+            inset: -12%;
             background:
-                radial-gradient(circle at 20% 30%, color-mix(in srgb, var(--accent) 55%, transparent), transparent 55%),
-                radial-gradient(circle at 80% 70%, color-mix(in srgb, var(--accent) 30%, transparent), transparent 60%);
+                radial-gradient(circle at 50% 50%, color-mix(in srgb, var(--accent) 22%, transparent), transparent 80%),
+                radial-gradient(circle at 20% 30%, color-mix(in srgb, var(--accent) 55%, transparent), transparent 60%),
+                radial-gradient(circle at 80% 70%, color-mix(in srgb, var(--accent) 35%, transparent), transparent 65%);
         }
         .feat-visual::after {
             content: "";
             position: absolute;
-            inset: 0;
+            inset: -8%;
             background-image:
                 linear-gradient(rgba(232, 226, 213, 0.06) 1px, transparent 1px),
                 linear-gradient(90deg, rgba(232, 226, 213, 0.06) 1px, transparent 1px);
@@ -1186,6 +1188,77 @@
             justify-self: end;
         }
         .feat-card:hover .feat-foot .ring { transform: rotate(45deg) scale(1.05); }
+
+        /* ===== Featured card motion ===== */
+        .feat-visual::before {
+            animation: featGradientDrift 16s ease-in-out infinite alternate;
+            transform-origin: center center;
+            will-change: transform;
+        }
+        .feat-visual::after {
+            animation: featGridDrift 28s linear infinite;
+        }
+        @keyframes featGradientDrift {
+            from { transform: translate3d(-3%, 0, 0) scale(1); }
+            to   { transform: translate3d(3%, -2%, 0) scale(1.1); }
+        }
+        @keyframes featGridDrift {
+            from { background-position: 0 0; }
+            to   { background-position: 480px 480px; }
+        }
+        .feat-visual-meta .badge {
+            position: relative;
+            overflow: hidden;
+        }
+        .feat-visual-meta .badge::after {
+            content: "";
+            position: absolute; top: 0; left: -60%;
+            width: 50%; height: 100%;
+            background: linear-gradient(110deg, transparent 0%, rgba(255,255,255,0.35) 50%, transparent 100%);
+            animation: featBadgeShimmer 6s ease-in-out infinite;
+            pointer-events: none;
+        }
+        @keyframes featBadgeShimmer {
+            0%, 100% { transform: translateX(0); opacity: 0; }
+            45%      { opacity: 1; }
+            55%      { transform: translateX(280%); opacity: 1; }
+            56%, 100% { opacity: 0; }
+        }
+        .feat-numeral em {
+            display: inline-block;
+            animation: featNumeralDot 2.8s ease-in-out infinite;
+            transform-origin: center bottom;
+        }
+        @keyframes featNumeralDot {
+            0%, 100% { transform: translateY(0) scale(1); }
+            50%      { transform: translateY(-10px) scale(1.18); }
+        }
+        .feat-foot .ring {
+            position: relative;
+            box-shadow: 0 0 0 0 color-mix(in srgb, var(--accent) 60%, transparent);
+            transition: transform 0.4s cubic-bezier(.2,.7,.2,1), box-shadow 0.5s ease;
+        }
+        .feat-foot .ring::before {
+            content: "";
+            position: absolute;
+            inset: -4px;
+            border-radius: inherit;
+            border: 1px solid color-mix(in srgb, var(--accent) 40%, transparent);
+            opacity: 0;
+            animation: featRingPulse 2.4s ease-out infinite;
+            pointer-events: none;
+        }
+        @keyframes featRingPulse {
+            0%   { transform: scale(0.95); opacity: 0.6; }
+            100% { transform: scale(1.4);  opacity: 0; }
+        }
+        .feat-card:hover .feat-foot .ring { box-shadow: 0 0 0 6px color-mix(in srgb, var(--accent) 18%, transparent); }
+        @media (prefers-reduced-motion: reduce) {
+            .feat-visual::before, .feat-visual::after,
+            .feat-visual-meta .badge::after,
+            .feat-numeral em,
+            .feat-foot .ring::before { animation: none; }
+        }
 
         /* ============ STATEMENT (image6) ============ */
         .statement {

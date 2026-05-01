@@ -212,13 +212,14 @@
         }
         @media (max-width: 700px) { .pj-card-visual { aspect-ratio: 4 / 3; min-height: 220px; } }
         .pj-card-visual::before {
-            content: ""; position: absolute; inset: 0;
+            content: ""; position: absolute; inset: -12%;
             background:
-                radial-gradient(circle at 20% 30%, color-mix(in srgb, var(--accent) 55%, transparent), transparent 55%),
-                radial-gradient(circle at 80% 70%, color-mix(in srgb, var(--accent) 30%, transparent), transparent 60%);
+                radial-gradient(circle at 50% 50%, color-mix(in srgb, var(--accent) 22%, transparent), transparent 80%),
+                radial-gradient(circle at 20% 30%, color-mix(in srgb, var(--accent) 55%, transparent), transparent 60%),
+                radial-gradient(circle at 80% 70%, color-mix(in srgb, var(--accent) 35%, transparent), transparent 65%);
         }
         .pj-card-visual::after {
-            content: ""; position: absolute; inset: 0;
+            content: ""; position: absolute; inset: -8%;
             background-image:
                 linear-gradient(rgba(232, 226, 213, 0.06) 1px, transparent 1px),
                 linear-gradient(90deg, rgba(232, 226, 213, 0.06) 1px, transparent 1px);
@@ -238,8 +239,14 @@
         }
         .pj-card-meta .badge {
             display: inline-flex; align-items: center; gap: 0.5rem;
-            padding: 0.4rem 0.85rem; background: var(--accent); color: var(--on-accent);
-            border-radius: 999px; letter-spacing: 0.15em; font-weight: 600;
+            padding: 0.42rem 0.95rem;
+            background: var(--accent); color: var(--on-accent);
+            border-radius: 999px;
+            font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+            font-size: 0.74rem;
+            font-weight: 700;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
         }
         .pj-card-numeral {
             font-size: clamp(3.5rem, 9vw, 7rem); font-weight: 800;
@@ -280,6 +287,146 @@
             transition: transform 0.3s ease; justify-self: end;
         }
         .pj-card:hover .pj-card-foot .ring { transform: rotate(45deg) scale(1.05); }
+
+        /* ===== Project card motion ===== */
+        .pj-card-visual::before {
+            animation: pjGradientDrift 16s ease-in-out infinite alternate;
+            transform-origin: center center;
+            will-change: transform;
+        }
+        .pj-card-visual::after {
+            animation: pjGridDrift 28s linear infinite;
+        }
+        .pj-card:nth-of-type(2) .pj-card-visual::before { animation-delay: -5s; }
+        .pj-card:nth-of-type(3) .pj-card-visual::before { animation-delay: -10s; }
+        @keyframes pjGradientDrift {
+            from { transform: translate3d(-3%, 0, 0) scale(1); }
+            to   { transform: translate3d(3%, -2%, 0) scale(1.1); }
+        }
+        @keyframes pjGridDrift {
+            from { background-position: 0 0; }
+            to   { background-position: 480px 480px; }
+        }
+        .pj-card-meta .badge {
+            position: relative;
+            overflow: hidden;
+        }
+        .pj-card-meta .badge::after {
+            content: "";
+            position: absolute; top: -50%; left: -150%;
+            width: 200%; height: 200%;
+            background: linear-gradient(
+                115deg,
+                transparent 38%,
+                rgba(255, 255, 255, 0.06) 46%,
+                rgba(255, 255, 255, 0.22) 50%,
+                rgba(255, 255, 255, 0.06) 54%,
+                transparent 62%
+            );
+            transform: translateX(0);
+            animation: pjBadgeShimmer 7s cubic-bezier(.55, .1, .35, .9) infinite;
+            pointer-events: none;
+            will-change: transform;
+        }
+        .pj-card:nth-of-type(2) .pj-card-meta .badge::after { animation-delay: 1.6s; }
+        .pj-card:nth-of-type(3) .pj-card-meta .badge::after { animation-delay: 3.2s; }
+        @keyframes pjBadgeShimmer {
+            0%   { transform: translateX(0); }
+            70%, 100% { transform: translateX(140%); }
+        }
+        .pj-card-numeral em {
+            display: inline-block;
+            animation: pjNumeralDot 2.8s ease-in-out infinite;
+            transform-origin: center bottom;
+        }
+        .pj-card:nth-of-type(2) .pj-card-numeral em { animation-delay: 0.5s; }
+        .pj-card:nth-of-type(3) .pj-card-numeral em { animation-delay: 1s; }
+        @keyframes pjNumeralDot {
+            0%, 100% { transform: translateY(0) scale(1); }
+            50%      { transform: translateY(-10px) scale(1.18); }
+        }
+        .pj-card-foot .ring {
+            position: relative;
+            box-shadow: 0 0 0 0 color-mix(in srgb, var(--accent) 60%, transparent);
+            transition: transform 0.4s cubic-bezier(.2,.7,.2,1), box-shadow 0.5s ease;
+        }
+        .pj-card-foot .ring::before {
+            content: "";
+            position: absolute;
+            inset: -4px;
+            border-radius: inherit;
+            border: 1px solid color-mix(in srgb, var(--accent) 40%, transparent);
+            opacity: 0;
+            animation: pjRingPulse 2.4s ease-out infinite;
+            pointer-events: none;
+        }
+        .pj-card:nth-of-type(2) .pj-card-foot .ring::before { animation-delay: 0.8s; }
+        .pj-card:nth-of-type(3) .pj-card-foot .ring::before { animation-delay: 1.6s; }
+        @keyframes pjRingPulse {
+            0%   { transform: scale(0.95); opacity: 0.6; }
+            100% { transform: scale(1.4);  opacity: 0; }
+        }
+        .pj-card:hover .pj-card-foot .ring { box-shadow: 0 0 0 6px color-mix(in srgb, var(--accent) 18%, transparent); }
+
+        /* ===== Per-card brand accents ===== */
+
+        /* Card 2: Eskens — #003057 navy */
+        .pj-card:nth-of-type(2) { --pj-brand: #003057; --pj-brand-on: #E6EEF5; }
+        .pj-card:nth-of-type(2) .pj-card-visual::before {
+            background:
+                radial-gradient(circle at 50% 50%, color-mix(in srgb, var(--pj-brand) 35%, transparent), transparent 80%),
+                radial-gradient(circle at 20% 30%, color-mix(in srgb, var(--pj-brand) 75%, transparent), transparent 60%),
+                radial-gradient(circle at 80% 70%, color-mix(in srgb, var(--pj-brand) 55%, transparent), transparent 65%);
+        }
+        .pj-card:nth-of-type(2) .pj-card-meta .badge {
+            background: var(--pj-brand);
+            color: var(--pj-brand-on);
+        }
+        .pj-card:nth-of-type(2) .pj-card-numeral em,
+        .pj-card:nth-of-type(2) .pj-card-foot h3 em { color: var(--pj-brand); }
+        .pj-card:nth-of-type(2) .pj-card-foot .ring {
+            background: var(--pj-brand);
+            color: var(--pj-brand-on);
+            box-shadow: 0 0 0 0 color-mix(in srgb, var(--pj-brand) 60%, transparent);
+        }
+        .pj-card:nth-of-type(2) .pj-card-foot .ring::before {
+            border-color: color-mix(in srgb, var(--pj-brand) 50%, transparent);
+        }
+        .pj-card:nth-of-type(2):hover .pj-card-foot .ring {
+            box-shadow: 0 0 0 6px color-mix(in srgb, var(--pj-brand) 22%, transparent);
+        }
+
+        /* Card 3: Vinted — #09B1BA teal */
+        .pj-card:nth-of-type(3) { --pj-brand: #09B1BA; --pj-brand-on: #002B2D; }
+        .pj-card:nth-of-type(3) .pj-card-visual::before {
+            background:
+                radial-gradient(circle at 50% 50%, color-mix(in srgb, var(--pj-brand) 22%, transparent), transparent 80%),
+                radial-gradient(circle at 20% 30%, color-mix(in srgb, var(--pj-brand) 55%, transparent), transparent 60%),
+                radial-gradient(circle at 80% 70%, color-mix(in srgb, var(--pj-brand) 35%, transparent), transparent 65%);
+        }
+        .pj-card:nth-of-type(3) .pj-card-meta .badge {
+            background: var(--pj-brand);
+            color: var(--pj-brand-on);
+        }
+        .pj-card:nth-of-type(3) .pj-card-numeral em,
+        .pj-card:nth-of-type(3) .pj-card-foot h3 em { color: var(--pj-brand); }
+        .pj-card:nth-of-type(3) .pj-card-foot .ring {
+            background: var(--pj-brand);
+            color: var(--pj-brand-on);
+            box-shadow: 0 0 0 0 color-mix(in srgb, var(--pj-brand) 60%, transparent);
+        }
+        .pj-card:nth-of-type(3) .pj-card-foot .ring::before {
+            border-color: color-mix(in srgb, var(--pj-brand) 50%, transparent);
+        }
+        .pj-card:nth-of-type(3):hover .pj-card-foot .ring {
+            box-shadow: 0 0 0 6px color-mix(in srgb, var(--pj-brand) 22%, transparent);
+        }
+        @media (prefers-reduced-motion: reduce) {
+            .pj-card-visual::before, .pj-card-visual::after,
+            .pj-card-meta .badge::after,
+            .pj-card-numeral em,
+            .pj-card-foot .ring::before { animation: none; }
+        }
 
         /* FOOTER */
         .site-footer {
@@ -508,7 +655,7 @@
                             </div>
                             <div class="pj-card-foot">
                                 <div>
-                                    <h3>Eskens Web <em>Refresh</em></h3>
+                                    <h3>Eskens Web Design <em>Refresh</em></h3>
                                     <p class="blurb">A full visual rebuild of the Eskens Tinting Solutions site, with a modern type system, motion-rich layout, and a live in-page scrollable preview.</p>
                                 </div>
                                 <div>
