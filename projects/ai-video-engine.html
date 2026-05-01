@@ -20,7 +20,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300..800;1,300..800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://unpkg.com/lucide@0.469.0"></script>
 
     <style>
         :root {
@@ -1415,8 +1415,8 @@
                 const content = document.getElementById('main-content');
                 loader.style.opacity = '0';
                 content.classList.add('loaded');
-                setTimeout(() => loader.style.display = 'none', 600);
-            }, 700);
+                setTimeout(() => loader.style.display = "none", 250);
+            }, 150);
         });
 
         const burger = document.getElementById('nav-burger');

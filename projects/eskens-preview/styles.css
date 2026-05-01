@@ -2086,3 +2086,72 @@ color: black !important;
 .leaders-reveal-title.reveal-text span {
     transition-delay: calc(var(--i) * 60ms);
 }
+
+/* ------------------------------------------------------------------
+   MOBILE FIXES (final pass — integration, timeline, partnerships)
+   ------------------------------------------------------------------ */
+@media (max-width: 720px) {
+    /* Integration / chip-carousel header stacks; arrows align right */
+    .carousel-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 16px;
+        margin-bottom: 24px;
+        padding-bottom: 16px;
+    }
+    .carousel-title { font-size: clamp(2rem, 7vw, 2.6rem); }
+    .carousel-nav { align-self: flex-end; }
+    .nav-arrow { width: 44px; height: 44px; }
+
+    /* Chip cards tighter on phones so two are visible peeking instead of one barely */
+    .chip-carousel-track { gap: 16px; padding: 16px 4px 40px; }
+    .chip-carousel-track .chip-card {
+        width: 78vw;
+        min-width: 240px;
+        min-height: 460px;
+    }
+    .chip-bg { height: 200px; }
+    .chip-step { font-size: 2.4rem; }
+    .chip-title { font-size: 1.05rem; }
+    .chip-text { font-size: 0.88rem; margin-top: 16px; }
+
+    /* Story timeline: more breathing room, smaller dates, tighter gutter */
+    .timeline-component { padding: 0 8px; }
+    .timeline-progress-track { left: 16px; }
+    .timeline-item {
+        grid-template-columns: 44px 1fr !important;
+        padding-top: 44px;
+        gap: 4px;
+    }
+    .timeline-center { padding-left: 8px !important; }
+    .timeline-circle { width: 12px; height: 12px; box-shadow: 0 0 0 3px #fff; }
+    .timeline-item.active .timeline-circle { box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.85); }
+    .timeline-date { font-size: 1.6rem !important; }
+    .timeline-heading { font-size: 1.15rem; margin-bottom: 8px; }
+    .timeline-text { font-size: 0.95rem; line-height: 1.55; }
+    .timeline-right { padding-left: 8px !important; padding-right: 4px; }
+
+    /* Partnerships: collapse the dual-marquee to a single softer track */
+    .leaders-marquee-side {
+        height: 220px;
+        max-width: 100%;
+        gap: 12px;
+        margin: 0 auto;
+        mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent);
+        -webkit-mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent);
+    }
+    .card-marquee-track.scroll-right { display: none; }
+    .leaders-marquee-side .card-marquee-track.scroll-left { animation-duration: 28s; }
+    .logo-card { width: 130px; height: 86px; border-radius: 12px; }
+
+    .leaders-reveal-title { font-size: clamp(2.2rem, 9vw, 3rem); line-height: 1.05; }
+    .leaders-desc { font-size: 1rem; }
+}
+
+@media (max-width: 480px) {
+    .chip-carousel-track .chip-card { width: 86vw; min-width: 220px; }
+    .timeline-progress-track { left: 12px; }
+    .timeline-item { grid-template-columns: 36px 1fr !important; padding-top: 36px; }
+    .timeline-date { font-size: 1.4rem !important; }
+    .logo-card { width: 110px; height: 74px; }
+}
