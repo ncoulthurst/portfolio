@@ -446,6 +446,89 @@
         .polaroid-caption strong { font-weight: 600; color: var(--ink); }
         @media (min-width: 768px) { .polaroid-caption { padding: 0.85rem 1.1rem 1.1rem; } }
 
+        /* Polaroid card motion */
+        .hero-polaroid {
+            animation: polaroidFloat 7.5s ease-in-out infinite;
+            transform-origin: center center;
+            will-change: transform;
+        }
+        @keyframes polaroidFloat {
+            0%, 100% { transform: translateY(0) rotate(-0.3deg); }
+            50%      { transform: translateY(-6px) rotate(0.4deg); }
+        }
+        .hero-polaroid:hover {
+            transform: translateY(-6px) rotate(0deg) scale(1.01);
+            animation-play-state: paused;
+            box-shadow: 0 36px 70px -28px color-mix(in srgb, var(--accent) 35%, rgba(20, 18, 16, 0.45));
+        }
+        .hero-card::before { animation: heroCardGradientDrift 12s ease-in-out infinite alternate; }
+        .hero-card::after  { animation: heroCardGridDrift 22s linear infinite; }
+        @keyframes heroCardGradientDrift {
+            from { transform: translate3d(-2%, 0, 0) scale(1); }
+            to   { transform: translate3d(2.5%, -1.5%, 0) scale(1.08); }
+        }
+        @keyframes heroCardGridDrift {
+            from { background-position: 0 0; }
+            to   { background-position: 360px 360px; }
+        }
+        .hero-card-mark em {
+            display: inline-block;
+            animation: heroMarkDot 2.8s ease-in-out infinite;
+            transform-origin: center bottom;
+            transition: transform 0.6s cubic-bezier(.2,.7,.2,1), color 0.3s ease;
+        }
+        @keyframes heroMarkDot {
+            0%, 100% { transform: translateY(0) scale(1); }
+            50%      { transform: translateY(-9px) scale(1.15); }
+        }
+        .hero-polaroid:hover .hero-card-mark em {
+            transform: scale(1.4) rotate(180deg);
+            color: var(--accent-hover);
+            animation-play-state: paused;
+        }
+        .hero-card-tag {
+            position: relative;
+            overflow: hidden;
+            transition: background 0.3s ease, border-color 0.3s ease;
+        }
+        .hero-card-tag::after {
+            content: "";
+            position: absolute; top: 0; left: -60%;
+            width: 60%; height: 100%;
+            background: linear-gradient(110deg, transparent 0%, rgba(255,255,255,0.16) 50%, transparent 100%);
+            animation: heroTagShimmer 5.5s ease-in-out infinite;
+            pointer-events: none;
+        }
+        @keyframes heroTagShimmer {
+            0%, 100% { transform: translateX(0); opacity: 0; }
+            45%      { opacity: 1; }
+            55%      { transform: translateX(260%); opacity: 1; }
+            56%, 100% { opacity: 0; }
+        }
+        .polaroid-btn {
+            animation: polaroidBtnIdle 4.8s ease-in-out infinite;
+            animation-delay: var(--btn-delay, 0s);
+        }
+        .polaroid-actions .polaroid-btn:nth-child(2) { --btn-delay: 0.6s; }
+        @keyframes polaroidBtnIdle {
+            0%, 100% { transform: translateY(0); }
+            50%      { transform: translateY(-2px); }
+        }
+        .polaroid-btn:hover { animation-play-state: paused; }
+        .polaroid-caption {
+            transition: color 0.3s ease, transform 0.4s cubic-bezier(.2,.7,.2,1);
+        }
+        .hero-polaroid:hover .polaroid-caption { transform: translateY(2px); }
+
+        @media (prefers-reduced-motion: reduce) {
+            .hero-polaroid,
+            .hero-card::before, .hero-card::after,
+            .hero-card-mark em,
+            .hero-card-tag::after,
+            .polaroid-btn { animation: none; }
+            .hero-polaroid:hover { transform: translateY(-3px); }
+        }
+
         /* ============ BUTTONS ============ */
         .btn-primary {
             display: inline-flex;
@@ -1352,7 +1435,6 @@
                 <div class="nav-links">
                     <a href="/projects" class="nav-link">Work</a>
                     <a href="/about" class="nav-link">About</a>
-                    <a href="#contact" class="nav-link">Contact</a>
                 </div>
 
                 <div class="nav-right">
@@ -1373,7 +1455,6 @@
             <div id="mobile-menu" class="mobile-menu">
                 <a href="/projects">Work</a>
                 <a href="/about">About</a>
-                <a href="#contact">Contact</a>
             </div>
         </div>
 
@@ -1424,7 +1505,7 @@
 						</div>
 
 						<div class="polaroid-caption">
-							Hello, I'm Nathan, a <strong>technical support engineer who enjoys building automation and AI systems</strong> that remove repetitive work and improve how systems run.
+							Hello, I'm Nathan, a <strong>technical support engineer</strong>, who enjoys building automation and AI systems that remove repetitive work and improve how systems run.
 						</div>
 					</aside>
 				</div>
@@ -1747,15 +1828,9 @@
 
         const sections = ['about'].map(id => document.getElementById(id)).filter(Boolean);
         const navLinks = Array.from(document.querySelectorAll('.nav-link'));
-        const contactLink = document.querySelector('.nav-link[href="#contact"]');
         const sectionVisibility = new Map(sections.map(s => [s.id, 0]));
-        let footerFullyShown = false;
 
         function paintActive() {
-            if (footerFullyShown) {
-                navLinks.forEach(l => l.classList.toggle('is-active', l === contactLink));
-                return;
-            }
             let bestId = null;
             let bestRatio = 0;
             sectionVisibility.forEach((ratio, id) => {
@@ -1774,19 +1849,6 @@
             paintActive();
         }, { threshold: [0, 0.15, 0.3, 0.5, 0.75, 1] });
         sections.forEach(s => navObs.observe(s));
-
-        // Footer is position:fixed, revealed as #main-content scrolls up.
-        // Treat it as "fully shown" when the user has scrolled to the very bottom of the page.
-        function checkFooterRevealed() {
-            const scrolled = window.scrollY + window.innerHeight;
-            const total = document.documentElement.scrollHeight;
-            const wasShown = footerFullyShown;
-            footerFullyShown = scrolled >= total - 8;
-            if (wasShown !== footerFullyShown) paintActive();
-        }
-        window.addEventListener('scroll', checkFooterRevealed, { passive: true });
-        window.addEventListener('resize', checkFooterRevealed);
-        checkFooterRevealed();
 
         // Wrap nav-logo letters in spans for staggered flash animation
         const navLogo = document.querySelector('.nav-logo');
