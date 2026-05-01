@@ -692,6 +692,7 @@
             gap: 1.25rem;
         }
         .stat-block {
+            position: relative;
             background: var(--surface);
             border: 1px solid var(--rule);
             border-radius: 24px;
@@ -700,21 +701,61 @@
             flex-direction: column;
             justify-content: space-between;
             min-height: 140px;
+            overflow: hidden;
+            transition: transform 0.4s cubic-bezier(.2,.7,.2,1), border-color 0.3s ease, box-shadow 0.4s ease;
         }
         @media (min-width: 768px) { .stat-block { padding: 1.5rem 1.75rem 1.6rem; min-height: 160px; } }
+        .stat-block::before {
+            content: ""; position: absolute; inset: -1px;
+            background: radial-gradient(140% 100% at 100% 0%, color-mix(in srgb, var(--accent) 22%, transparent), transparent 60%);
+            opacity: 0; transition: opacity 0.45s ease;
+            pointer-events: none; border-radius: inherit;
+        }
+        .stat-block:hover {
+            transform: translateY(-3px);
+            border-color: var(--accent);
+            box-shadow: 0 18px 40px -28px color-mix(in srgb, var(--accent) 60%, transparent);
+        }
+        .stat-block:hover::before { opacity: 1; }
         .stat-block .num {
             font-size: clamp(2.2rem, 4.4vw, 3.2rem);
             font-weight: 800;
             letter-spacing: -0.05em;
             line-height: 0.92;
             color: var(--ink);
+            transition: transform 0.45s cubic-bezier(.2,.7,.2,1);
         }
-        .stat-block .num em { font-style: italic; color: var(--accent); font-weight: 700; }
+        .stat-block:hover .num { transform: translateY(-2px); }
+        .stat-block .num em {
+            font-style: italic; color: var(--accent); font-weight: 700;
+            display: inline-block;
+            animation: statDotPulse 3.4s ease-in-out infinite;
+            transform-origin: center bottom;
+            transition: transform 0.6s cubic-bezier(.2,.7,.2,1), color 0.3s ease;
+        }
+        .stat-block:nth-of-type(2) .num em { animation-delay: 0.4s; }
+        .stat-block:nth-of-type(3) .num em { animation-delay: 0.8s; }
+        .stat-block:hover .num em {
+            transform: scale(1.35) rotate(180deg) translateY(-2px);
+            color: var(--accent-hover);
+            animation-play-state: paused;
+        }
+        @keyframes statDotPulse {
+            0%, 100% { transform: translateY(0) scale(1); }
+            50%      { transform: translateY(-6px) scale(1.12); }
+        }
         .stat-block .lab {
             font-size: 0.85rem;
             color: var(--mute);
             line-height: 1.45;
             margin-top: 0.6rem;
+            transition: color 0.3s ease;
+        }
+        .stat-block:hover .lab { color: var(--ink); }
+        @media (prefers-reduced-motion: reduce) {
+            .stat-block, .stat-block::before, .stat-block .num, .stat-block .num em, .stat-block .lab { transition: none; animation: none; }
+            .stat-block:hover { transform: none; box-shadow: none; }
+            .stat-block:hover .num, .stat-block:hover .num em { transform: none; }
         }
 
         /* ============ SERVICES-STYLE 2x2 (image3) ============ */
@@ -1383,7 +1424,7 @@
 						</div>
 
 						<div class="polaroid-caption">
-							Hello, I'm Nathan, a <strong>technical support engineer building automation and AI systems</strong> that remove repetitive work and improve how systems run.
+							Hello, I'm Nathan, a <strong>technical support engineer who enjoys building automation and AI systems</strong> that remove repetitive work and improve how systems run.
 						</div>
 					</aside>
 				</div>
@@ -1444,7 +1485,7 @@
                             <div class="name-block">
                                 <div class="name">Nathan<span class="accent-dot">.</span></div>
                                 <p>
-                                    Technical Support Engineer by day, building automation and AI tools by night. My most recent project, The Video Engine, a multi-agent Python pipeline that turns a single title into a full football documentary. I like the messy work between code, design, and systems that almost work but don't quite.
+                                    Technical Support Engineer by day, building automation and AI tools by night. My most recent project, <em>The Video Engine<em>, a multi-agent Python pipeline that turns a single title into a full football documentary. I like the messy work between code, design, and systems that almost work but don't quite.
                                 </p>
                             </div>
 

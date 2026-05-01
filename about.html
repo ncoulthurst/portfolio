@@ -262,19 +262,114 @@
 
         .stat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; }
         .stat-block {
+            position: relative;
             background: var(--surface); border: 1px solid var(--rule);
             border-radius: 24px; padding: 1.25rem 1.4rem 1.4rem;
             display: flex; flex-direction: column; justify-content: space-between;
             min-height: 140px;
+            overflow: hidden;
+            transition: transform 0.4s cubic-bezier(.2,.7,.2,1), border-color 0.3s ease, box-shadow 0.4s ease;
         }
         @media (min-width: 768px) { .stat-block { padding: 1.5rem 1.75rem 1.6rem; min-height: 160px; } }
+        .stat-block::before {
+            content: ""; position: absolute; inset: -1px;
+            background: radial-gradient(140% 100% at 100% 0%, color-mix(in srgb, var(--accent) 22%, transparent), transparent 60%);
+            opacity: 0; transition: opacity 0.45s ease;
+            pointer-events: none; border-radius: inherit;
+        }
+        .stat-block > * { position: relative; z-index: 1; }
+        .stat-block:hover {
+            transform: translateY(-3px);
+            border-color: var(--accent);
+            box-shadow: 0 18px 40px -28px color-mix(in srgb, var(--accent) 60%, transparent);
+        }
+        .stat-block:hover::before { opacity: 1; }
         .stat-block .num {
             font-size: clamp(2.2rem, 4.4vw, 3.2rem);
             font-weight: 800; letter-spacing: -0.05em; line-height: 0.92;
             margin: 0.55rem 0 0.4rem;
+            transition: transform 0.45s cubic-bezier(.2,.7,.2,1);
         }
-        .stat-block .num em { font-style: normal; color: var(--accent); }
-        .stat-block .lab { font-size: 0.85rem; color: var(--mute); line-height: 1.5; }
+        .stat-block:hover .num { transform: translateY(-2px); }
+        .stat-block .num em {
+            font-style: normal; color: var(--accent);
+            display: inline-block;
+            animation: statDotPulse 3.4s ease-in-out infinite;
+            transform-origin: center bottom;
+            transition: transform 0.6s cubic-bezier(.2,.7,.2,1), color 0.3s ease;
+        }
+        .stat-block:nth-of-type(2) .num em { animation-delay: 0.4s; }
+        .stat-block:nth-of-type(3) .num em { animation-delay: 0.8s; }
+        .stat-block:hover .num em {
+            transform: scale(1.35) rotate(180deg) translateY(-2px);
+            color: var(--accent-hover);
+            animation-play-state: paused;
+        }
+        @keyframes statDotPulse {
+            0%, 100% { transform: translateY(0) scale(1); }
+            50%      { transform: translateY(-6px) scale(1.12); }
+        }
+        .stat-block .lab { font-size: 0.85rem; color: var(--mute); line-height: 1.5; transition: color 0.3s ease; }
+        .stat-block:hover .lab { color: var(--ink); }
+        @media (prefers-reduced-motion: reduce) {
+            .stat-block, .stat-block::before, .stat-block .num, .stat-block .num em, .stat-block .lab { transition: none; animation: none; }
+            .stat-block:hover { transform: none; box-shadow: none; }
+            .stat-block:hover .num, .stat-block:hover .num em { transform: none; }
+        }
+
+        /* About-card layered motion (lifted from index) */
+        .about-card { transition: transform 0.5s cubic-bezier(.2,.7,.2,1); }
+        .about-card:hover { transform: translateY(-3px); }
+        .about-card::before { animation: aboutGradientDrift 14s ease-in-out infinite alternate; }
+        .about-card::after  { animation: aboutDotsDrift 26s linear infinite; }
+        @keyframes aboutGradientDrift {
+            from { transform: translate3d(-1.5%, 0, 0) scale(1); }
+            to   { transform: translate3d(2%, -1%, 0) scale(1.06); }
+        }
+        @keyframes aboutDotsDrift {
+            from { background-position: 0 0; }
+            to   { background-position: 240px 240px; }
+        }
+        .about-card h2 .accent-dot {
+            display: inline-block;
+            animation: aboutHeadingDot 3s ease-in-out infinite;
+            transform-origin: center bottom;
+        }
+        @keyframes aboutHeadingDot {
+            0%, 100% { transform: translateY(0) scale(1); }
+            50%      { transform: translateY(-10px) scale(1.1); }
+        }
+        .about-side .name-block .name .accent-dot {
+            font-weight: 800; display: inline-block;
+            transition: transform 0.6s cubic-bezier(.2,.7,.2,1), color 0.3s ease;
+        }
+        .about-side .name-block:hover .name .accent-dot {
+            transform: scale(1.4) rotate(180deg);
+            color: var(--accent-hover);
+        }
+
+        /* Staggered entry once the about grid scrolls into view */
+        .about-grid.is-visible .about-card { animation: aboutCardSlideIn 0.85s 0.05s cubic-bezier(.2,.7,.2,1) backwards; }
+        .about-grid.is-visible .name-block { animation: aboutPopIn 0.7s 0.18s cubic-bezier(.2,.7,.2,1) backwards; }
+        .about-grid.is-visible .stat-block:nth-of-type(1) { animation: aboutPopIn 0.65s 0.30s cubic-bezier(.2,.7,.2,1) backwards; }
+        .about-grid.is-visible .stat-block:nth-of-type(2) { animation: aboutPopIn 0.65s 0.40s cubic-bezier(.2,.7,.2,1) backwards; }
+        .about-grid.is-visible .stat-block:nth-of-type(3) { animation: aboutPopIn 0.65s 0.50s cubic-bezier(.2,.7,.2,1) backwards; }
+        @keyframes aboutCardSlideIn {
+            from { opacity: 0; transform: translateX(-22px) scale(0.99); }
+            to   { opacity: 1; transform: translateX(0) scale(1); }
+        }
+        @keyframes aboutPopIn {
+            from { opacity: 0; transform: translateY(20px) scale(0.97); }
+            to   { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .about-card::before, .about-card::after,
+            .about-card h2 .accent-dot,
+            .about-grid.is-visible .about-card,
+            .about-grid.is-visible .name-block,
+            .about-grid.is-visible .stat-block { animation: none; }
+        }
 
         /* PRINCIPLES */
         .ab-principles {
@@ -544,7 +639,7 @@
                                     Tier 2 Technical Support Engineer at Eskens Tinting Solutions, looking after a fleet of paint dispensers and shakers across 500+ sites in the UK and Ireland. Most of my day is spent working through raised tickets, diagnosing oddly-behaving hardware remotely, scripting silent installers, and writing the kind of tooling that quietly removes a recurring headache.
                                 </p>
                                 <p>
-                                    Outside work I build personal automation and AI projects. Most recently <strong>The Video Engine</strong>, a multi-agent Python pipeline that turns a single title into a full video, and <strong>VintBot</strong>, a Vinted scraper that pings Discord the moment a watched brand drops.
+                                    Outside work I build personal automation and AI projects. Most recently, <br><strong>The Video Engine</strong><br>, a multi-agent Python pipeline that turns a single title into a full video, and <strong>VintBot</strong>, a Vinted scraper that pings Discord the moment a watched brand drops.
                                 </p>
                             </div>
 
@@ -575,8 +670,8 @@
                     <div class="section-grid">
                         <h2 class="section-h2">How I <em>work</em><span class="accent-dot">.</span></h2>
                         <div class="section-body">
-                            <p>I came up through a hybrid path: Computer Security degree, then frontline support, then automation. That background pushes me toward practical, reliable tooling over polished demos. I'd rather ship the small script that gets used every Friday than the slide deck that gets shown once.</p>
-                            <p>The work I'm proudest of is the small stuff that compounds: a silent installer that saves an engineer 90 minutes per machine, a Vinted bot that turns a fifteen-tab browsing habit into a Discord ping, an AI pipeline that drafts a full football documentary while you grab a coffee.</p>
+                            <p>I came up through a hybrid path: Computer Security degree, then frontline support, then secondline support. That background pushes me toward practical, reliable tooling over polished demos. I'd rather ship the small script that gets used every Friday than the slide deck that gets shown once.</p>
+                            <p>The work I'm proudest of is the small stuff that compounds: a silent installer that saves an engineer 90 minutes per machine, a Vinted bot that turns a fifteen-tab browsing habit into a Discord ping, an AI pipeline that drafts a full video while you grab a coffee.</p>
                         </div>
                     </div>
 
