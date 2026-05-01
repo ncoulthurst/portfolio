@@ -492,6 +492,32 @@
             });
         });
     });
+
+    // Iframe-safe anchor scroll: avoid parent page being dragged when clicking #links
+    (function () {
+      const scrollToAnchor = (id, smooth = true) => {
+        const t = document.getElementById(id);
+        if (!t) return;
+        const top = t.getBoundingClientRect().top + window.scrollY - 80;
+        window.scrollTo({ top, behavior: smooth ? 'smooth' : 'auto' });
+      };
+      document.querySelectorAll('a[href^="#"]').forEach(a => {
+        a.addEventListener('click', (e) => {
+          const href = a.getAttribute('href');
+          if (!href || href === '#') return;
+          const id = href.slice(1);
+          const target = document.getElementById(id);
+          if (!target) return;
+          e.preventDefault();
+          scrollToAnchor(id, true);
+          if (history.replaceState) history.replaceState(null, '', '#' + id);
+        });
+      });
+      if (window.location.hash) {
+        const hashId = window.location.hash.slice(1);
+        requestAnimationFrame(() => requestAnimationFrame(() => scrollToAnchor(hashId, false)));
+      }
+    })();
   </script>
 </body>
 </html>

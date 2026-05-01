@@ -814,6 +814,33 @@
             });
         });
 
+        // Intercept same-page anchor links so they only scroll the iframe,
+        // not the parent page (default browser behaviour calls scrollIntoView
+        // on the iframe element in the parent, dragging the parent down).
+        const scrollToAnchor = (id, smooth = true) => {
+            const target = document.getElementById(id);
+            if (!target) return;
+            const top = target.getBoundingClientRect().top + window.scrollY - 80;
+            window.scrollTo({ top, behavior: smooth ? 'smooth' : 'auto' });
+        };
+        document.querySelectorAll('a[href^="#"]').forEach(a => {
+            a.addEventListener('click', (e) => {
+                const id = a.getAttribute('href').slice(1);
+                if (!id) return;
+                e.preventDefault();
+                scrollToAnchor(id, true);
+                if (history.replaceState) history.replaceState(null, '', '#' + id);
+            });
+        });
+        // If the page loaded with a hash, scroll without parent scrollIntoView
+        if (window.location.hash) {
+            const hashId = window.location.hash.slice(1);
+            // Wait for layout/animations to settle
+            requestAnimationFrame(() => {
+                requestAnimationFrame(() => scrollToAnchor(hashId, false));
+            });
+        }
+
         /* 2. SCROLL HEADER LOGIC */
         const header = document.getElementById('siteHeader');
         window.addEventListener('scroll', () => {
