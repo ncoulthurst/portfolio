@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI Football Documentary Engine — Nathan Coulthurst</title>
+    <title>AI Football Documentary Engine · Nathan Coulthurst</title>
     <link rel="icon" type="image/svg+xml" href="/favicon.svg">
 
     <!-- Pre-paint theme: light is default; dark only if explicitly chosen -->
@@ -435,6 +435,13 @@
         }
         @media (min-width: 900px) {
             .video-grid { grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+        }
+        @media (min-width: 1100px) {
+            .section-videos .wrap { max-width: min(1820px, calc(100vw - 3rem)); padding: 0 1.5rem; }
+            .video-grid { gap: 2rem; }
+        }
+        @media (min-width: 1500px) {
+            .section-videos .wrap { padding: 0 2rem; }
         }
         .video-tile {
             background: var(--surface);
@@ -1075,11 +1082,11 @@
                             </p>
 
                             <p>
-                                The Python side decides <em>what</em> to make. Fifteen agents run in sequence behind a Flask UI: <span class="mono" style="color: var(--accent);">entity</span> &amp; <span class="mono" style="color: var(--accent);">research</span> agents pull background from Wikipedia and Google News, an <span class="mono" style="color: var(--accent);">analysis</span> agent shapes a director's brief, then <span class="mono" style="color: var(--accent);">script</span>, <span class="mono" style="color: var(--accent);">narration</span>, <span class="mono" style="color: var(--accent);">graphics</span>, <span class="mono" style="color: var(--accent);">player_image</span>, <span class="mono" style="color: var(--accent);">motion</span>, <span class="mono" style="color: var(--accent);">music_selector</span>, and <span class="mono" style="color: var(--accent);">production</span> agents build out the storyboard, score, and clip sourcing list — coordinated by <span class="mono" style="color: var(--accent);">orchestrator.py</span>.
+                                The Python side decides <em>what</em> to make. Fifteen agents run in sequence behind a Flask UI: <span class="mono" style="color: var(--accent);">entity</span> &amp; <span class="mono" style="color: var(--accent);">research</span> agents pull background from Wikipedia and Google News, an <span class="mono" style="color: var(--accent);">analysis</span> agent shapes a director's brief, then <span class="mono" style="color: var(--accent);">script</span>, <span class="mono" style="color: var(--accent);">narration</span>, <span class="mono" style="color: var(--accent);">graphics</span>, <span class="mono" style="color: var(--accent);">player_image</span>, <span class="mono" style="color: var(--accent);">motion</span>, <span class="mono" style="color: var(--accent);">music_selector</span>, and <span class="mono" style="color: var(--accent);">production</span> agents build out the storyboard, score, and clip sourcing list, all coordinated by <span class="mono" style="color: var(--accent);">orchestrator.py</span>.
                             </p>
 
                             <p>
-                                The Remotion side decides <em>how</em> it looks. A separate React project renders 30+ animated graphic templates — stat bars, radars, lineups, tactical boards, transfer records, league tables — driven by structured props the engine emits. ElevenLabs handles narration TTS; a centralised <span class="mono" style="color: var(--accent);">WorldStateRoot</span> lets graphics share an infinite spatial canvas so consecutive scenes feel connected instead of resetting. The Flask UI then exposes a 5-step pipeline (title → context → blueprint → storyboard → render) plus a studio grid and a 4-track timeline editor for review and export.
+                                The Remotion side decides <em>how</em> it looks. A separate React project renders 30+ animated graphic templates (stat bars, radars, lineups, tactical boards, transfer records, league tables) driven by structured props the engine emits. ElevenLabs handles narration TTS; a centralised <span class="mono" style="color: var(--accent);">WorldStateRoot</span> lets graphics share an infinite spatial canvas so consecutive scenes feel connected instead of resetting. The Flask UI then exposes a 5-step pipeline (title → context → blueprint → storyboard → render) plus a studio grid and a 4-track timeline editor for review and export.
                             </p>
                         </div>
                     </div>
@@ -1087,7 +1094,7 @@
             </section>
 
             <!-- ========== SAMPLE OUTPUTS ========== -->
-            <section class="section">
+            <section class="section section-videos">
                 <div class="wrap scroll-reveal">
                     <div class="video-head">
                         <h2 class="section-h2">Real <em style="font-style: italic; color: var(--accent);">renders</em><span class="accent-dot">.</span></h2>
@@ -1097,7 +1104,7 @@
                     <div class="video-grid">
                         <figure class="video-tile">
                             <div class="video-frame">
-                                <video src="../assets/engine-samples/AttackingRadar.mp4" controls muted playsinline preload="metadata" loop></video>
+                                <video src="../assets/engine-samples/AttackingRadar.mp4#t=0.5" controls muted playsinline preload="metadata" loop></video>
                             </div>
                             <figcaption class="video-cap">
                                 <span class="ep">Graphic · Player Radar</span>
@@ -1107,7 +1114,7 @@
 
                         <figure class="video-tile">
                             <div class="video-frame">
-                                <video src="../assets/engine-samples/IntrcptTransferRecord.mp4" controls muted playsinline preload="metadata" loop></video>
+                                <video src="../assets/engine-samples/IntrcptTransferRecord.mp4#t=0.5" controls muted playsinline preload="metadata" loop></video>
                             </div>
                             <figcaption class="video-cap">
                                 <span class="ep">Graphic · StatBars</span>
@@ -1117,7 +1124,7 @@
 
                         <figure class="video-tile">
                             <div class="video-frame">
-                                <video src="../assets/engine-samples/TournamentBracket.mp4" controls muted playsinline preload="metadata" loop></video>
+                                <video src="../assets/engine-samples/TournamentBracket.mp4#t=0.5" controls muted playsinline preload="metadata" loop></video>
                             </div>
                             <figcaption class="video-cap">
                                 <span class="ep">Graphic · World Cup</span>
@@ -1147,7 +1154,7 @@
                         <div class="moment">
                             <span class="moment-tag">02 · Context</span>
                             <h3>Editable fact checklist</h3>
-                            <p>The brief is parsed into structured facts the user can tick on or off — checked items become MUST INCLUDE constraints downstream, written to <span class="mono">context.md</span> + <span class="mono">facts.md</span>.</p>
+                            <p>The brief is parsed into structured facts the user can tick on or off. Checked items become MUST INCLUDE constraints downstream, written to <span class="mono">context.md</span> + <span class="mono">facts.md</span>.</p>
                         </div>
                         <div class="moment">
                             <span class="moment-tag">03 · Blueprint</span>
@@ -1180,7 +1187,7 @@
                         <h2 class="section-h2">Architecture<span class="accent-dot">.</span></h2>
                         <div class="section-body">
                             <p>
-                                The system has two halves. The <strong style="color: var(--ink);">Python engine</strong> (Flask + Groq + ElevenLabs) decides what to make — research, script, narration, clip sourcing. The <strong style="color: var(--ink);">Remotion project</strong> decides how it looks — 30+ React graphic templates rendered to MP4.
+                                The system has two halves. The <strong style="color: var(--ink);">Python engine</strong> (Flask + Groq + ElevenLabs) decides what to make: research, script, narration, clip sourcing. The <strong style="color: var(--ink);">Remotion project</strong> decides how it looks: 30+ React graphic templates rendered to MP4.
                             </p>
                             <p>
                                 A central <span class="mono" style="color: var(--accent);">WorldStateRoot</span> in <span class="mono" style="color: var(--accent);">VideoSequence.tsx</span> keeps consecutive graphics on a shared spatial canvas (cameraX = 0 → 1920 → 3840…), so a sequence of stat cards reads as one continuous camera move rather than 8 hard cuts. <span class="mono" style="color: var(--accent);">_break_data_runs</span> in the orchestrator reorders scenes to avoid 3+ consecutive pure-stat blocks.
@@ -1273,7 +1280,7 @@
                                     <span class="arch-stage-meta">React · /remotiontest</span>
                                 </div>
                                 <p style="margin: 0; font-size: 0.88rem; line-height: 1.55; color: var(--mute);">
-                                    30+ templates rendered through a shared <span class="mono" style="color: var(--ink);">WorldStateRoot</span> with per-scene <span class="mono" style="color: var(--ink);">cameraX</span> offsets — consecutive graphics read as one continuous camera move.
+                                    30+ templates rendered through a shared <span class="mono" style="color: var(--ink);">WorldStateRoot</span> with per-scene <span class="mono" style="color: var(--ink);">cameraX</span> offsets, so consecutive graphics read as one continuous camera move.
                                 </p>
                                 <div class="arch-chips">
                                     <span class="arch-chip">StatBars</span>
@@ -1309,14 +1316,14 @@
                         <h2 class="section-h2">More from<br>this <em style="font-style: italic; color: var(--accent);">project</em><span class="accent-dot">.</span></h2>
                         <div class="section-body">
                             <div class="more-grid">
-                                <a href="https://github.com/ncoulthurst" target="_blank" rel="noopener" class="more-link">
+                                <a href="https://github.com/ncoulthurst/video-engine" target="_blank" rel="noopener" class="more-link">
                                     <span class="more-label">
                                         <i data-lucide="github" class="icon-sm"></i>
                                         Engine repo
                                     </span>
                                     <i data-lucide="arrow-up-right" class="icon-sm"></i>
                                 </a>
-                                <a href="https://github.com/ncoulthurst" target="_blank" rel="noopener" class="more-link">
+                                <a href="https://github.com/ncoulthurst/video-engine-remotion" target="_blank" rel="noopener" class="more-link">
                                     <span class="more-label">
                                         <i data-lucide="github" class="icon-sm"></i>
                                         Remotion repo

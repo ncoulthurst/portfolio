@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vinted Marketplace Scraper — Nathan Coulthurst</title>
+    <title>Vinted Marketplace Scraper · Nathan Coulthurst</title>
     <link rel="icon" type="image/svg+xml" href="/favicon.svg">
 
     <script>
@@ -548,7 +548,7 @@
                                 Marketplace <em>Scraper</em><span class="accent-dot">.</span>
                             </h1>
                             <p class="cs-lede reveal d3">
-                                A Python Discord bot that watches Vinted's newest UK listings, routes each one to a brand-specific channel, and posts a rich embed with seller reputation, condition, and a one-tap buy link — alerts within seconds of go-live.
+                                A Python Discord bot that watches Vinted's newest UK listings, routes each one to a brand-specific channel, and posts a rich embed with seller reputation, condition, and a one-tap buy link. Alerts within seconds of go-live.
                             </p>
                             <div class="cs-chips reveal d3">
                                 <span class="cs-chip">Python</span>
@@ -570,13 +570,13 @@
 
                         <div class="section-body">
                             <p class="lead">
-                                Resellers win on speed — the listings worth buying are gone within minutes. VintBot polls Vinted's newest-first feed, enriches each item with seller history and a full description, then drops it into a brand-specific Discord channel so collectors can react in seconds.
+                                Resellers win on speed; the listings worth buying are gone within minutes. VintBot polls Vinted's newest-first feed, enriches each item with seller history and a full description, then drops it into a brand-specific Discord channel so collectors can react in seconds.
                             </p>
                             <p>
-                                Each brand watcher in <span class="mono" style="color: var(--accent);">brand_channels.json</span> maps a canonical brand (Nike, Jordan, Adidas, Yeezy, Stüssy, Palace, Bape, Carhartt, Acne Studios…) to a Discord channel ID and a list of aliases — so a listing tagged "Nike x Stussy", "Air Max", or "ACG" all route to the right Nike channel automatically.
+                                Each brand watcher in <span class="mono" style="color: var(--accent);">brand_channels.json</span> maps a canonical brand (Nike, Jordan, Adidas, Yeezy, Stüssy, Palace, Bape, Carhartt, Acne Studios…) to a Discord channel ID and a list of aliases, so a listing tagged "Nike x Stussy", "Air Max", or "ACG" all route to the right Nike channel automatically.
                             </p>
                             <p>
-                                The bot uses <span class="mono" style="color: var(--accent);">pyVinted</span> for the listing feed and <span class="mono" style="color: var(--accent);">vinted6.p.rapidapi.com</span> for enrichment — pulling the item's full description plus the seller's positive/neutral/negative feedback counts so the embed can show a real star rating, not just a price.
+                                The bot uses <span class="mono" style="color: var(--accent);">pyVinted</span> for the listing feed and <span class="mono" style="color: var(--accent);">vinted6.p.rapidapi.com</span> for enrichment, pulling the item's full description plus the seller's positive/neutral/negative feedback counts so the embed can show a real star rating, not just a price.
                             </p>
                         </div>
                     </div>
@@ -597,7 +597,7 @@
                         <div class="step">
                             <div class="num">01 / Watch</div>
                             <h3>Newest-first feed via pyVinted</h3>
-                            <p>Fetches Vinted's UK listings sorted newest-first, capped to a max price band — the moment something is listed, it lands in the bot's queue.</p>
+                            <p>Fetches Vinted's UK listings sorted newest-first, capped to a max price band. The moment something is listed, it lands in the bot's queue.</p>
                         </div>
                         <div class="step">
                             <div class="num">02 / Match</div>
@@ -607,12 +607,12 @@
                         <div class="step">
                             <div class="num">03 / Enrich</div>
                             <h3>RapidAPI seller + description</h3>
-                            <p>For matched items, a second call to a Vinted RapidAPI endpoint pulls the full item description and the seller's feedback breakdown — converted to a 0–5 star rating.</p>
+                            <p>For matched items, a second call to a Vinted RapidAPI endpoint pulls the full item description and the seller's feedback breakdown, converted to a 0–5 star rating.</p>
                         </div>
                         <div class="step">
                             <div class="num">04 / Route + Alert</div>
                             <h3>Per-brand Discord embed</h3>
-                            <p>Posts a rich embed into the brand's dedicated channel — image, time uploaded, brand, size, price, condition, seller rating, plus interactive buttons for buy and seller profile.</p>
+                            <p>Posts a rich embed into the brand's dedicated channel: image, time uploaded, brand, size, price, condition, seller rating, plus interactive buttons for buy and seller profile.</p>
                         </div>
                     </div>
                 </div>
@@ -624,7 +624,7 @@
                     <div class="section-grid">
                         <h2 class="section-h2">The <em>alert</em>, in context<span class="accent-dot">.</span></h2>
                         <div class="section-body">
-                            <p>The alert is the whole product. It needs to give you everything you need to decide in under 5 seconds — title, price, condition, photo, link.</p>
+                            <p>The alert is the whole product. It needs to give you everything you need to decide in under 5 seconds: title, price, condition, photo, link.</p>
                         </div>
                     </div>
 
@@ -643,7 +643,7 @@
                                 </div>
                                 <div class="discord-embed">
                                     <div>
-                                        <div class="e-title">Nike Air Max 1 '86 OG — Big Bubble</div>
+                                        <div class="e-title">Nike Air Max 1 '86 OG · Big Bubble</div>
                                         <div style="color: #DBDEE1; font-size: 0.88rem; margin-top: 0.15rem;">
                                             <strong style="color: #FFFFFF;">[New item found!]</strong> &nbsp;·&nbsp; Worn twice, OG box, no creases. UK 9.
                                         </div>
@@ -699,7 +699,7 @@
                     <div class="section-grid">
                         <h2 class="section-h2">A <em>look</em> at the loop<span class="accent-dot">.</span></h2>
                         <div class="section-body">
-                            <p>The core watcher is a small loop — fetch, dedupe, dispatch. The scraper itself is library-thin so the watchers stay readable.</p>
+                            <p>The core watcher is a small loop: fetch, dedupe, dispatch. The scraper itself is library-thin so the watchers stay readable.</p>
                         </div>
                     </div>
 
@@ -733,7 +733,7 @@
 
             match = self.<span class="fn">_find_matching_brand</span>(item.brand_title)
             <span class="kw">if not</span> match:
-                <span class="kw">continue</span>  <span class="com"># brand not watched — skip</span>
+                <span class="kw">continue</span>  <span class="com"># brand not watched, skip</span>
 
             channel  = self.<span class="fn">get_channel</span>(match[<span class="str">'channel_id'</span>])
             feedback = self.<span class="fn">fetch_user_feedback</span>(item.user.id)
@@ -749,22 +749,22 @@
                     <div class="section-grid">
                         <h2 class="section-h2">By <em>the numbers</em><span class="accent-dot">.</span></h2>
                         <div class="section-body">
-                            <p>A personal-use bot — built to scratch my own itch. The shape of how it actually runs day-to-day, not benchmark theatre.</p>
+                            <p>A personal-use bot, built to scratch my own itch. The shape of how it actually runs day-to-day, not benchmark theatre.</p>
                         </div>
                     </div>
 
                     <div class="stats">
                         <div class="stat">
                             <div class="stat-num">10s<em>.</em></div>
-                            <div class="stat-lab">poll interval — the loop fires every ten seconds, so a fresh listing is in Discord before the seller's even closed the upload screen.</div>
+                            <div class="stat-lab">poll interval. The loop fires every ten seconds, so a fresh listing is in Discord before the seller's even closed the upload screen.</div>
                         </div>
                         <div class="stat">
                             <div class="stat-num">JSON<em>.</em></div>
-                            <div class="stat-lab">brands and channel routing live in a single config file — add a watched brand, restart the bot, done. No code changes, no redeploy.</div>
+                            <div class="stat-lab">brands and channel routing live in a single config file. Add a watched brand, restart the bot, done. No code changes, no redeploy.</div>
                         </div>
                         <div class="stat">
                             <div class="stat-num">1<em>.</em></div>
-                            <div class="stat-lab">user — me. Zero infra, runs on a laptop or a £4 VPS. The point was reliable alerts, not a SaaS.</div>
+                            <div class="stat-lab">user. Just me. Zero infra, runs on a laptop or a £4 VPS. The point was reliable alerts, not a SaaS.</div>
                         </div>
                     </div>
                 </div>
