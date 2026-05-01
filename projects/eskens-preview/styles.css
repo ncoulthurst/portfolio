@@ -2088,6 +2088,113 @@ color: black !important;
 }
 
 /* ------------------------------------------------------------------
+   MOBILE FIXES — round 2
+   - Story timeline (home page #unified-expertise)
+   - Partnerships (#global-leaders) at small widths
+   - Bento bottom card (.span-col-2 flex-row-center)
+   - Tinting / shakers pages: hero, filters, product cards
+   ------------------------------------------------------------------ */
+
+@media (max-width: 900px) {
+    /* Story timeline inside the unified expertise card on the home page */
+    .expertise-timeline-card .timeline-component { padding-left: 0; }
+    .expertise-timeline-card .timeline-progress-track {
+        left: 16px !important;
+        transform: none !important;
+        width: 2px;
+    }
+    .expertise-timeline-card .timeline-item {
+        grid-template-columns: 44px 1fr !important;
+        padding-top: 32px;
+        gap: 4px;
+    }
+    .expertise-timeline-card .timeline-left {
+        grid-column: 2;
+        grid-row: 1;
+        text-align: left;
+        padding: 0 0 4px !important;
+    }
+    .expertise-timeline-card .timeline-center {
+        grid-column: 1;
+        grid-row: 1 / span 3;
+        padding-left: 8px !important;
+        padding-top: 8px;
+        justify-content: flex-start;
+    }
+    .expertise-timeline-card .timeline-right {
+        grid-column: 2;
+        grid-row: 2;
+        padding-left: 8px;
+        padding-right: 4px;
+    }
+    .expertise-timeline-card .timeline-date {
+        font-size: 1.6rem !important;
+    }
+    .expertise-timeline-card .timeline-heading { font-size: 1.1rem; }
+    .expertise-timeline-card .timeline-text { font-size: 0.95rem; line-height: 1.55; }
+
+    /* Partnerships title sits cleaner stacked */
+    .leaders-reveal-title {
+        display: block;
+        font-size: clamp(2rem, 7vw, 2.6rem);
+        line-height: 1.08;
+    }
+    .leaders-text-side { align-items: flex-start; }
+    .leaders-text-side .overline { display: block; margin-bottom: 8px; }
+
+    /* Bento bottom (.span-col-2): stack copy and flag strip */
+    .bento-card.span-col-2 .flex-row-center {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 18px;
+    }
+    .bento-card.span-col-2 .text-side { width: 100%; }
+    .bento-card.span-col-2 .flag-strip { align-self: flex-start; flex-wrap: wrap; row-gap: 4px; }
+
+    /* Tinting / Shakers product page: tame hero padding so title doesn't sit too far down */
+    .page-hero { padding: 110px 0 60px; }
+    .page-hero .hero-inner { margin-top: 0; padding-top: 0 !important; padding-left: 16px; padding-right: 16px; }
+    .page-hero .hero-title { font-size: clamp(2.2rem, 8vw, 3rem); }
+    .page-hero .hero-subtitle { font-size: 1rem; line-height: 1.55; }
+
+    /* Catalog: tighter gutters, smaller filter chips, smaller product gap */
+    .catalog-layout { padding: 0 16px 80px; gap: 24px; }
+    .filter-list { gap: 8px; }
+    .filter-btn { padding: 9px 14px; font-size: 0.88rem; }
+    .filter-title { margin-bottom: 12px; }
+    .product-card { padding: 16px; }
+    .product-image { margin-bottom: 12px; }
+    .product-card h3 { font-size: 1.05rem; }
+    .spec-list { font-size: 0.88rem; }
+}
+
+@media (max-width: 600px) {
+    /* Bento bottom card padding */
+    .bento-card.span-col-2 { padding: 24px; }
+    .flag-strip { padding: 4px 10px; }
+    .flag-icon { width: 22px; height: 22px; margin-left: -7px; }
+
+    /* Page hero title shrinks */
+    .page-hero { padding: 100px 0 48px; }
+    .page-hero .hero-title { font-size: clamp(1.9rem, 8vw, 2.4rem); margin-bottom: 12px !important; }
+
+    /* Filters stack to a single horizontal scroll-rail so they never wrap awkwardly */
+    .filter-list {
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        padding-bottom: 4px;
+        scrollbar-width: none;
+    }
+    .filter-list::-webkit-scrollbar { display: none; }
+    .filter-btn { white-space: nowrap; flex-shrink: 0; }
+
+    /* Tighten the section-products padding so the catalog doesn't sit in a void */
+    .section-products { padding: 0 0 80px; }
+    .product-bar { gap: 12px; margin-bottom: 24px; font-size: 0.85rem; }
+}
+
+/* ------------------------------------------------------------------
    MOBILE FIXES (final pass — integration, timeline, partnerships)
    ------------------------------------------------------------------ */
 @media (max-width: 720px) {
@@ -2160,6 +2267,12 @@ color: black !important;
    CONTACT SECTION
    ------------------------------------------------------------------ */
 .contact-section { background: #fff; }
+.contact-section .section-title em {
+    font-style: italic;
+    font-weight: 800;
+    color: var(--color-blue-brand);
+    font-family: inherit;
+}
 .contact-layout {
     display: grid;
     grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
