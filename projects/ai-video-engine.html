@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AI Football Documentary Engine — Nathan Coulthurst</title>
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
 
     <!-- Pre-paint theme: light is default; dark only if explicitly chosen -->
     <script>
@@ -508,7 +509,7 @@
             background: var(--surface);
             border: 1px solid var(--rule);
             border-radius: 24px;
-            padding: clamp(1rem, 3vw, 2.25rem);
+            padding: clamp(1.25rem, 3vw, 2.5rem);
             margin-top: 2.5rem;
         }
         .arch-frame img {
@@ -517,6 +518,250 @@
             display: block;
             border-radius: 14px;
         }
+
+        /* ============ ARCHITECTURE MAP (block diagram) ============ */
+        .arch-map {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0;
+        }
+        .arch-input {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.55rem;
+            padding: 0.6rem 1.1rem;
+            background: var(--bg);
+            border: 1px dashed var(--rule-strong);
+            border-radius: 999px;
+            font-family: 'JetBrains Mono', ui-monospace, monospace;
+            font-size: 0.72rem;
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
+            color: var(--mute);
+        }
+        .arch-input .accent { color: var(--accent); }
+        .arch-output {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.55rem;
+            padding: 0.7rem 1.25rem;
+            background: var(--card-dark);
+            color: var(--on-card-dark);
+            border-radius: 999px;
+            font-family: 'JetBrains Mono', ui-monospace, monospace;
+            font-size: 0.74rem;
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
+        }
+        .arch-output .accent { color: var(--accent); }
+        .arch-arrow {
+            width: 1px;
+            height: 28px;
+            background: var(--rule-strong);
+            position: relative;
+            margin: 0.4rem 0;
+        }
+        .arch-arrow::after {
+            content: "";
+            position: absolute;
+            left: 50%;
+            bottom: -1px;
+            width: 0;
+            height: 0;
+            border-left: 5px solid transparent;
+            border-right: 5px solid transparent;
+            border-top: 6px solid var(--rule-strong);
+            transform: translateX(-50%);
+        }
+        .arch-arrow.short { height: 20px; }
+
+        .arch-stage {
+            width: 100%;
+            background: var(--bg);
+            border: 1px solid var(--rule);
+            border-radius: 20px;
+            padding: 1.4rem 1.4rem 1.5rem;
+            position: relative;
+        }
+        @media (min-width: 700px) {
+            .arch-stage { padding: 1.75rem 1.75rem 1.85rem; }
+        }
+        .arch-stage.python { border-left: 3px solid var(--accent); }
+        .arch-stage.remotion { border-left: 3px solid var(--ink); }
+        .arch-stage-head {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 0.75rem;
+            margin-bottom: 1.1rem;
+            padding-bottom: 0.85rem;
+            border-bottom: 1px dashed var(--rule);
+            flex-wrap: wrap;
+        }
+        .arch-stage-title {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.55rem;
+            font-weight: 700;
+            font-size: 0.95rem;
+            letter-spacing: -0.01em;
+            color: var(--ink);
+        }
+        .arch-stage-title .badge {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 22px; height: 22px;
+            border-radius: 6px;
+            background: color-mix(in srgb, var(--accent) 18%, var(--surface));
+            color: var(--accent);
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.7rem;
+            font-weight: 700;
+        }
+        .arch-stage.remotion .arch-stage-title .badge {
+            background: color-mix(in srgb, var(--ink) 12%, var(--surface));
+            color: var(--ink);
+        }
+        .arch-stage-meta {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.68rem;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: var(--mute);
+        }
+        .arch-row {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 0.75rem;
+        }
+        @media (min-width: 600px) {
+            .arch-row.cols-3 { grid-template-columns: 1fr 1fr 1fr; }
+            .arch-row.cols-2 { grid-template-columns: 1fr 1fr; }
+        }
+        .arch-row + .arch-flow {
+            display: flex;
+            justify-content: center;
+            margin: 0.55rem 0;
+        }
+        .arch-flow .tick {
+            width: 1px; height: 18px; background: var(--rule-strong);
+            position: relative;
+        }
+        .arch-flow .tick::after {
+            content: "";
+            position: absolute;
+            left: 50%; bottom: -1px;
+            width: 0; height: 0;
+            border-left: 4px solid transparent;
+            border-right: 4px solid transparent;
+            border-top: 5px solid var(--rule-strong);
+            transform: translateX(-50%);
+        }
+        .arch-node {
+            background: var(--surface);
+            border: 1px solid var(--rule);
+            border-radius: 14px;
+            padding: 0.85rem 1rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
+            min-height: 78px;
+        }
+        .arch-node .name {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.82rem;
+            font-weight: 600;
+            color: var(--accent);
+            letter-spacing: -0.005em;
+        }
+        .arch-node .desc {
+            font-size: 0.78rem;
+            color: var(--mute);
+            line-height: 1.4;
+        }
+        .arch-stage.remotion .arch-node .name { color: var(--ink); }
+
+        .arch-edit {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            padding: 0.55rem 1rem;
+            background: var(--surface-2);
+            border: 1px dashed var(--rule-strong);
+            border-radius: 12px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.72rem;
+            color: var(--ink);
+            margin: 0.45rem 0;
+        }
+        .arch-edit .who {
+            color: var(--accent);
+            font-weight: 600;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+            font-size: 0.66rem;
+        }
+        .arch-edit .arrow { color: var(--mute); }
+
+        .arch-pair {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 0.75rem;
+        }
+        @media (min-width: 600px) {
+            .arch-pair { grid-template-columns: 1fr 1fr; }
+        }
+        .arch-orch-head {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.55rem;
+            padding: 0.45rem 0.9rem;
+            background: color-mix(in srgb, var(--accent) 12%, var(--surface));
+            border-radius: 999px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.7rem;
+            color: var(--accent);
+            letter-spacing: 0.04em;
+            margin-bottom: 0.85rem;
+        }
+        .arch-chips {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.45rem;
+            margin-top: 0.85rem;
+        }
+        .arch-chip {
+            display: inline-flex;
+            align-items: center;
+            padding: 0.35rem 0.7rem;
+            border: 1px solid var(--rule);
+            border-radius: 999px;
+            background: var(--bg);
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.7rem;
+            color: var(--ink);
+        }
+        .arch-pipe-label {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.66rem;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: var(--mute);
+            margin: 0.2rem 0 0.4rem;
+        }
+        .arch-split {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 0.75rem;
+            width: 100%;
+        }
+        @media (min-width: 600px) {
+            .arch-split { grid-template-columns: 1fr 1fr; }
+        }
+        .arch-split .arch-output { width: 100%; justify-content: center; }
 
         /* ============ MORE FROM PROJECT ============ */
         .more-grid {
@@ -755,7 +1000,7 @@
 
                 <div class="nav-links">
                     <a href="/projects" class="nav-link is-active">Work</a>
-                    <a href="/#about" class="nav-link">About</a>
+                    <a href="/about" class="nav-link">About</a>
                     <a href="/#contact" class="nav-link">Contact</a>
                 </div>
 
@@ -776,7 +1021,7 @@
 
             <div id="mobile-menu" class="mobile-menu">
                 <a href="/projects">Work</a>
-                <a href="/#about">About</a>
+                <a href="/about">About</a>
                 <a href="/#contact">Contact</a>
                 <a href="/">← Home</a>
             </div>
@@ -944,38 +1189,115 @@
                     </div>
 
                     <div class="arch-frame">
-<pre style="margin: 0; padding: 1.25rem 1rem; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 0.78rem; line-height: 1.7; color: var(--ink); white-space: pre; overflow-x: auto;">
-title + brief
-     │
-     ▼
-┌─────────────── Python engine (Flask · port 5000) ─────────────┐
-│                                                                │
-│   entity_agent     →  research_agent   →  analysis_agent       │
-│   (subject)           (Wikipedia/News)    (director's brief)   │
-│                                ▼                               │
-│                  context.md + facts.md  ←── user edits         │
-│                                ▼                               │
-│                     blueprint (5 acts) ←── user edits          │
-│                                ▼                               │
-│                     storyboard (70–90 scenes) ←── drag/drop    │
-│                                ▼                               │
-│   orchestrator.py runs in sequence:                            │
-│     script_agent  → narration_agent (ElevenLabs TTS)           │
-│     graphics_agent → production_agent (clip sheet)             │
-│                                ▼                               │
-└────────────────────────────────│───────────────────────────────┘
-                                 │ render props (JSON)
-                                 ▼
-┌─────────────── Remotion (React · /remotiontest) ──────────────┐
-│   30+ templates · WorldStateRoot · per-scene cameraX offset   │
-│   StatBars · Radar · Lineup · Tactical · TransferRecord …      │
-└────────────────────────────────│───────────────────────────────┘
-                                 ▼
-                renders/*.mp4 + manifest.json
-                                 ▼
-              /studio (review)  ·  /edit (4-track timeline)
-                                 ▼
-                          export → final cut</pre>
+                        <div class="arch-map">
+
+                            <span class="arch-input">title <span class="accent">+</span> director's brief</span>
+                            <div class="arch-arrow"></div>
+
+                            <div class="arch-stage python">
+                                <div class="arch-stage-head">
+                                    <span class="arch-stage-title">
+                                        <span class="badge">PY</span>
+                                        Python engine
+                                    </span>
+                                    <span class="arch-stage-meta">Flask · port 5000</span>
+                                </div>
+
+                                <div class="arch-row cols-3">
+                                    <div class="arch-node">
+                                        <span class="name">entity_agent</span>
+                                        <span class="desc">extracts subject from the title</span>
+                                    </div>
+                                    <div class="arch-node">
+                                        <span class="name">research_agent</span>
+                                        <span class="desc">Wikipedia + Google News pull</span>
+                                    </div>
+                                    <div class="arch-node">
+                                        <span class="name">analysis_agent</span>
+                                        <span class="desc">drafts the director's brief</span>
+                                    </div>
+                                </div>
+                                <div class="arch-flow"><span class="tick"></span></div>
+
+                                <div class="arch-edit">
+                                    <span class="mono">context.md + facts.md</span>
+                                    <span class="arrow">←</span>
+                                    <span class="who">user edits</span>
+                                </div>
+                                <div class="arch-flow"><span class="tick"></span></div>
+
+                                <div class="arch-edit">
+                                    <span class="mono">blueprint (5 acts)</span>
+                                    <span class="arrow">←</span>
+                                    <span class="who">user edits</span>
+                                </div>
+                                <div class="arch-flow"><span class="tick"></span></div>
+
+                                <div class="arch-edit">
+                                    <span class="mono">storyboard (70–90 scenes)</span>
+                                    <span class="arrow">←</span>
+                                    <span class="who">drag / drop</span>
+                                </div>
+                                <div class="arch-flow"><span class="tick"></span></div>
+
+                                <span class="arch-orch-head">orchestrator.py · sequential</span>
+                                <div class="arch-pair">
+                                    <div class="arch-node">
+                                        <span class="name">script_agent</span>
+                                        <span class="desc">writes the line-by-line voice script</span>
+                                    </div>
+                                    <div class="arch-node">
+                                        <span class="name">narration_agent</span>
+                                        <span class="desc">ElevenLabs TTS render</span>
+                                    </div>
+                                    <div class="arch-node">
+                                        <span class="name">graphics_agent</span>
+                                        <span class="desc">picks templates + canonical props</span>
+                                    </div>
+                                    <div class="arch-node">
+                                        <span class="name">production_agent</span>
+                                        <span class="desc">builds the clip-sourcing sheet</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="arch-pipe-label">render props (JSON)</div>
+                            <div class="arch-arrow short"></div>
+
+                            <div class="arch-stage remotion">
+                                <div class="arch-stage-head">
+                                    <span class="arch-stage-title">
+                                        <span class="badge">RX</span>
+                                        Remotion
+                                    </span>
+                                    <span class="arch-stage-meta">React · /remotiontest</span>
+                                </div>
+                                <p style="margin: 0; font-size: 0.88rem; line-height: 1.55; color: var(--mute);">
+                                    30+ templates rendered through a shared <span class="mono" style="color: var(--ink);">WorldStateRoot</span> with per-scene <span class="mono" style="color: var(--ink);">cameraX</span> offsets — consecutive graphics read as one continuous camera move.
+                                </p>
+                                <div class="arch-chips">
+                                    <span class="arch-chip">StatBars</span>
+                                    <span class="arch-chip">Radar</span>
+                                    <span class="arch-chip">Lineup</span>
+                                    <span class="arch-chip">Tactical</span>
+                                    <span class="arch-chip">TransferRecord</span>
+                                    <span class="arch-chip">…26 more</span>
+                                </div>
+                            </div>
+
+                            <div class="arch-arrow"></div>
+                            <span class="arch-output"><span class="accent">▸</span> renders/*.mp4 + manifest.json</span>
+
+                            <div class="arch-arrow"></div>
+                            <div class="arch-split">
+                                <span class="arch-output"><span class="accent">/</span> studio &nbsp;·&nbsp; review grid</span>
+                                <span class="arch-output"><span class="accent">/</span> edit &nbsp;·&nbsp; 4-track timeline</span>
+                            </div>
+
+                            <div class="arch-arrow"></div>
+                            <span class="arch-output"><span class="accent">▸</span> export → final cut</span>
+
+                        </div>
                     </div>
                 </div>
             </section>
@@ -1050,7 +1372,7 @@ title + brief
                     <div class="footer-col-pair">
                         <h4>SITEMAP</h4>
                         <div class="footer-col-links">
-                            <a href="/#about">About</a>
+                            <a href="/about">About</a>
                             <a href="/#work">Work</a>
                             <a href="/#contact">Contact</a>
                         </div>

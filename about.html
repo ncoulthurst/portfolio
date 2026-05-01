@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Eskens Web Refresh — Nathan Coulthurst</title>
+    <title>About — Nathan Coulthurst</title>
     <link rel="icon" type="image/svg+xml" href="/favicon.svg">
 
     <script>
@@ -29,6 +29,7 @@
             --accent: #C8553D; --accent-hover: #A5402D; --accent-soft: #E8A491;
             --on-accent: #F4EDE0; --on-ink: #ECE5D6; --on-ink-mute: #9A9183;
             --card-dark: #141210; --card-dark-2: #1F1C18; --on-card-dark: #ECE5D6; --on-card-dark-mute: #9A9183;
+            --card-dark-rule: rgba(232, 226, 213, 0.10); --card-dark-rule-strong: rgba(232, 226, 213, 0.20);
         }
         .dark {
             --bg: #100E0C; --bg-2: #161310; --surface: #1A1815; --surface-2: #221F1B;
@@ -37,6 +38,7 @@
             --accent: #E07A5F; --accent-hover: #F09175; --accent-soft: #663225;
             --on-accent: #100E0C; --on-ink: #ECE5D6; --on-ink-mute: #8A8275;
             --card-dark: #1A1815; --card-dark-2: #221F1B; --on-card-dark: #ECE5D6; --on-card-dark-mute: #8A8275;
+            --card-dark-rule: rgba(232, 226, 213, 0.10); --card-dark-rule-strong: rgba(232, 226, 213, 0.22);
         }
 
         * { box-sizing: border-box; }
@@ -82,12 +84,6 @@
         }
         .nav-logo:hover { color: var(--accent); }
         .nav-logo .dot { color: var(--accent); }
-        .nav-logo .letter { display: inline-block; transition: color 0.3s ease; white-space: pre; }
-        .nav-logo.flashing .letter { animation: nav-letter-flash 2.6s ease-in-out infinite; }
-        @keyframes nav-letter-flash {
-            0%, 65%, 100% { color: var(--ink); }
-            32% { color: var(--accent); }
-        }
         .nav-links { display: none; gap: 2rem; align-items: center; }
         @media (min-width: 900px) { .nav-links { display: flex; } }
         .nav-link {
@@ -134,49 +130,27 @@
         }
         .mobile-menu a:last-of-type { border-bottom: 0; }
 
-        /* TYPE & BUTTONS */
+        /* TYPE */
         .display { font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; letter-spacing: -0.05em; }
         .eyebrow {
             font-family: 'JetBrains Mono', ui-monospace, monospace;
             font-size: 0.7rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--mute);
         }
         .accent-dot { color: var(--accent); }
-        .btn-primary {
-            display: inline-flex; align-items: center; gap: 0.7rem;
-            background: var(--card-dark); color: var(--on-card-dark);
-            padding: 0.95rem 1rem 0.95rem 1.5rem; border-radius: 999px;
-            font-size: 0.95rem; font-weight: 600; border: 0;
-            transition: transform 0.25s ease, background 0.25s ease;
-        }
-        .btn-primary:hover { background: var(--card-dark-2); transform: translateY(-1px); }
-        .btn-primary .arr {
-            display: inline-flex; align-items: center; justify-content: center;
-            width: 32px; height: 32px;
-            background: var(--accent); color: var(--on-accent); border-radius: 999px;
-            transition: transform 0.3s ease;
-        }
-        .btn-primary:hover .arr { transform: rotate(45deg); }
 
         /* HERO */
-        .cs-hero {
-            padding: 3rem 0 4rem;
-            min-height: calc(100vh - 80px);
-            display: flex; align-items: center;
-        }
-        @media (min-width: 900px) { .cs-hero { padding: 4rem 0 5rem; min-height: calc(100vh - 90px); } }
-        .cs-hero > .wrap { width: 100%; }
-        .cs-hero-grid {
-            display: grid; grid-template-columns: 1fr; gap: 2rem;
-        }
+        .ab-hero { padding: 3rem 0 2rem; }
+        @media (min-width: 900px) { .ab-hero { padding: 4rem 0 3rem; } }
+        .ab-hero-grid { display: grid; grid-template-columns: 1fr; gap: 2rem; }
         @media (min-width: 1000px) {
-            .cs-hero-grid { grid-template-columns: minmax(0, 0.32fr) minmax(0, 1fr); gap: 3rem; align-items: end; }
+            .ab-hero-grid { grid-template-columns: minmax(0, 0.32fr) minmax(0, 1fr); gap: 3rem; align-items: end; }
         }
-        .cs-meta { display: flex; flex-direction: column; gap: 0.8rem; }
-        .cs-meta .meta-row {
+        .ab-meta { display: flex; flex-direction: column; gap: 0.8rem; }
+        .ab-meta .meta-row {
             font-family: 'JetBrains Mono', monospace; font-size: 0.75rem;
             color: var(--mute); letter-spacing: 0.05em;
         }
-        .cs-meta .all-work {
+        .ab-meta .home-link {
             display: inline-flex; align-items: center; gap: 0.5rem;
             font-family: 'JetBrains Mono', monospace;
             font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase;
@@ -184,146 +158,190 @@
             transition: color 0.2s ease, opacity 0.2s ease;
             opacity: 0.78; align-self: flex-start;
         }
-        .cs-meta .all-work:hover { opacity: 1; color: var(--accent); }
-        .cs-headline {
+        .ab-meta .home-link:hover { opacity: 1; color: var(--accent); }
+        .ab-headline {
             margin: 0;
             font-size: clamp(2.4rem, 7vw, 5.4rem);
             font-weight: 800; line-height: 0.98; letter-spacing: -0.04em; color: var(--ink);
         }
-        .cs-headline em { font-style: italic; font-weight: 700; color: var(--accent); }
-        .cs-lede {
-            margin: 1.75rem 0 0;
+        .ab-headline em { font-style: italic; font-weight: 700; color: var(--accent); }
+        .ab-lede {
+            margin: 1.5rem 0 0;
             font-size: clamp(1.05rem, 1.4vw, 1.2rem);
-            line-height: 1.55; color: var(--mute); max-width: 50ch;
-        }
-        .cs-chips { margin-top: 1.5rem; display: flex; flex-wrap: wrap; gap: 0.45rem; }
-        .cs-chip {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.7rem; padding: 0.34rem 0.75rem;
-            border: 1px solid var(--rule-strong); border-radius: 999px;
-            color: var(--ink); letter-spacing: 0.04em;
+            line-height: 1.55; color: var(--mute); max-width: 56ch;
         }
 
-        /* SECTION */
-        .section { padding: 5rem 0; border-top: 1px solid var(--rule); }
-        @media (min-width: 900px) { .section { padding: 6rem 0; } }
-        .section-grid {
-            display: grid; grid-template-columns: 1fr; gap: 2rem;
+        /* ABOUT GRID */
+        .section { padding: 4rem 0 4rem; border-top: 1px solid var(--rule); }
+        @media (min-width: 900px) { .section { padding: 5rem 0 5rem; } }
+
+        .about-grid {
+            display: grid; grid-template-columns: 1fr; gap: 1.25rem;
         }
         @media (min-width: 1000px) {
-            .section-grid { grid-template-columns: minmax(0, 0.32fr) minmax(0, 1fr); gap: 3rem; align-items: start; }
+            .about-grid { grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+        }
+        .about-card {
+            position: relative;
+            background: var(--card-dark);
+            color: var(--on-card-dark);
+            border-radius: 32px;
+            min-height: 380px;
+            padding: 1.75rem;
+            overflow: hidden;
+            display: flex; flex-direction: column; justify-content: space-between; gap: 1.5rem;
+        }
+        @media (min-width: 768px) { .about-card { padding: 2.25rem; min-height: 460px; } }
+        .about-card::before {
+            content: ""; position: absolute; inset: 0;
+            background:
+                radial-gradient(80% 80% at 100% 100%, color-mix(in srgb, var(--accent) 30%, transparent), transparent 65%),
+                radial-gradient(60% 60% at 0% 0%, color-mix(in srgb, var(--accent) 12%, transparent), transparent 70%);
+            pointer-events: none;
+        }
+        .about-card::after {
+            content: ""; position: absolute; inset: 0;
+            background-image: radial-gradient(rgba(232, 226, 213, 0.12) 1px, transparent 1px);
+            background-size: 24px 24px;
+            mask-image: linear-gradient(180deg, transparent 0%, #000 30%, #000 100%);
+            -webkit-mask-image: linear-gradient(180deg, transparent 0%, #000 30%, #000 100%);
+            pointer-events: none; opacity: 0.5;
+        }
+        .about-card > * { position: relative; z-index: 1; }
+        .about-card .tag {
+            display: inline-flex; align-items: center; gap: 0.55rem;
+            padding: 0.45rem 0.9rem; border-radius: 999px;
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid var(--card-dark-rule);
+            color: var(--on-card-dark); font-size: 0.75rem; font-weight: 500;
+            align-self: flex-start;
+        }
+        .about-card .tag .dot {
+            width: 7px; height: 7px; border-radius: 50%;
+            background: var(--accent); box-shadow: 0 0 0 4px color-mix(in srgb, var(--accent) 30%, transparent);
+        }
+        .about-card h2 {
+            margin: 0;
+            font-size: clamp(3rem, 8vw, 6.5rem);
+            font-weight: 800; letter-spacing: -0.05em; line-height: 0.9;
+        }
+        .read-pill {
+            align-self: flex-start;
+            display: inline-flex; align-items: center; gap: 0.6rem;
+            background: var(--surface); color: var(--ink);
+            padding: 0.55rem 0.6rem 0.55rem 1.2rem;
+            border-radius: 999px; font-size: 0.85rem; font-weight: 600;
+            transition: background 0.2s ease, color 0.2s ease;
+        }
+        .read-pill:hover { background: var(--accent); color: var(--on-accent); }
+        .read-pill .arr {
+            display: inline-flex; align-items: center; justify-content: center;
+            width: 30px; height: 30px;
+            background: var(--accent); color: var(--on-accent); border-radius: 999px;
+            transition: background 0.2s ease, color 0.2s ease;
+        }
+        .read-pill:hover .arr { background: var(--card-dark); color: var(--on-card-dark); }
+
+        .about-side { display: flex; flex-direction: column; gap: 1.25rem; min-width: 0; }
+        .about-side .name-block {
+            background: var(--surface); border: 1px solid var(--rule); border-radius: 28px;
+            padding: 1.5rem 1.5rem 1.75rem;
+            transition: transform 0.4s ease, border-color 0.3s ease;
+        }
+        @media (min-width: 768px) { .about-side .name-block { padding: 1.75rem 1.75rem 2rem; } }
+        .about-side .name-block:hover { transform: translateY(-2px); border-color: var(--accent); }
+        .about-side .name-block .name {
+            font-size: clamp(1.8rem, 3.6vw, 2.6rem);
+            font-weight: 800; letter-spacing: -0.045em; line-height: 0.95;
+            margin: 0 0 1rem;
+        }
+        .about-side .name-block p {
+            margin: 0; font-size: 0.97rem; line-height: 1.6; color: var(--ink);
+        }
+        .about-side .name-block p + p { margin-top: 0.85rem; }
+
+        .stat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; }
+        .stat-block {
+            background: var(--surface); border: 1px solid var(--rule);
+            border-radius: 24px; padding: 1.25rem 1.4rem 1.4rem;
+            display: flex; flex-direction: column; justify-content: space-between;
+            min-height: 140px;
+        }
+        @media (min-width: 768px) { .stat-block { padding: 1.5rem 1.75rem 1.6rem; min-height: 160px; } }
+        .stat-block .num {
+            font-size: clamp(2.2rem, 4.4vw, 3.2rem);
+            font-weight: 800; letter-spacing: -0.05em; line-height: 0.92;
+            margin: 0.55rem 0 0.4rem;
+        }
+        .stat-block .num em { font-style: normal; color: var(--accent); }
+        .stat-block .lab { font-size: 0.85rem; color: var(--mute); line-height: 1.5; }
+
+        /* PRINCIPLES */
+        .ab-principles {
+            display: grid; grid-template-columns: 1fr; gap: 1rem;
+        }
+        @media (min-width: 700px) { .ab-principles { grid-template-columns: 1fr 1fr; } }
+        @media (min-width: 1000px) { .ab-principles { grid-template-columns: 1fr 1fr 1fr; } }
+        .ab-principle {
+            background: var(--surface); border: 1px solid var(--rule);
+            border-radius: 24px; padding: 1.5rem 1.6rem 1.6rem;
+            display: flex; flex-direction: column; gap: 0.75rem;
+            transition: border-color 0.3s ease, transform 0.3s ease;
+        }
+        .ab-principle:hover { border-color: var(--accent); transform: translateY(-2px); }
+        .ab-principle .pri-icon {
+            width: 38px; height: 38px; border-radius: 12px;
+            display: inline-flex; align-items: center; justify-content: center;
+            background: color-mix(in srgb, var(--accent) 14%, var(--surface));
+            color: var(--accent);
+        }
+        .ab-principle h3 {
+            margin: 0; font-size: 1.05rem; font-weight: 700; letter-spacing: -0.015em; color: var(--ink);
+        }
+        .ab-principle p { margin: 0; font-size: 0.93rem; line-height: 1.55; color: var(--mute); }
+
+        .section-grid {
+            display: grid; grid-template-columns: 1fr; gap: 1.5rem; margin-bottom: 2.5rem;
+        }
+        @media (min-width: 900px) {
+            .section-grid { grid-template-columns: minmax(0, 0.4fr) minmax(0, 1fr); gap: 3rem; align-items: end; }
         }
         .section-h2 {
             margin: 0;
-            font-size: clamp(1.75rem, 3.6vw, 2.85rem);
-            font-weight: 800; letter-spacing: -0.035em; line-height: 1.05; color: var(--ink);
+            font-size: clamp(2rem, 4.5vw, 3.4rem);
+            font-weight: 800; letter-spacing: -0.04em; line-height: 0.98; color: var(--ink);
         }
-        .section-body { display: flex; flex-direction: column; gap: 1.5rem; }
-        .section-body .lead {
-            margin: 0; font-size: clamp(1.2rem, 1.8vw, 1.55rem);
-            font-weight: 500; line-height: 1.4; letter-spacing: -0.02em; color: var(--ink);
-        }
-        .section-body p {
-            margin: 0; font-size: 1rem; line-height: 1.65; color: var(--mute); max-width: 70ch;
-        }
+        .section-h2 em { font-style: italic; font-weight: 700; color: var(--accent); }
+        .section-body p { margin: 0; color: var(--mute); font-size: 1rem; line-height: 1.6; max-width: 56ch; }
+        .section-body p + p { margin-top: 0.85rem; }
 
-        /* BROWSER FRAME / LIVE PREVIEW */
-        .preview-head {
-            display: flex; align-items: baseline; justify-content: space-between;
-            gap: 1rem; margin-bottom: 2rem;
+        /* CTA STRIP */
+        .cta-strip {
+            display: flex; flex-wrap: wrap; gap: 0.6rem; margin-top: 2rem;
         }
-        .preview-head .count {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--mute);
+        .btn-primary {
+            display: inline-flex; align-items: center; gap: 0.6rem;
+            padding: 0.8rem 1rem 0.8rem 1.4rem;
+            background: var(--card-dark); color: var(--on-card-dark);
+            border-radius: 999px; font-size: 0.9rem; font-weight: 600;
+            transition: background 0.25s ease, transform 0.25s ease;
         }
-        .browser-frame {
-            position: relative;
-            background: var(--surface);
-            border: 1px solid var(--rule);
-            border-radius: 18px;
-            overflow: hidden;
-            box-shadow: 0 30px 60px -32px rgba(20, 18, 16, 0.4);
+        .btn-primary:hover { background: var(--card-dark-2); transform: translateY(-1px); }
+        .btn-primary .arr {
+            display: inline-flex; align-items: center; justify-content: center;
+            width: 28px; height: 28px; border-radius: 999px;
+            background: var(--accent); color: var(--on-accent);
         }
-        .dark .browser-frame { box-shadow: 0 32px 64px -32px rgba(0, 0, 0, 0.65); }
-        .browser-bar {
-            display: flex; align-items: center; gap: 0.9rem;
-            padding: 0.7rem 1rem;
-            background: var(--surface-2);
-            border-bottom: 1px solid var(--rule);
+        .btn-ghost {
+            display: inline-flex; align-items: center; gap: 0.6rem;
+            padding: 0.8rem 1.3rem; border: 1px solid var(--rule-strong);
+            color: var(--ink); border-radius: 999px;
+            font-size: 0.9rem; font-weight: 600;
+            transition: border-color 0.25s ease, color 0.25s ease;
         }
-        .browser-dots { display: flex; gap: 0.4rem; }
-        .browser-dots span {
-            width: 11px; height: 11px; border-radius: 50%;
-            background: rgba(20, 18, 16, 0.18);
-        }
-        .dark .browser-dots span { background: rgba(232, 226, 213, 0.18); }
-        .browser-dots span:nth-child(1) { background: #E26B59; }
-        .browser-dots span:nth-child(2) { background: #E0B14A; }
-        .browser-dots span:nth-child(3) { background: #5BBE7A; }
-        .browser-url {
-            flex: 1;
-            background: var(--bg);
-            border: 1px solid var(--rule);
-            border-radius: 999px;
-            padding: 0.42rem 0.85rem;
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.72rem;
-            color: var(--mute);
-            letter-spacing: 0.02em;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-        .browser-actions { display: inline-flex; gap: 0.5rem; align-items: center; color: var(--mute); }
-        .browser-actions a {
-            display: inline-flex; align-items: center; gap: 0.4rem;
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.7rem; letter-spacing: 0.16em; text-transform: uppercase;
-            color: var(--mute); transition: color 0.2s ease;
-        }
-        .browser-actions a:hover { color: var(--accent); }
-        .browser-viewport {
-            position: relative;
-            width: 100%;
-            height: clamp(520px, 78vh, 880px);
-            background: var(--bg);
-            overflow: hidden;
-        }
-        .browser-viewport iframe {
-            position: absolute; inset: 0;
-            width: 100%; height: 100%;
-            border: 0;
-            display: block;
-        }
-        .preview-note {
-            margin-top: 1rem;
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.72rem; letter-spacing: 0.14em; text-transform: uppercase;
-            color: var(--mute);
-        }
-        .preview-note span { color: var(--accent); }
+        .btn-ghost:hover { border-color: var(--accent); color: var(--accent); }
 
-        /* GALLERY OF MOMENTS */
-        .moment-grid {
-            margin-top: 2.5rem;
-            display: grid; grid-template-columns: 1fr; gap: 1.25rem;
-        }
-        @media (min-width: 900px) { .moment-grid { grid-template-columns: 1fr 1fr; gap: 1.5rem; } }
-        .moment {
-            background: var(--surface);
-            border: 1px solid var(--rule);
-            border-radius: 20px;
-            padding: 1.5rem;
-            display: flex; flex-direction: column; gap: 0.65rem;
-        }
-        .moment .moment-tag {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.68rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--accent);
-        }
-        .moment h3 { margin: 0; font-size: 1.15rem; font-weight: 700; letter-spacing: -0.02em; line-height: 1.2; color: var(--ink); }
-        .moment p { margin: 0; color: var(--mute); font-size: 0.95rem; line-height: 1.6; }
-
-        /* FOOTER (same as portfolio) */
+        /* FOOTER */
         .site-footer {
             position: fixed; bottom: 0; left: 0; right: 0;
             height: 100vh; min-height: 680px; z-index: 1;
@@ -340,9 +358,14 @@
                 radial-gradient(600px 420px at 0% 0%, color-mix(in srgb, var(--accent) 8%, transparent), transparent 70%);
             pointer-events: none;
         }
-        .footer-stage { position: relative; max-width: 1320px; width: 100%; margin: 0 auto; display: flex; flex-direction: column; gap: 2.5rem; }
+        .footer-stage {
+            position: relative; max-width: 1320px; width: 100%; margin: 0 auto;
+            display: flex; flex-direction: column; gap: 2.5rem;
+        }
         .footer-cta-row { display: grid; grid-template-columns: 1fr; gap: 2.5rem; align-items: end; }
-        @media (min-width: 900px) { .footer-cta-row { grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.7fr); gap: 4rem; } }
+        @media (min-width: 900px) {
+            .footer-cta-row { grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.7fr); gap: 4rem; }
+        }
         .footer-id { display: flex; align-items: center; gap: 1rem; margin-bottom: 1.25rem; }
         .footer-avatar {
             width: 60px; height: 60px; border-radius: 50%;
@@ -352,7 +375,10 @@
         }
         .footer-id-text .footer-name { font-size: 1.3rem; font-weight: 700; color: var(--on-ink); letter-spacing: -0.025em; line-height: 1.1; }
         .footer-id-text .footer-role { font-size: 0.92rem; color: var(--on-ink-mute); margin-top: 0.2rem; }
-        .footer-pitch { margin: 0 0 1.5rem; font-size: 1rem; line-height: 1.55; color: var(--on-ink-mute); max-width: 38ch; }
+        .footer-pitch {
+            margin: 0 0 1.5rem; font-size: 1rem; line-height: 1.55;
+            color: var(--on-ink-mute); max-width: 38ch;
+        }
         .footer-actions { display: flex; flex-wrap: wrap; gap: 0.6rem; }
         .footer-btn {
             display: inline-flex; align-items: center; gap: 0.55rem;
@@ -367,8 +393,13 @@
         .footer-btn-ghost { border: 1px solid rgba(255, 255, 255, 0.18); color: var(--on-ink); }
         .footer-btn-ghost:hover { border-color: var(--accent); color: var(--accent); }
         .footer-divider { height: 1px; background: rgba(255, 255, 255, 0.10); margin: 0; }
-        .footer-bottom-row { display: grid; grid-template-columns: 1fr; gap: 1.25rem; padding-top: 1.5rem; align-items: end; }
-        @media (min-width: 900px) { .footer-bottom-row { grid-template-columns: auto auto 1fr; gap: 3rem; align-items: end; } }
+        .footer-bottom-row {
+            display: grid; grid-template-columns: 1fr; gap: 1.25rem;
+            padding-top: 1.5rem; align-items: end;
+        }
+        @media (min-width: 900px) {
+            .footer-bottom-row { grid-template-columns: auto auto 1fr; gap: 3rem; align-items: end; }
+        }
         .footer-col-pair { display: flex; gap: 1.1rem; align-items: baseline; flex-wrap: wrap; }
         .footer-col-pair h4 {
             margin: 0; font-family: 'JetBrains Mono', monospace;
@@ -389,7 +420,7 @@
         @media (min-width: 900px) { .footer-meta { text-align: right; } }
         .footer-meta span { display: block; }
 
-        /* REVEALS / LOADER */
+        /* REVEALS */
         @keyframes fadeUp { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: translateY(0); } }
         .reveal { opacity: 0; animation: fadeUp 0.85s cubic-bezier(.2,.7,.2,1) forwards; }
         .reveal.d1 { animation-delay: 0.1s; }
@@ -437,8 +468,8 @@
                 <a href="/" class="nav-logo">Nathan Coulthurst<span class="dot">.</span></a>
 
                 <div class="nav-links">
-                    <a href="/projects" class="nav-link is-active">Work</a>
-                    <a href="/about" class="nav-link">About</a>
+                    <a href="/projects" class="nav-link">Work</a>
+                    <a href="/about" class="nav-link is-active">About</a>
                     <a href="/#contact" class="nav-link">Contact</a>
                 </div>
 
@@ -447,9 +478,9 @@
                         <i data-lucide="sun" class="icon-md hidden-light"></i>
                         <i data-lucide="moon" class="icon-md hidden-dark"></i>
                     </button>
-                    <a href="/projects" class="nav-cta">
-                        <span class="arr"><i data-lucide="arrow-left" class="icon-sm"></i></span>
-                        <span>Projects</span>
+                    <a href="/assets/Nathan%20Coulthurst%20CV.pdf" target="_blank" rel="noopener" class="nav-cta">
+                        <span>View CV</span>
+                        <span class="arr"><i data-lucide="arrow-up-right" class="icon-sm"></i></span>
                     </a>
                     <button id="nav-burger" class="icon-square nav-burger" aria-label="Open menu">
                         <i data-lucide="menu" class="icon-md"></i>
@@ -466,138 +497,143 @@
         </div>
 
         <main>
-            <!-- HERO -->
-            <section class="cs-hero" id="hero">
+
+            <section class="ab-hero" id="hero">
                 <div class="wrap">
-                    <div class="cs-hero-grid">
-                        <div class="cs-meta reveal d1">
-                            <div class="eyebrow">Case Study / 02</div>
-                            <div class="meta-row">Web Design · 2025</div>
-                            <a href="/projects" class="all-work">
+                    <div class="ab-hero-grid">
+                        <div class="ab-meta reveal d1">
+                            <div class="eyebrow">About / Index</div>
+                            <div class="meta-row">Nathan Coulthurst · Leeds, UK</div>
+                            <a href="/" class="home-link">
                                 <i data-lucide="arrow-left" class="icon-sm"></i>
-                                All work
+                                Back home
                             </a>
                         </div>
 
                         <div>
-                            <h1 class="display cs-headline reveal d2">
-                                Eskens Web<br>
-                                <em>Refresh</em><span class="accent-dot">.</span>
+                            <h1 class="display ab-headline reveal d2">
+                                A bit about <em>me</em><span class="accent-dot">.</span>
                             </h1>
-                            <p class="cs-lede reveal d3">
-                                A full visual rebuild of the Eskens Tinting Solutions site — modern type system, motion-rich layout, and a live in-page preview you can scroll through right here.
+                            <p class="ab-lede reveal d3">
+                                Technical Support Engineer by day, building automation and AI tools by night. I like the messy work between code, design, and systems that almost work but don't quite.
                             </p>
-                            <div class="cs-chips reveal d3">
-                                <span class="cs-chip">HTML / CSS</span>
-                                <span class="cs-chip">Vanilla JS</span>
-                                <span class="cs-chip">Motion</span>
-                                <span class="cs-chip">Design System</span>
-                                <span class="cs-chip">Responsive</span>
-                            </div>
                         </div>
                     </div>
                 </div>
             </section>
 
-            <!-- OVERVIEW -->
             <section class="section">
                 <div class="wrap">
-                    <div class="section-grid scroll-reveal">
-                        <h2 class="section-h2">Overview<span class="accent-dot">.</span></h2>
+                    <div class="about-grid scroll-reveal">
+                        <div class="about-card">
+                            <span class="tag">
+                                <span class="dot" aria-hidden="true"></span>
+                                About
+                            </span>
+                            <h2>About<br>Me<span class="accent-dot">.</span></h2>
+                            <a href="mailto:nathancoulthurst@hotmail.co.uk?subject=Hello" class="read-pill">
+                                Get in touch
+                                <span class="arr"><i data-lucide="arrow-up-right" class="icon-sm"></i></span>
+                            </a>
+                        </div>
 
-                        <div class="section-body">
-                            <p class="lead">
-                                A redesign of the Eskens Tinting Solutions website — replacing a dated marketing brochure with a typographically considered, motion-led layout that reflects the precision of the products.
-                            </p>
-                            <p>
-                                The existing site at eskens.co.uk reads like a 2010 brochure — flat product grids, no hierarchy, generic stock imagery. The audience is paint shops, distributors and in-house ops teams who already know the kit; the site needs to feel as precise as the machines, not like a leaflet.
-                            </p>
-                            <p>
-                                The redesign leans on a tight type scale, a single warm accent against a calm neutral, and motion that's only used where sequential reveals help comprehension — scroll-reveals on the product grid, parallax on the dispenser shots, a marquee for partner brands. Nothing decorative, everything earning its place.
-                            </p>
+                        <div class="about-side">
+                            <div class="name-block">
+                                <div class="name">Nathan<span class="accent-dot">.</span></div>
+                                <p>
+                                    Tier 2 Technical Support Engineer at Eskens Tinting Solutions, looking after a fleet of paint dispensers and shakers across 500+ sites in the UK and Ireland. Most of my day is spent diagnosing oddly-behaving hardware over the phone, scripting silent installers, and writing the kind of tooling that quietly removes a recurring headache.
+                                </p>
+                                <p>
+                                    Outside work I build personal automation and AI projects — most recently <strong>The Video Engine</strong>, a multi-agent Python pipeline that turns a single title into a full football documentary, and <strong>VintBot</strong>, a Vinted scraper that pings Discord the moment a watched brand drops.
+                                </p>
+                            </div>
+
+                            <div class="stat-grid">
+                                <div class="stat-block">
+                                    <div class="eyebrow" style="margin-bottom: 0.5rem;">Education</div>
+                                    <div class="num">2:1<em>.</em></div>
+                                    <div class="lab">BSc Computer Security<br>Liverpool John Moores University</div>
+                                </div>
+                                <div class="stat-block">
+                                    <div class="eyebrow" style="margin-bottom: 0.5rem;">Located</div>
+                                    <div class="num">Leeds<em>.</em></div>
+                                    <div class="lab">UK · Open to remote</div>
+                                </div>
+                                <div class="stat-block" style="grid-column: 1 / -1;">
+                                    <div class="eyebrow" style="margin-bottom: 0.5rem;">Currently</div>
+                                    <div class="num" style="font-size: clamp(1.6rem, 3.2vw, 2.4rem);">Technical Support Engineer<em>.</em></div>
+                                    <div class="lab">Eskens Tinting Solutions · 2024 → present</div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </section>
 
-            <!-- LIVE PREVIEW -->
-            <section class="section">
-                <div class="wrap scroll-reveal">
-                    <div class="preview-head">
-                        <h2 class="section-h2">Live preview<span class="accent-dot">.</span></h2>
-                        <span class="count">Scroll inside the frame</span>
-                    </div>
-
-                    <div class="browser-frame">
-                        <div class="browser-bar">
-                            <div class="browser-dots" aria-hidden="true">
-                                <span></span><span></span><span></span>
-                            </div>
-                            <div class="browser-url mono">eskens-redesign.local / preview</div>
-                            <div class="browser-actions">
-                                <a href="/projects/eskens-preview/" target="_blank" rel="noopener">
-                                    <i data-lucide="external-link" class="icon-sm"></i>
-                                    Open
-                                </a>
-                            </div>
-                        </div>
-                        <div class="browser-viewport">
-                            <iframe
-                                src="/projects/eskens-preview/"
-                                title="Eskens redesign — scrollable preview"
-                                loading="lazy"
-                                sandbox="allow-same-origin allow-scripts"></iframe>
-                        </div>
-                    </div>
-
-                    <p class="preview-note"><span>↳</span> &nbsp; The frame above renders the redesign exactly as it would ship — animations, type, and layout intact. Scroll inside it to walk through the site.</p>
-
-                    <div class="moment-grid">
-                        <div class="moment">
-                            <span class="moment-tag">Hero</span>
-                            <h3>A landing that leads with the kit</h3>
-                            <p>The original site buried products under marketing copy. The redesign opens with a confident headline, a clear product split (Tinting Machines / Shakers & Mixers), and imagery that carries the brand instead of stock photos.</p>
-                        </div>
-                        <div class="moment">
-                            <span class="moment-tag">Catalog</span>
-                            <h3>Filterable product grid</h3>
-                            <p>Tinting and shaker pages share a filterable catalogue — Corob, Fast & Fluid, Collomix — with live counts, spec lists, and a single card pattern that scales from 14 models to whatever ships next.</p>
-                        </div>
-                        <div class="moment">
-                            <span class="moment-tag">FAQ</span>
-                            <h3>Answers customers actually ask</h3>
-                            <p>Replaced the old "contact us" wall with a real FAQ — brand coverage, machine sizing, install and training, service area. The questions buyers raise on the phone, surfaced where they look first.</p>
-                        </div>
-                        <div class="moment">
-                            <span class="moment-tag">Footer</span>
-                            <h3>One footer, used everywhere</h3>
-                            <p>A single footer pattern across the home, tinting, and shakers pages — brand block, site map, and contact list — so the site finally feels like one product instead of three loosely related templates.</p>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- BACK -->
             <section class="section">
                 <div class="wrap scroll-reveal">
                     <div class="section-grid">
-                        <h2 class="section-h2">Up <em style="font-style: italic; color: var(--accent);">next</em><span class="accent-dot">.</span></h2>
+                        <h2 class="section-h2">How I <em>work</em><span class="accent-dot">.</span></h2>
                         <div class="section-body">
-                            <p>Browse the rest of the work, or skip back to the homepage.</p>
-                            <div style="display: flex; gap: 0.6rem; flex-wrap: wrap;">
-                                <a href="/projects" class="btn-primary">
-                                    <span class="arr"><i data-lucide="arrow-left" class="icon-sm"></i></span>
-                                    All projects
-                                </a>
-                                <a href="/projects/vinted-scraper" class="btn-primary">
-                                    Next case study
-                                    <span class="arr"><i data-lucide="arrow-up-right" class="icon-sm"></i></span>
-                                </a>
-                            </div>
+                            <p>I came up through a hybrid path — Computer Security degree, then frontline support, then automation. That mix makes me allergic to two things: ceremony, and tools that only work in the demo. I want the script that runs on a Friday afternoon when someone is panicking, not the architecture diagram.</p>
+                            <p>The work I'm proudest of is the small stuff that compounds: a silent installer that saves an engineer 90 minutes per machine, a Vinted bot that turns a fifteen-tab browsing habit into a Discord ping, an AI pipeline that drafts a documentary script while you grab a coffee.</p>
                         </div>
+                    </div>
+
+                    <div class="ab-principles">
+                        <div class="ab-principle">
+                            <span class="pri-icon"><i data-lucide="wrench"></i></span>
+                            <h3>Fix the real thing</h3>
+                            <p>Root-cause over symptom-bandage every time. If a script keeps failing the same way, the script is wrong, not the operator.</p>
+                        </div>
+                        <div class="ab-principle">
+                            <span class="pri-icon"><i data-lucide="keyboard"></i></span>
+                            <h3>If it's manual twice, automate it</h3>
+                            <p>Repeated work compounds. A small script today is an hour back every week, forever — and it's one less thing to forget.</p>
+                        </div>
+                        <div class="ab-principle">
+                            <span class="pri-icon"><i data-lucide="users"></i></span>
+                            <h3>Ship for humans</h3>
+                            <p>The user isn't going to read the README. Defaults that work, error messages that tell you what to do next, no surprises.</p>
+                        </div>
+                        <div class="ab-principle">
+                            <span class="pri-icon"><i data-lucide="layers"></i></span>
+                            <h3>Boring stack, sharp edges</h3>
+                            <p>Python, plain JS, a Postgres or a JSON file. Save the novelty for the parts of the problem that actually need it.</p>
+                        </div>
+                        <div class="ab-principle">
+                            <span class="pri-icon"><i data-lucide="sparkles"></i></span>
+                            <h3>AI as a tool, not a stage</h3>
+                            <p>Multi-agent pipelines are great when each agent has one clear job. They get worse the moment you ask one to "be creative".</p>
+                        </div>
+                        <div class="ab-principle">
+                            <span class="pri-icon"><i data-lucide="message-circle"></i></span>
+                            <h3>Talk to the people doing the work</h3>
+                            <p>Tier 1 support taught me more about real failure modes than any architecture review ever has.</p>
+                        </div>
+                    </div>
+
+                    <div class="cta-strip">
+                        <a href="/projects" class="btn-primary">
+                            See selected work
+                            <span class="arr"><i data-lucide="arrow-up-right" class="icon-sm"></i></span>
+                        </a>
+                        <a href="mailto:nathancoulthurst@hotmail.co.uk?subject=Hello" class="btn-ghost">
+                            <i data-lucide="mail" class="icon-sm"></i>
+                            Email me
+                        </a>
+                        <a href="https://www.linkedin.com/in/ncoulthurst/" class="btn-ghost" target="_blank" rel="noopener">
+                            <i data-lucide="linkedin" class="icon-sm"></i>
+                            LinkedIn
+                        </a>
+                        <a href="https://github.com/ncoulthurst" class="btn-ghost" target="_blank" rel="noopener">
+                            <i data-lucide="github" class="icon-sm"></i>
+                            GitHub
+                        </a>
                     </div>
                 </div>
             </section>
+
         </main>
 
     </div>
@@ -610,11 +646,11 @@
                         <span class="footer-avatar">N</span>
                         <div class="footer-id-text">
                             <div class="footer-name">Nathan Coulthurst</div>
-                            <div class="footer-role">Technical Support Engineer, UK</div>
+                            <div class="footer-role">Technical Support Engineer<br>Leeds, United Kingdom</div>
                         </div>
                     </div>
                     <p class="footer-pitch">
-                        Looking for someone to take the brittle plumbing off your team's plate? Let's talk.
+                        Got a workflow that's mostly held together by hope and copy-paste? Let's talk.
                     </p>
                     <div class="footer-actions">
                         <a href="mailto:nathancoulthurst@hotmail.co.uk?subject=Hello" class="footer-btn footer-btn-primary">
@@ -648,7 +684,7 @@
                     </div>
                     <div class="footer-meta">
                         <span>© 2026 Nathan Coulthurst</span>
-                        <span>Case Study / 02</span>
+                        <span>About</span>
                     </div>
                 </div>
             </div>
@@ -711,34 +747,6 @@
             });
         }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
         document.querySelectorAll('.scroll-reveal').forEach(el => io.observe(el));
-
-        const navLogo = document.querySelector('.nav-logo');
-        if (navLogo) {
-            const dotEl = navLogo.querySelector('.dot');
-            const text = navLogo.firstChild && navLogo.firstChild.nodeType === 3 ? navLogo.firstChild.textContent : '';
-            if (text) {
-                navLogo.removeChild(navLogo.firstChild);
-                const frag = document.createDocumentFragment();
-                Array.from(text).forEach((ch, i) => {
-                    const span = document.createElement('span');
-                    span.className = 'letter';
-                    span.textContent = ch;
-                    span.style.animationDelay = (i * 0.09) + 's';
-                    frag.appendChild(span);
-                });
-                navLogo.insertBefore(frag, dotEl);
-            }
-        }
-
-        const heroEl = document.getElementById('hero');
-        if (heroEl && navLogo) {
-            const heroObs = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    navLogo.classList.toggle('flashing', entry.isIntersecting);
-                });
-            }, { threshold: 0.25 });
-            heroObs.observe(heroEl);
-        }
     </script>
 </body>
 </html>
