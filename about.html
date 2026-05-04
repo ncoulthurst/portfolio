@@ -395,19 +395,21 @@
         }
         .ab-principle p { margin: 0; font-size: 0.93rem; line-height: 1.55; color: var(--mute); }
 
-        .section-grid {
-            display: grid; grid-template-columns: 1fr; gap: 1.5rem; margin-bottom: 2.5rem;
+        .section-head {
+            display: flex; flex-direction: column; gap: 1.5rem; margin-bottom: 2.75rem;
         }
         @media (min-width: 900px) {
-            .section-grid { grid-template-columns: minmax(0, 0.4fr) minmax(0, 1fr); gap: 3rem; align-items: end; }
+            .section-head { gap: 1.75rem; margin-bottom: 3.5rem; }
         }
         .section-h2 {
             margin: 0;
-            font-size: clamp(2rem, 4.5vw, 3.4rem);
-            font-weight: 800; letter-spacing: -0.04em; line-height: 0.98; color: var(--ink);
+            font-size: clamp(2.6rem, 6.5vw, 5rem);
+            font-weight: 800; letter-spacing: -0.05em; line-height: 0.9; color: var(--ink);
+            overflow-wrap: break-word;
         }
         .section-h2 em { font-style: italic; font-weight: 700; color: var(--accent); }
-        .section-body p { margin: 0; color: var(--mute); font-size: 1rem; line-height: 1.6; max-width: 56ch; }
+        .section-body { max-width: 68ch; }
+        .section-body p { margin: 0; color: var(--mute); font-size: 1rem; line-height: 1.6; }
         .section-body p + p { margin-top: 0.85rem; }
 
         /* CTA STRIP */
@@ -665,10 +667,10 @@
 
             <section class="section">
                 <div class="wrap scroll-reveal">
-                    <div class="section-grid">
+                    <div class="section-head">
                         <h2 class="section-h2">How I <em>work</em><span class="accent-dot">.</span></h2>
                         <div class="section-body">
-                            <p>I came up through a hybrid path: Computer Security degree, then frontline support, then secondline support. That background pushes me toward practical, reliable tooling over polished demos. I'd rather ship the small script that gets used every Friday than the slide deck that gets shown once.</p>
+                            <p>I notice the manual stuff before anyone complains about it. Repeated work that's been "just how we do it" for two years is usually a script waiting to be written.</p>
                             <p>The work I'm proudest of is the small stuff that compounds: a silent installer that saves an engineer 90 minutes per machine, a Vinted bot that turns a fifteen-tab browsing habit into a Discord ping, an AI pipeline that drafts a full video while you grab a coffee.</p>
                         </div>
                     </div>
