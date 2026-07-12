@@ -346,11 +346,12 @@
             letter-spacing: -0.04em;
             color: var(--ink);
         }
-        .cs-headline em {
-            font-style: italic;
-            font-weight: 700;
-            color: var(--accent);
-        }
+		.cs-headline em {
+			display: block;
+			font-style: italic;
+			font-weight: 700;
+			color: var(--accent);
+		}
         .cs-lede {
             margin: 1.75rem 0 0;
             font-size: clamp(1.05rem, 1.4vw, 1.2rem);
@@ -373,6 +374,8 @@
             color: var(--ink);
             letter-spacing: 0.04em;
         }
+		
+		
 
         /* ============ SECTION SHELLS ============ */
         .section { padding: 5rem 0; border-top: 1px solid var(--rule); }
@@ -1053,9 +1056,10 @@
                         </div>
 
                         <div>
-                            <h1 class="display cs-headline reveal d2">
-                                Sequencely <em>Video Engine</em><span class="accent-dot">.</span>
-                            </h1>
+						<h1 class="display cs-headline reveal d2">
+							Sequencely
+							<em>Video Engine<span class="accent-dot">.</span></em>
+						</h1>
 
                             <p class="cs-lede reveal d3">
                                 An AI documentary engine. Give it a title and a director's brief, and 20+ chained agents produce the full package: research, blueprint, storyboard, narrated script, animated graphics, a clip sourcing sheet, and a timeline editor to ship from.
