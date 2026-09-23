@@ -18,7 +18,7 @@
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300..800;1,300..800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300..700&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/lucide@0.469.0"></script>
 
     <!-- Vercel Web Analytics -->
@@ -48,7 +48,7 @@
         * { box-sizing: border-box; }
         html, body {
             margin: 0; padding: 0; background: var(--bg); color: var(--ink);
-            font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+            font-family: 'Geist', system-ui, sans-serif;
             -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale;
         }
         body {
@@ -62,7 +62,7 @@
             border-bottom-left-radius: 18px; border-bottom-right-radius: 18px;
             box-shadow: 0 18px 36px -28px rgba(0, 0, 0, 0.4);
         }
-        .mono { font-family: 'JetBrains Mono', ui-monospace, monospace; }
+        .mono { font-family: 'Geist Mono', ui-monospace, monospace; }
         a { color: inherit; text-decoration: none; }
         button { font-family: inherit; cursor: pointer; }
         ::selection { background: var(--accent); color: var(--bg); }
@@ -83,7 +83,7 @@
         .dark .nav-pill { box-shadow: 0 18px 40px -22px rgba(0, 0, 0, 0.7), 0 1px 0 rgba(255, 255, 255, 0.04) inset; }
         .nav-logo {
             display: inline-flex; align-items: center; background: transparent; color: var(--ink);
-            padding: 0.45rem 0.75rem; font-weight: 700; font-size: 1rem;
+            padding: 0.45rem 0.75rem; font-weight: 500; font-size: 1rem;
             letter-spacing: -0.015em; line-height: 1; transition: color 0.25s ease;
         }
         .nav-logo:hover { color: var(--accent); }
@@ -101,7 +101,7 @@
             opacity: 0.78; transition: opacity 0.2s ease, color 0.2s ease; position: relative;
         }
         .nav-link:hover { opacity: 1; color: var(--accent); }
-        .nav-link.is-active { opacity: 1; font-weight: 600; }
+        .nav-link.is-active { opacity: 1; font-weight: 500; }
         .nav-link.is-active::after {
             content: ""; position: absolute; left: 50%; bottom: -10px;
             width: 5px; height: 5px; border-radius: 50%; background: var(--accent); transform: translateX(-50%);
@@ -118,7 +118,7 @@
             display: inline-flex; align-items: center; gap: 0.55rem;
             background: var(--card-dark); color: var(--on-card-dark);
             border-radius: 999px; padding: 0.7rem 1.2rem 0.7rem 0.55rem;
-            font-weight: 600; font-size: 0.9rem; letter-spacing: -0.005em;
+            font-weight: 500; font-size: 0.9rem; letter-spacing: -0.005em;
             transition: background 0.25s ease, transform 0.25s ease;
         }
         .nav-cta:hover { background: var(--card-dark-2); transform: translateY(-1px); }
@@ -141,9 +141,9 @@
         .mobile-menu a:last-of-type { border-bottom: 0; }
 
         /* TYPE & BUTTONS */
-        .display { font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; letter-spacing: -0.05em; }
+        .display { font-family: 'Geist', sans-serif; font-weight: 500; letter-spacing: -0.05em; }
         .eyebrow {
-            font-family: 'JetBrains Mono', ui-monospace, monospace;
+            font-family: 'Geist Mono', ui-monospace, monospace;
             font-size: 0.7rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--mute);
         }
         .accent-dot { color: var(--accent); }
@@ -151,7 +151,7 @@
             display: inline-flex; align-items: center; gap: 0.7rem;
             background: var(--card-dark); color: var(--on-card-dark);
             padding: 0.95rem 1rem 0.95rem 1.5rem; border-radius: 999px;
-            font-size: 0.95rem; font-weight: 600; border: 0;
+            font-size: 0.95rem; font-weight: 500; border: 0;
             transition: transform 0.25s ease, background 0.25s ease;
         }
         .btn-primary:hover { background: var(--card-dark-2); transform: translateY(-1px); }
@@ -179,12 +179,12 @@
         }
         .cs-meta { display: flex; flex-direction: column; gap: 0.8rem; }
         .cs-meta .meta-row {
-            font-family: 'JetBrains Mono', monospace; font-size: 0.75rem;
+            font-family: 'Geist Mono', monospace; font-size: 0.75rem;
             color: var(--mute); letter-spacing: 0.05em;
         }
         .cs-meta .all-work {
             display: inline-flex; align-items: center; gap: 0.5rem;
-            font-family: 'JetBrains Mono', monospace;
+            font-family: 'Geist Mono', monospace;
             font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase;
             color: var(--ink); margin-top: 0.75rem;
             transition: color 0.2s ease, opacity 0.2s ease;
@@ -194,9 +194,9 @@
         .cs-headline {
             margin: 0;
             font-size: clamp(2.4rem, 7vw, 5.4rem);
-            font-weight: 800; line-height: 0.98; letter-spacing: -0.04em; color: var(--ink);
+            font-weight: 500; line-height: 0.98; letter-spacing: -0.04em; color: var(--ink);
         }
-        .cs-headline em { font-style: italic; font-weight: 700; color: var(--accent); }
+        .cs-headline em { font-style: italic; font-weight: 500; color: var(--accent); }
         .cs-lede {
             margin: 1.75rem 0 0;
             font-size: clamp(1.05rem, 1.4vw, 1.2rem);
@@ -204,7 +204,7 @@
         }
         .cs-chips { margin-top: 1.5rem; display: flex; flex-wrap: wrap; gap: 0.45rem; }
         .cs-chip {
-            font-family: 'JetBrains Mono', monospace;
+            font-family: 'Geist Mono', monospace;
             font-size: 0.7rem; padding: 0.34rem 0.75rem;
             border: 1px solid var(--rule-strong); border-radius: 999px;
             color: var(--ink); letter-spacing: 0.04em;
@@ -222,7 +222,7 @@
         .section-h2 {
             margin: 0;
             font-size: clamp(1.75rem, 3.6vw, 2.85rem);
-            font-weight: 800; letter-spacing: -0.035em; line-height: 1.05; color: var(--ink);
+            font-weight: 500; letter-spacing: -0.035em; line-height: 1.05; color: var(--ink);
         }
         .section-body { display: flex; flex-direction: column; gap: 1.5rem; }
         .section-body .lead {
@@ -239,7 +239,7 @@
             gap: 1rem; margin-bottom: 2rem;
         }
         .preview-head .count {
-            font-family: 'JetBrains Mono', monospace;
+            font-family: 'Geist Mono', monospace;
             font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--mute);
         }
         .browser-frame {
@@ -272,7 +272,7 @@
             border: 1px solid var(--rule);
             border-radius: 999px;
             padding: 0.42rem 0.85rem;
-            font-family: 'JetBrains Mono', monospace;
+            font-family: 'Geist Mono', monospace;
             font-size: 0.72rem;
             color: var(--mute);
             letter-spacing: 0.02em;
@@ -283,7 +283,7 @@
         .browser-actions { display: inline-flex; gap: 0.5rem; align-items: center; color: var(--mute); }
         .browser-actions a {
             display: inline-flex; align-items: center; gap: 0.4rem;
-            font-family: 'JetBrains Mono', monospace;
+            font-family: 'Geist Mono', monospace;
             font-size: 0.7rem; letter-spacing: 0.16em; text-transform: uppercase;
             color: var(--mute); transition: color 0.2s ease;
         }
@@ -303,7 +303,7 @@
         }
         .preview-note {
             margin-top: 1rem;
-            font-family: 'JetBrains Mono', monospace;
+            font-family: 'Geist Mono', monospace;
             font-size: 0.72rem; letter-spacing: 0.14em; text-transform: uppercase;
             color: var(--mute);
         }
@@ -323,10 +323,10 @@
             display: flex; flex-direction: column; gap: 0.65rem;
         }
         .moment .moment-tag {
-            font-family: 'JetBrains Mono', monospace;
+            font-family: 'Geist Mono', monospace;
             font-size: 0.68rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--accent);
         }
-        .moment h3 { margin: 0; font-size: 1.15rem; font-weight: 700; letter-spacing: -0.02em; line-height: 1.2; color: var(--ink); }
+        .moment h3 { margin: 0; font-size: 1.15rem; font-weight: 500; letter-spacing: -0.02em; line-height: 1.2; color: var(--ink); }
         .moment p { margin: 0; color: var(--mute); font-size: 0.95rem; line-height: 1.6; }
 
         /* FOOTER (same as portfolio) */
@@ -353,17 +353,17 @@
         .footer-avatar {
             width: 60px; height: 60px; border-radius: 50%;
             background: var(--accent); color: var(--on-accent);
-            font-size: 1.6rem; font-weight: 800; letter-spacing: -0.04em;
+            font-size: 1.6rem; font-weight: 500; letter-spacing: -0.04em;
             display: inline-flex; align-items: center; justify-content: center; line-height: 1; flex-shrink: 0;
         }
-        .footer-id-text .footer-name { font-size: 1.3rem; font-weight: 700; color: var(--on-ink); letter-spacing: -0.025em; line-height: 1.1; }
+        .footer-id-text .footer-name { font-size: 1.3rem; font-weight: 500; color: var(--on-ink); letter-spacing: -0.025em; line-height: 1.1; }
         .footer-id-text .footer-role { font-size: 0.92rem; color: var(--on-ink-mute); margin-top: 0.2rem; }
         .footer-pitch { margin: 0 0 1.5rem; font-size: 1rem; line-height: 1.55; color: var(--on-ink-mute); max-width: 38ch; }
         .footer-actions { display: flex; flex-wrap: wrap; gap: 0.6rem; }
         .footer-btn {
             display: inline-flex; align-items: center; gap: 0.55rem;
             padding: 0.85rem 1.4rem; border-radius: 999px;
-            font-size: 0.92rem; font-weight: 600;
+            font-size: 0.92rem; font-weight: 500;
             transition: background 0.25s ease, color 0.25s ease, transform 0.25s ease, border-color 0.25s ease;
         }
         .footer-btn-primary { background: var(--on-ink); color: var(--ink); }
@@ -377,7 +377,7 @@
         @media (min-width: 900px) { .footer-bottom-row { grid-template-columns: auto auto 1fr; gap: 3rem; align-items: end; } }
         .footer-col-pair { display: flex; gap: 1.1rem; align-items: baseline; flex-wrap: wrap; }
         .footer-col-pair h4 {
-            margin: 0; font-family: 'JetBrains Mono', monospace;
+            margin: 0; font-family: 'Geist Mono', monospace;
             font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.22em;
             color: var(--on-ink-mute); font-weight: 500; min-width: 5.5rem;
         }
@@ -388,7 +388,7 @@
         }
         .footer-col-links a:hover { opacity: 1; color: var(--accent); }
         .footer-meta {
-            font-family: 'JetBrains Mono', monospace; font-size: 0.72rem;
+            font-family: 'Geist Mono', monospace; font-size: 0.72rem;
             text-transform: uppercase; letter-spacing: 0.18em;
             color: var(--on-ink-mute); line-height: 1.6;
         }
@@ -412,8 +412,8 @@
             transition: opacity 0.5s ease;
         }
         .loader-glyph {
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            font-weight: 800; font-size: clamp(5rem, 12vw, 9rem);
+            font-family: 'Geist', sans-serif;
+            font-weight: 500; font-size: clamp(5rem, 12vw, 9rem);
             letter-spacing: -0.06em; color: var(--ink); line-height: 1;
         }
         .loader-glyph .dot { color: var(--accent); }
@@ -429,18 +429,19 @@
             .nav-cta { padding: 0.5rem; }
         }
     </style>
+    <link rel="stylesheet" href="../assets/theme.css">
 </head>
 <body>
 
     <div id="loader" aria-hidden="true">
-        <div class="loader-glyph">N<span class="dot">.</span></div>
+        <div class="loader-glyph">N</div>
     </div>
 
     <div id="main-content">
 
         <div class="nav-shell">
             <nav class="nav-pill" aria-label="Primary">
-                <a href="/" class="nav-logo">Nathan Coulthurst<span class="dot">.</span></a>
+                <a href="/" class="nav-logo">Nathan Coulthurst</a>
 
                 <div class="nav-links">
                     <a href="/projects" class="nav-link is-active">Work</a>
@@ -475,7 +476,7 @@
                 <div class="wrap">
                     <div class="cs-hero-grid">
                         <div class="cs-meta reveal d1">
-                            <div class="eyebrow">Case Study / 02</div>
+                            <div class="eyebrow">Case Study / 03</div>
                             <div class="meta-row">Web Design · 2025</div>
                             <a href="/projects" class="all-work">
                                 <i data-lucide="arrow-left" class="icon-sm"></i>
@@ -485,8 +486,7 @@
 
                         <div>
                             <h1 class="display cs-headline reveal d2">
-                                Eskens Web Design<br>
-                                <em>Refresh</em><span class="accent-dot">.</span>
+                                Eskens Web Design Refresh
                             </h1>
                             <p class="cs-lede reveal d3">
                                 A full visual rebuild of the Eskens Tinting Solutions site, with a modern type system, motion-rich layout, and a live in-page preview you can scroll through right here.
@@ -507,17 +507,17 @@
             <section class="section">
                 <div class="wrap">
                     <div class="section-grid scroll-reveal">
-                        <h2 class="section-h2">Overview<span class="accent-dot">.</span></h2>
+                        <h2 class="section-h2">Overview</h2>
 
                         <div class="section-body">
                             <p class="lead">
-                                A redesign of the Eskens Tinting Solutions website, replacing a dated marketing brochure with a typographically considered, motion-led layout that reflects the precision of the products.
+                                A redesign of the Eskens Tinting Solutions website, replacing a dated marketing brochure with a cleaner layout and clearer product pages.
                             </p>
                             <p>
-                                The existing site at eskens.co.uk reads like a 2010 brochure: flat product grids, no hierarchy, generic stock imagery. The audience is paint shops, distributors and in-house ops teams who already know the kit; the site needs to feel as precise as the machines, not like a leaflet.
+                                The existing site at eskens.co.uk is dated: flat product grids and generic stock images. The audience is paint shops, distributors and in-house ops teams who already know the kit; the site needs to feel as precise as the machines, not like a leaflet.
                             </p>
                             <p>
-                                The redesign leans on a tight type scale, a single warm accent against a calm neutral, and motion that's only used where sequential reveals help comprehension: scroll-reveals on the product grid, parallax on the dispenser shots, a marquee for partner brands. Nothing decorative, everything earning its place.
+                                The redesign leans on a tight type scale, a single warm accent against a calm neutral, and motion that's only used where sequential reveals help comprehension: scroll-reveals on the product grid, parallax on the dispenser shots, a marquee for partner brands.
                             </p>
                         </div>
                     </div>
@@ -528,7 +528,7 @@
             <section class="section">
                 <div class="wrap scroll-reveal">
                     <div class="preview-head">
-                        <h2 class="section-h2">Live preview<span class="accent-dot">.</span></h2>
+                        <h2 class="section-h2">Live preview</h2>
                         <span class="count">Scroll inside the frame</span>
                     </div>
 
@@ -585,9 +585,9 @@
             <section class="section">
                 <div class="wrap scroll-reveal">
                     <div class="section-grid">
-                        <h2 class="section-h2">Also <em style="font-style: italic; color: var(--accent);">shipped</em><span class="accent-dot">.</span></h2>
+                        <h2 class="section-h2">Also <em>shipped</em></h2>
                         <div class="section-body">
-                            <p>Alongside the marketing site rebuild, I also built and maintain Eskens' live Shopify storefront at <a href="https://eskensonline.com" target="_blank" rel="noopener" style="color: var(--accent); font-weight: 600;">eskensonline.com</a>. Custom theme work, bespoke product pages, and the small JavaScript and UX fixes that keep day-to-day buying frictionless.</p>
+                            <p>Alongside the marketing site rebuild, I also built and maintain Eskens' live Shopify storefront at <a href="https://eskensonline.com" target="_blank" rel="noopener" style="color: var(--accent); font-weight: 500;">eskensonline.com</a>. Custom theme work, bespoke product pages, and the small JavaScript and UX fixes that make buying online easier.</p>
                         </div>
                     </div>
                 </div>
@@ -597,7 +597,7 @@
             <section class="section">
                 <div class="wrap scroll-reveal">
                     <div class="section-grid">
-                        <h2 class="section-h2">Up <em style="font-style: italic; color: var(--accent);">next</em><span class="accent-dot">.</span></h2>
+                        <h2 class="section-h2">Up <em>next</em></h2>
                         <div class="section-body">
                             <p>Browse the rest of the work, or skip back to the homepage.</p>
                             <div style="display: flex; gap: 0.6rem; flex-wrap: wrap;">
@@ -626,11 +626,11 @@
                         <span class="footer-avatar">N</span>
                         <div class="footer-id-text">
                             <div class="footer-name">Nathan Coulthurst</div>
-                            <div class="footer-role">Technical Support Engineer, UK</div>
+                            <div class="footer-role">Technical Support Engineer<br>Leeds · Manchester (hybrid) · Remote</div>
                         </div>
                     </div>
                     <p class="footer-pitch">
-                        Looking for someone to take the brittle plumbing off your team's plate? Let's talk.
+                        Hiring for a software or AI engineering role? Get in touch.
                     </p>
                     <div class="footer-actions">
                         <a href="mailto:nathancoulthurst@hotmail.co.uk?subject=Hello" class="footer-btn footer-btn-primary">
@@ -647,7 +647,7 @@
                 <div class="footer-divider"></div>
                 <div class="footer-bottom-row">
                     <div class="footer-col-pair">
-                        <h4>SITEMAP</h4>
+                        <h4>Sitemap</h4>
                         <div class="footer-col-links">
                             <a href="/about">About</a>
                             <a href="/projects">Work</a>
@@ -664,7 +664,7 @@
                     </div>
                     <div class="footer-meta">
                         <span>© 2026 Nathan Coulthurst</span>
-                        <span>Case Study / 02</span>
+                        <span>Case Study / 03</span>
                     </div>
                 </div>
             </div>

@@ -19,7 +19,7 @@
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300..800;1,300..800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300..700&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/lucide@0.469.0"></script>
 
     <!-- Vercel Web Analytics -->
@@ -81,7 +81,7 @@
             margin: 0; padding: 0;
             background: var(--bg);
             color: var(--ink);
-            font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+            font-family: 'Geist', system-ui, sans-serif;
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
         }
@@ -101,7 +101,7 @@
             border-bottom-right-radius: 18px;
             box-shadow: 0 18px 36px -28px rgba(0, 0, 0, 0.4);
         }
-        .mono { font-family: 'JetBrains Mono', ui-monospace, monospace; }
+        .mono { font-family: 'Geist Mono', ui-monospace, monospace; }
         a { color: inherit; text-decoration: none; }
         button { font-family: inherit; cursor: pointer; }
         ::selection { background: var(--accent); color: var(--bg); }
@@ -142,7 +142,7 @@
             background: transparent;
             color: var(--ink);
             padding: 0.45rem 0.75rem;
-            font-weight: 700;
+            font-weight: 500;
             font-size: 1rem;
             letter-spacing: -0.015em;
             line-height: 1;
@@ -173,7 +173,7 @@
             position: relative;
         }
         .nav-link:hover { opacity: 1; color: var(--accent); }
-        .nav-link.is-active { opacity: 1; font-weight: 600; }
+        .nav-link.is-active { opacity: 1; font-weight: 500; }
         .nav-link.is-active::after {
             content: "";
             position: absolute;
@@ -205,7 +205,7 @@
             color: var(--on-card-dark);
             border-radius: 999px;
             padding: 0.7rem 1.2rem 0.7rem 0.55rem;
-            font-weight: 600;
+            font-weight: 500;
             font-size: 0.9rem;
             letter-spacing: -0.005em;
             transition: background 0.25s ease, transform 0.25s ease;
@@ -243,12 +243,12 @@
 
         /* ============ TYPE ============ */
         .display {
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            font-weight: 800;
+            font-family: 'Geist', sans-serif;
+            font-weight: 500;
             letter-spacing: -0.05em;
         }
         .eyebrow {
-            font-family: 'JetBrains Mono', ui-monospace, monospace;
+            font-family: 'Geist Mono', ui-monospace, monospace;
             font-size: 0.7rem;
             letter-spacing: 0.22em;
             text-transform: uppercase;
@@ -266,7 +266,7 @@
             padding: 0.95rem 1rem 0.95rem 1.5rem;
             border-radius: 999px;
             font-size: 0.95rem;
-            font-weight: 600;
+            font-weight: 500;
             border: 0;
             transition: transform 0.25s ease, background 0.25s ease;
         }
@@ -318,7 +318,7 @@
         .cs-meta { display: flex; flex-direction: column; gap: 0.8rem; }
         .cs-meta .index-marker { color: var(--mute); }
         .cs-meta .meta-row {
-            font-family: 'JetBrains Mono', monospace;
+            font-family: 'Geist Mono', monospace;
             font-size: 0.75rem;
             color: var(--mute);
             letter-spacing: 0.05em;
@@ -327,7 +327,7 @@
             display: inline-flex;
             align-items: center;
             gap: 0.5rem;
-            font-family: 'JetBrains Mono', monospace;
+            font-family: 'Geist Mono', monospace;
             font-size: 0.7rem;
             letter-spacing: 0.2em;
             text-transform: uppercase;
@@ -341,7 +341,7 @@
         .cs-headline {
             margin: 0;
             font-size: clamp(2.4rem, 7vw, 5.4rem);
-            font-weight: 800;
+            font-weight: 500;
             line-height: 0.98;
             letter-spacing: -0.04em;
             color: var(--ink);
@@ -349,7 +349,7 @@
 		.cs-headline em {
 			display: block;
 			font-style: italic;
-			font-weight: 700;
+			font-weight: 500;
 			color: var(--accent);
 		}
         .cs-lede {
@@ -366,7 +366,7 @@
             gap: 0.45rem;
         }
         .cs-chip {
-            font-family: 'JetBrains Mono', monospace;
+            font-family: 'Geist Mono', monospace;
             font-size: 0.7rem;
             padding: 0.34rem 0.75rem;
             border: 1px solid var(--rule-strong);
@@ -391,7 +391,7 @@
         .section-h2 {
             margin: 0;
             font-size: clamp(1.75rem, 3.6vw, 2.85rem);
-            font-weight: 800;
+            font-weight: 500;
             letter-spacing: -0.035em;
             line-height: 1.05;
             color: var(--ink);
@@ -407,7 +407,7 @@
         }
         .section-body .lead .quote-mark {
             font-style: italic;
-            font-weight: 700;
+            font-weight: 500;
             color: var(--accent);
             font-size: 1.4em;
             line-height: 0;
@@ -431,7 +431,7 @@
             margin-bottom: 2rem;
         }
         .video-head .count {
-            font-family: 'JetBrains Mono', monospace;
+            font-family: 'Geist Mono', monospace;
             font-size: 0.7rem;
             letter-spacing: 0.2em;
             text-transform: uppercase;
@@ -485,7 +485,7 @@
             font-size: 0.92rem;
         }
         .video-cap .ep {
-            font-family: 'JetBrains Mono', monospace;
+            font-family: 'Geist Mono', monospace;
             font-size: 0.7rem;
             letter-spacing: 0.18em;
             text-transform: uppercase;
@@ -513,10 +513,10 @@
         }
         .moment:hover { border-color: var(--accent); transform: translateY(-3px); }
         .moment .moment-tag {
-            font-family: 'JetBrains Mono', monospace;
+            font-family: 'Geist Mono', monospace;
             font-size: 0.68rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--accent);
         }
-        .moment h3 { margin: 0; font-size: 1.15rem; font-weight: 700; letter-spacing: -0.02em; line-height: 1.2; color: var(--ink); }
+        .moment h3 { margin: 0; font-size: 1.15rem; font-weight: 500; letter-spacing: -0.02em; line-height: 1.2; color: var(--ink); }
         .moment p { margin: 0; color: var(--mute); font-size: 0.95rem; line-height: 1.6; }
         .moment .mono { color: var(--accent); }
 
@@ -550,7 +550,7 @@
             background: var(--bg);
             border: 1px dashed var(--rule-strong);
             border-radius: 999px;
-            font-family: 'JetBrains Mono', ui-monospace, monospace;
+            font-family: 'Geist Mono', ui-monospace, monospace;
             font-size: 0.72rem;
             letter-spacing: 0.16em;
             text-transform: uppercase;
@@ -565,7 +565,7 @@
             background: var(--card-dark);
             color: var(--on-card-dark);
             border-radius: 999px;
-            font-family: 'JetBrains Mono', ui-monospace, monospace;
+            font-family: 'Geist Mono', ui-monospace, monospace;
             font-size: 0.74rem;
             letter-spacing: 0.16em;
             text-transform: uppercase;
@@ -619,7 +619,7 @@
             display: inline-flex;
             align-items: center;
             gap: 0.55rem;
-            font-weight: 700;
+            font-weight: 500;
             font-size: 0.95rem;
             letter-spacing: -0.01em;
             color: var(--ink);
@@ -632,16 +632,16 @@
             border-radius: 6px;
             background: color-mix(in srgb, var(--accent) 18%, var(--surface));
             color: var(--accent);
-            font-family: 'JetBrains Mono', monospace;
+            font-family: 'Geist Mono', monospace;
             font-size: 0.7rem;
-            font-weight: 700;
+            font-weight: 500;
         }
         .arch-stage.remotion .arch-stage-title .badge {
             background: color-mix(in srgb, var(--ink) 12%, var(--surface));
             color: var(--ink);
         }
         .arch-stage-meta {
-            font-family: 'JetBrains Mono', monospace;
+            font-family: 'Geist Mono', monospace;
             font-size: 0.68rem;
             letter-spacing: 0.18em;
             text-transform: uppercase;
@@ -686,9 +686,9 @@
             min-height: 78px;
         }
         .arch-node .name {
-            font-family: 'JetBrains Mono', monospace;
+            font-family: 'Geist Mono', monospace;
             font-size: 0.82rem;
-            font-weight: 600;
+            font-weight: 500;
             color: var(--accent);
             letter-spacing: -0.005em;
         }
@@ -708,14 +708,14 @@
             background: var(--surface-2);
             border: 1px dashed var(--rule-strong);
             border-radius: 12px;
-            font-family: 'JetBrains Mono', monospace;
+            font-family: 'Geist Mono', monospace;
             font-size: 0.72rem;
             color: var(--ink);
             margin: 0.45rem 0;
         }
         .arch-edit .who {
             color: var(--accent);
-            font-weight: 600;
+            font-weight: 500;
             letter-spacing: 0.04em;
             text-transform: uppercase;
             font-size: 0.66rem;
@@ -737,7 +737,7 @@
             padding: 0.45rem 0.9rem;
             background: color-mix(in srgb, var(--accent) 12%, var(--surface));
             border-radius: 999px;
-            font-family: 'JetBrains Mono', monospace;
+            font-family: 'Geist Mono', monospace;
             font-size: 0.7rem;
             color: var(--accent);
             letter-spacing: 0.04em;
@@ -756,12 +756,12 @@
             border: 1px solid var(--rule);
             border-radius: 999px;
             background: var(--bg);
-            font-family: 'JetBrains Mono', monospace;
+            font-family: 'Geist Mono', monospace;
             font-size: 0.7rem;
             color: var(--ink);
         }
         .arch-pipe-label {
-            font-family: 'JetBrains Mono', monospace;
+            font-family: 'Geist Mono', monospace;
             font-size: 0.66rem;
             letter-spacing: 0.18em;
             text-transform: uppercase;
@@ -803,7 +803,7 @@
             display: inline-flex;
             align-items: center;
             gap: 0.65rem;
-            font-family: 'JetBrains Mono', monospace;
+            font-family: 'Geist Mono', monospace;
             font-size: 0.72rem;
             letter-spacing: 0.18em;
             text-transform: uppercase;
@@ -864,7 +864,7 @@
             background: var(--accent);
             color: var(--on-accent);
             font-size: 1.6rem;
-            font-weight: 800;
+            font-weight: 500;
             letter-spacing: -0.04em;
             display: inline-flex;
             align-items: center;
@@ -874,7 +874,7 @@
         }
         .footer-id-text .footer-name {
             font-size: 1.3rem;
-            font-weight: 700;
+            font-weight: 500;
             color: var(--on-ink);
             letter-spacing: -0.025em;
             line-height: 1.1;
@@ -899,7 +899,7 @@
             padding: 0.85rem 1.4rem;
             border-radius: 999px;
             font-size: 0.92rem;
-            font-weight: 600;
+            font-weight: 500;
             transition: background 0.25s ease, color 0.25s ease, transform 0.25s ease, border-color 0.25s ease;
         }
         .footer-btn-primary { background: var(--on-ink); color: var(--ink); }
@@ -911,12 +911,12 @@
         .footer-headline {
             margin: 0 0 1.25rem;
             font-size: clamp(3rem, 8.5vw, 7.75rem);
-            font-weight: 800;
+            font-weight: 500;
             letter-spacing: -0.055em;
             line-height: 0.94;
             color: var(--on-ink);
         }
-        .footer-headline em { font-style: italic; font-weight: 600; color: var(--accent); }
+        .footer-headline em { font-style: italic; font-weight: 500; color: var(--accent); }
         .footer-subtitle { color: var(--on-ink-mute); font-size: 1rem; max-width: 38ch; }
         .footer-divider { height: 1px; background: rgba(255, 255, 255, 0.10); margin: 0; }
         .footer-bottom-row {
@@ -932,7 +932,7 @@
         .footer-col-pair { display: flex; gap: 1.1rem; align-items: baseline; flex-wrap: wrap; }
         .footer-col-pair h4 {
             margin: 0;
-            font-family: 'JetBrains Mono', monospace;
+            font-family: 'Geist Mono', monospace;
             font-size: 0.72rem;
             text-transform: uppercase;
             letter-spacing: 0.22em;
@@ -950,7 +950,7 @@
         }
         .footer-col-links a:hover { opacity: 1; color: var(--accent); }
         .footer-meta {
-            font-family: 'JetBrains Mono', monospace;
+            font-family: 'Geist Mono', monospace;
             font-size: 0.72rem;
             text-transform: uppercase;
             letter-spacing: 0.18em;
@@ -979,8 +979,8 @@
             transition: opacity 0.5s ease;
         }
         .loader-glyph {
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            font-weight: 800;
+            font-family: 'Geist', sans-serif;
+            font-weight: 500;
             font-size: clamp(5rem, 12vw, 9rem);
             letter-spacing: -0.06em;
             color: var(--ink);
@@ -1000,11 +1000,12 @@
             .nav-cta { padding: 0.5rem; }
         }
     </style>
+    <link rel="stylesheet" href="../assets/theme.css">
 </head>
 <body>
 
     <div id="loader" aria-hidden="true">
-        <div class="loader-glyph">N<span class="dot">.</span></div>
+        <div class="loader-glyph">N</div>
     </div>
 
     <div id="main-content">
@@ -1012,7 +1013,7 @@
         <!-- ========== NAV ========== -->
         <div class="nav-shell">
             <nav class="nav-pill" aria-label="Primary">
-                <a href="/" class="nav-logo">Nathan Coulthurst<span class="dot">.</span></a>
+                <a href="/" class="nav-logo">Nathan Coulthurst</a>
 
                 <div class="nav-links">
                     <a href="/projects" class="nav-link is-active">Work</a>
@@ -1047,8 +1048,8 @@
                 <div class="wrap">
                     <div class="cs-hero-grid">
                         <div class="cs-meta reveal d1">
-                            <div class="eyebrow">Case Study / 01</div>
-                            <div class="meta-row">Latest Project · 2026</div>
+                            <div class="eyebrow">Case Study / 02</div>
+                            <div class="meta-row">Personal project · 2026</div>
                             <a href="/projects" class="all-work">
                                 <i data-lucide="arrow-left" class="icon-sm"></i>
                                 All work
@@ -1057,8 +1058,7 @@
 
                         <div>
 						<h1 class="display cs-headline reveal d2">
-							Sequencely
-							<em>Video Engine<span class="accent-dot">.</span></em>
+							Sequencely Video Engine
 						</h1>
 
                             <p class="cs-lede reveal d3">
@@ -1068,7 +1068,7 @@
                             <div class="cs-chips reveal d3">
                                 <span class="cs-chip">Python</span>
                                 <span class="cs-chip">Flask</span>
-                                <span class="cs-chip">Groq LLMs</span>
+                                <span class="cs-chip">Groq + Gemini</span>
                                 <span class="cs-chip">Remotion</span>
                                 <span class="cs-chip">ElevenLabs</span>
                                 <span class="cs-chip">20+ agents</span>
@@ -1082,11 +1082,11 @@
             <section class="section">
                 <div class="wrap">
                     <div class="section-grid scroll-reveal">
-                        <h2 class="section-h2">Overview<span class="accent-dot">.</span></h2>
+                        <h2 class="section-h2">Overview</h2>
 
                         <div class="section-body">
                             <p class="lead">
-                                <span class="quote-mark">"</span>The engine takes a single title, such as <em style="font-style: italic; color: var(--accent);">Why Brazil Stopped Producing Playmakers</em> and a director's brief, and outputs a 10–15 minute documentary that feels directed, continuous, and visually authored rather than templated together.<span class="quote-mark">"</span>
+                                <span class="quote-mark">"</span>The engine takes a single title, such as <em>Why Brazil Stopped Producing Playmakers</em> and a director's brief, and outputs a 10–15 minute documentary with a script, narration and animated graphics.<span class="quote-mark">"</span>
                             </p>
 
                             <p>
@@ -1094,7 +1094,7 @@
                             </p>
 
                             <p>
-                                The Remotion side decides <em>how</em> it looks. A separate React project renders 30+ animated graphic templates (stat bars, radars, lineups, tactical boards, transfer records, league tables) driven by structured props the engine emits. ElevenLabs handles narration TTS; a centralised <span class="mono" style="color: var(--accent);">WorldStateRoot</span> lets graphics share an infinite spatial canvas so consecutive scenes feel connected instead of resetting. The Flask UI then exposes a 5-step pipeline (title → context → blueprint → storyboard → render) plus a studio grid and a 4-track timeline editor for review and export.
+                                The Remotion side decides <em>how</em> it looks. A separate React project renders 60+ animated graphic templates (stat bars, radars, lineups, tactical boards, transfer records, league tables) driven by structured props the engine emits. ElevenLabs or Fish Audio handle the voiceover, and live news headlines come in through an API; a centralised <span class="mono" style="color: var(--accent);">WorldStateRoot</span> lets graphics share an infinite spatial canvas so consecutive scenes feel connected instead of resetting. The Flask UI then exposes a 5-step pipeline (title → context → blueprint → storyboard → render) plus a studio grid and a 4-track timeline editor for review and export.
                             </p>
                         </div>
                     </div>
@@ -1105,7 +1105,7 @@
             <section class="section section-videos">
                 <div class="wrap scroll-reveal">
                     <div class="video-head">
-                        <h2 class="section-h2">Real <em style="font-style: italic; color: var(--accent);">renders</em><span class="accent-dot">.</span></h2>
+                        <h2 class="section-h2">Real <em>renders</em></h2>
                         <span class="count">From the engine</span>
                     </div>
 
@@ -1115,7 +1115,7 @@
                                 <video src="../assets/engine-samples/CastGrid.mp4" poster="../assets/engine-samples/CastGrid.jpg" controls muted playsinline preload="none" loop></video>
                             </div>
                             <figcaption class="video-cap">
-                                <span class="ep">Graphic · The Inner Cirlce</span>
+                                <span class="ep">Graphic · The Inner Circle</span>
                                 <span class="title">The FTX Scandal</span>
                             </figcaption>
                         </figure>
@@ -1143,176 +1143,35 @@
                 </div>
             </section>
 
-            <!-- ========== PIPELINE STEPS ========== -->
+            <!-- ========== HOW IT WORKS ========== -->
             <section class="section">
                 <div class="wrap scroll-reveal">
                     <div class="section-grid">
-                        <h2 class="section-h2">From <em style="font-style: italic; color: var(--accent);">title</em> to export<span class="accent-dot">.</span></h2>
+                        <h2 class="section-h2">How it <em>works</em></h2>
                         <div class="section-body">
-                            <p>The pipeline is a 5-step UI on top of a deterministic agent chain. Each step lands real artifacts on disk under <span class="mono" style="color: var(--accent);">output/&lt;safe_name&gt;/</span> so a run can be paused, reviewed, and resumed.</p>
+                            <p>The Python engine decides what to make, and the Remotion project decides how it looks. You can edit the facts, the blueprint and the storyboard before anything renders, then review and cut the result in a 4-track timeline.</p>
                         </div>
                     </div>
 
-                    <div class="moment-grid">
-                        <div class="moment">
-                            <span class="moment-tag">01 · Title</span>
-                            <h3>Title + director's brief</h3>
-                            <p>User enters a title; <span class="mono">entity_agent</span> extracts the subject, <span class="mono">research_agent</span> pulls Wikipedia + Google News, and an LLM drafts the director's brief.</p>
-                        </div>
-                        <div class="moment">
-                            <span class="moment-tag">02 · Context</span>
-                            <h3>Editable fact checklist</h3>
-                            <p>The brief is parsed into structured facts the user can tick on or off. Checked items become MUST INCLUDE constraints downstream, written to <span class="mono">context.md</span> + <span class="mono">facts.md</span>.</p>
-                        </div>
-                        <div class="moment">
-                            <span class="moment-tag">03 · Blueprint</span>
-                            <h3>Act-by-act structure</h3>
-                            <p>An LLM lays out the 5-act blueprint with required facts injected as constraints. The user adjusts emphasis and act count before storyboard generation runs.</p>
-                        </div>
-                        <div class="moment">
-                            <span class="moment-tag">04 · Storyboard</span>
-                            <h3>70–90 scenes, drag &amp; drop</h3>
-                            <p>The script agent expands the blueprint into a full storyboard. A drag-drop editor lets the user reorder, splice, and approve before the agent chain runs end-to-end via <span class="mono">orchestrator.py</span>.</p>
-                        </div>
-                        <div class="moment">
-                            <span class="moment-tag">05 · Render</span>
-                            <h3>Script · narration · graphics · clips</h3>
-                            <p>Sequential pipeline: <span class="mono">script_agent</span> → <span class="mono">narration_agent</span> (ElevenLabs TTS) → <span class="mono">graphics_agent</span> (Remotion renders) → <span class="mono">production_agent</span> (clip sourcing sheet).</p>
-                        </div>
-                        <div class="moment">
-                            <span class="moment-tag">06 · Studio + Edit</span>
-                            <h3>Review grid &amp; 4-track timeline</h3>
-                            <p>Two interfaces: a render grid for approve / reject / re-render, and a 4-track timeline editor for splicing graphics, narration, music, and sourced clips before final export.</p>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- ========== ARCHITECTURE ========== -->
-            <section class="section">
-                <div class="wrap scroll-reveal">
-                    <div class="section-grid">
-                        <h2 class="section-h2">Architecture<span class="accent-dot">.</span></h2>
-                        <div class="section-body">
-                            <p>
-                                The system has two halves. The <strong style="color: var(--ink);">Python engine</strong> (Flask + Groq + ElevenLabs) decides what to make: research, script, narration, clip sourcing. The <strong style="color: var(--ink);">Remotion project</strong> decides how it looks: 30+ React graphic templates rendered to MP4.
-                            </p>
-                            <p>
-                                A central <span class="mono" style="color: var(--accent);">WorldStateRoot</span> in <span class="mono" style="color: var(--accent);">VideoSequence.tsx</span> keeps consecutive graphics on a shared spatial canvas (cameraX = 0 → 1920 → 3840…), so a sequence of stat cards reads as one continuous camera move rather than 8 hard cuts. <span class="mono" style="color: var(--accent);">_break_data_runs</span> in the orchestrator reorders scenes to avoid 3+ consecutive pure-stat blocks.
-                            </p>
-                        </div>
-                    </div>
-
-                    <div class="arch-frame">
-                        <div class="arch-map">
-
-                            <span class="arch-input">title <span class="accent">+</span> director's brief</span>
-                            <div class="arch-arrow"></div>
-
-                            <div class="arch-stage python">
-                                <div class="arch-stage-head">
-                                    <span class="arch-stage-title">
-                                        <span class="badge">PY</span>
-                                        Python engine
-                                    </span>
-                                    <span class="arch-stage-meta">Flask · port 5000</span>
-                                </div>
-
-                                <div class="arch-row cols-3">
-                                    <div class="arch-node">
-                                        <span class="name">entity_agent</span>
-                                        <span class="desc">extracts subject from the title</span>
-                                    </div>
-                                    <div class="arch-node">
-                                        <span class="name">research_agent</span>
-                                        <span class="desc">Wikipedia + Google News pull</span>
-                                    </div>
-                                    <div class="arch-node">
-                                        <span class="name">analysis_agent</span>
-                                        <span class="desc">drafts the director's brief</span>
-                                    </div>
-                                </div>
-                                <div class="arch-flow"><span class="tick"></span></div>
-
-                                <div class="arch-edit">
-                                    <span class="mono">context.md + facts.md</span>
-                                    <span class="arrow">←</span>
-                                    <span class="who">user edits</span>
-                                </div>
-                                <div class="arch-flow"><span class="tick"></span></div>
-
-                                <div class="arch-edit">
-                                    <span class="mono">blueprint (5 acts)</span>
-                                    <span class="arrow">←</span>
-                                    <span class="who">user edits</span>
-                                </div>
-                                <div class="arch-flow"><span class="tick"></span></div>
-
-                                <div class="arch-edit">
-                                    <span class="mono">storyboard (70–90 scenes)</span>
-                                    <span class="arrow">←</span>
-                                    <span class="who">drag / drop</span>
-                                </div>
-                                <div class="arch-flow"><span class="tick"></span></div>
-
-                                <span class="arch-orch-head">orchestrator.py · sequential</span>
-                                <div class="arch-pair">
-                                    <div class="arch-node">
-                                        <span class="name">script_agent</span>
-                                        <span class="desc">writes the line-by-line voice script</span>
-                                    </div>
-                                    <div class="arch-node">
-                                        <span class="name">narration_agent</span>
-                                        <span class="desc">ElevenLabs TTS render</span>
-                                    </div>
-                                    <div class="arch-node">
-                                        <span class="name">graphics_agent</span>
-                                        <span class="desc">picks templates + canonical props</span>
-                                    </div>
-                                    <div class="arch-node">
-                                        <span class="name">production_agent</span>
-                                        <span class="desc">builds the clip-sourcing sheet</span>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="arch-pipe-label">render props (JSON)</div>
-                            <div class="arch-arrow short"></div>
-
-                            <div class="arch-stage remotion">
-                                <div class="arch-stage-head">
-                                    <span class="arch-stage-title">
-                                        <span class="badge">RX</span>
-                                        Remotion
-                                    </span>
-                                    <span class="arch-stage-meta">React · /remotiontest</span>
-                                </div>
-                                <p style="margin: 0; font-size: 0.88rem; line-height: 1.55; color: var(--mute);">
-                                    30+ templates rendered through a shared <span class="mono" style="color: var(--ink);">WorldStateRoot</span> with per-scene <span class="mono" style="color: var(--ink);">cameraX</span> offsets, so consecutive graphics read as one continuous camera move.
-                                </p>
-                                <div class="arch-chips">
-                                    <span class="arch-chip">StatBars</span>
-                                    <span class="arch-chip">Radar</span>
-                                    <span class="arch-chip">Lineup</span>
-                                    <span class="arch-chip">Tactical</span>
-                                    <span class="arch-chip">TransferRecord</span>
-                                    <span class="arch-chip">…26 more</span>
-                                </div>
-                            </div>
-
-                            <div class="arch-arrow"></div>
-                            <span class="arch-output"><span class="accent">▸</span> renders/*.mp4 + manifest.json</span>
-
-                            <div class="arch-arrow"></div>
-                            <div class="arch-split">
-                                <span class="arch-output"><span class="accent">/</span> studio &nbsp;·&nbsp; review grid</span>
-                                <span class="arch-output"><span class="accent">/</span> edit &nbsp;·&nbsp; 4-track timeline</span>
-                            </div>
-
-                            <div class="arch-arrow"></div>
-                            <span class="arch-output"><span class="accent">▸</span> export → final cut</span>
-
-                        </div>
+                    <div class="diagram" role="img" aria-label="A title and director's brief go into the Python engine: research agents build a fact checklist, then a 5-act blueprint, then a 70 to 90 scene storyboard, which you can edit at each step. Script, narration, graphics and clip agents then pass render props to Remotion, which renders 60+ graphic templates to MP4. The renders go to a review grid and 4-track timeline, then the final cut.">
+<script type="text/plain">
+flowchart DIR
+    input([Title +<br/>director's brief]) --> engine
+    subgraph engine[Python engine · Flask]
+        direction TB
+        research[Research agents<br/>Wikipedia + Google News] --> facts[Fact checklist<br/><small>you tick what matters</small>]
+        facts --> blueprint[5-act blueprint<br/><small>you adjust</small>]
+        blueprint --> story[Storyboard, 70–90 scenes<br/><small>you reorder</small>]
+        story --> agents[Script, narration,<br/>graphics and clip agents]
+    end
+    engine -- render props --> remotion
+    subgraph remotion[Remotion · React]
+        direction TB
+        templates[60+ graphic templates] --> mp4[Rendered MP4s]
+    end
+    remotion --> review[Review grid +<br/>4-track timeline]
+    review --> final([Final cut]):::accent
+</script>
                     </div>
                 </div>
             </section>
@@ -1321,7 +1180,7 @@
             <section class="section">
                 <div class="wrap scroll-reveal">
                     <div class="section-grid">
-                        <h2 class="section-h2">More from<br>this <em style="font-style: italic; color: var(--accent);">project</em><span class="accent-dot">.</span></h2>
+                        <h2 class="section-h2">More from<br>this <em>project</em></h2>
                         <div class="section-body">
                             <div class="more-grid">
                                 <a href="https://github.com/ncoulthurst/video-engine" target="_blank" rel="noopener" class="more-link">
@@ -1364,11 +1223,11 @@
                         <span class="footer-avatar">N</span>
                         <div class="footer-id-text">
                             <div class="footer-name">Nathan Coulthurst</div>
-                            <div class="footer-role">Technical Support Engineer, UK</div>
+                            <div class="footer-role">Technical Support Engineer<br>Leeds · Manchester (hybrid) · Remote</div>
                         </div>
                     </div>
                     <p class="footer-pitch">
-                        Looking for someone to take the brittle plumbing off your team's plate? Let's talk.
+                        Hiring for a software or AI engineering role? Get in touch.
                     </p>
                     <div class="footer-actions">
                         <a href="mailto:nathancoulthurst@hotmail.co.uk?subject=Hello" class="footer-btn footer-btn-primary">
@@ -1385,7 +1244,7 @@
                 <div class="footer-divider"></div>
                 <div class="footer-bottom-row">
                     <div class="footer-col-pair">
-                        <h4>SITEMAP</h4>
+                        <h4>Sitemap</h4>
                         <div class="footer-col-links">
                             <a href="/about">About</a>
                             <a href="/#work">Work</a>
@@ -1402,7 +1261,7 @@
                     </div>
                     <div class="footer-meta">
                         <span>© 2026 Nathan Coulthurst</span>
-                        <span>Case Study / 01</span>
+                        <span>Case Study / 02</span>
                     </div>
                 </div>
             </div>
@@ -1497,5 +1356,7 @@
             heroObs.observe(heroEl);
         }
     </script>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js"></script>
+    <script src="../assets/diagrams.js"></script>
 </body>
 </html>

@@ -1,0 +1,373 @@
+/* ==========================================================================
+   Theme layer, based on the Sasiru / Sameera Webflow template.
+   Loaded after each page's inline <style>, so it only overrides.
+   Cream + charcoal monochrome, Geist type, soft bordered cards, no glows.
+   ========================================================================== */
+
+:root {
+    /* Cream + charcoal, one ink-navy accent. Contrast checked (WCAG AA):
+       ink/bg 16.6:1, mute/bg 6.8:1, mute/surface 6.1:1, accent/bg 7.7:1 */
+    --bg: #FFF7EC;
+    --bg-2: #F8EFE3;
+    --surface: #F3EADF;
+    --surface-2: #EDE2D4;
+    --surface-hi: #FFFBF5;
+    --ink: #1A1A1A;
+    --ink-2: #2B2A28;
+    --mute: #5C564F;
+    --rule: rgba(26, 26, 26, 0.10);
+    --rule-strong: rgba(26, 26, 26, 0.20);
+    --accent: #2C4F85;
+    --accent-hover: #213E6B;
+    --accent-soft: rgba(44, 79, 133, 0.12);
+    --accent-on-dark: #A7BCE3;
+    --on-accent: #FFF7EC;
+    --on-ink: #F5EDE2;
+    --on-ink-mute: #ABA398;
+    --card-dark: #1A1A1A;
+    --card-dark-2: #262524;
+    --card-dark-border: transparent;
+    --on-card-dark: #F5EDE2;
+    --on-card-dark-mute: #ABA398;
+    --card-dark-rule: rgba(245, 237, 226, 0.10);
+    --card-dark-rule-strong: rgba(245, 237, 226, 0.22);
+    --radius-card: 16px;
+}
+.dark {
+    /* ink/bg 15.9:1, mute/bg 7.4:1, accent/bg 9.7:1; dark cards lifted off the page */
+    --bg: #141312;
+    --bg-2: #191817;
+    --surface: #201F1D;
+    --surface-2: #292724;
+    --surface-hi: #262422;
+    --ink: #F5EDE2;
+    --ink-2: #E3DACE;
+    --mute: #ABA398;
+    --rule: rgba(245, 237, 226, 0.10);
+    --rule-strong: rgba(245, 237, 226, 0.22);
+    --accent: #A7BCE3;
+    --accent-hover: #C0D0EE;
+    --accent-soft: rgba(167, 188, 227, 0.14);
+    --accent-on-dark: #A7BCE3;
+    --on-accent: #141312;
+    --on-ink: #F5EDE2;
+    --on-ink-mute: #ABA398;
+    --card-dark: #2A2724;
+    --card-dark-2: #33302C;
+    --card-dark-border: rgba(245, 237, 226, 0.10);
+    --on-card-dark: #F5EDE2;
+    --on-card-dark-mute: #B3AB9F;
+}
+
+html, body { font-family: 'Geist', system-ui, sans-serif; }
+body { font-feature-settings: "ss01"; }
+em,
+.hero-headline .hl-accent,
+.hero-card-mark em,
+.feat-numeral em,
+.feat-foot h3 em,
+.stat-block .num em,
+.footer-headline em,
+.word-reveal .word.accent-word { font-style: normal; }
+
+/* ---------- Nav: rounded pill, links centred, light CTA ---------- */
+.nav-pill {
+    background: var(--bg-2);
+    border-color: var(--rule);
+    box-shadow: none;
+    padding: 0.6rem 0.6rem 0.6rem 1rem;
+}
+.dark .nav-pill { box-shadow: none; }
+.nav-logo { font-weight: 500; font-size: 1.2rem; letter-spacing: -0.03em; }
+.nav-logo:hover { color: var(--ink); opacity: 0.7; }
+.nav-logo.flashing .letter { animation: none; }
+.nav-link { font-weight: 400; opacity: 0.7; }
+.nav-link:hover { color: var(--ink); opacity: 1; }
+.nav-link.is-active { font-weight: 500; }
+.nav-link.is-active::after { display: none; }
+.icon-square { background: var(--surface-hi); }
+.icon-square:hover { color: var(--ink); background: var(--surface); }
+.nav-cta {
+    background: var(--surface-hi);
+    color: var(--ink);
+    border: 1px solid var(--rule);
+    font-weight: 500;
+    font-size: 1rem;
+    padding: 0.8rem 1.4rem;
+}
+.nav-cta:hover { background: var(--bg); }
+.nav-cta .arr { display: none; }
+.mobile-menu { background: var(--bg-2); border-radius: var(--radius-card); }
+
+/* ---------- Type ---------- */
+.display, h1, h2 { letter-spacing: -0.045em; }
+.accent-dot, .hl-accent { color: var(--accent); }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 6px; }
+
+/* ---------- Labels: sentence case Geist instead of uppercase mono ---------- */
+.eyebrow,
+.ab-meta .home-link, .cs-meta .all-work, .pj-meta .home-link,
+.ab-meta .meta-row, .cs-meta .meta-row, .pj-meta .meta-row,
+.feat-visual-meta, .pj-card-meta, .pj-card-meta .badge, .polaroid-meta,
+.footer-col-pair h4, .footer-meta,
+.step .num, .moment .moment-tag, .more-link .more-label,
+.video-cap .ep, .video-head .count, .preview-head .count, .preview-note,
+.arch-input, .arch-output, .arch-pipe-label, .arch-stage-meta, .arch-edit, .arch-edit .who,
+.browser-actions a, .code-head .lang, .discord-name .bot,
+.cs-chip, .stack-row .chip, .feat-foot .stack-row .chip, .arch-chip, .arch-stage-title .badge {
+    font-family: 'Geist', system-ui, sans-serif;
+    text-transform: none;
+    letter-spacing: -0.005em;
+}
+.eyebrow,
+.ab-meta .meta-row, .cs-meta .meta-row, .pj-meta .meta-row,
+.ab-meta .home-link, .cs-meta .all-work, .pj-meta .home-link,
+.feat-visual-meta, .pj-card-meta, .polaroid-meta,
+.footer-col-pair h4, .footer-meta, .step .num, .moment .moment-tag,
+.more-link .more-label, .video-cap .ep {
+    font-size: 0.875rem;
+    font-weight: 500;
+}
+.eyebrow { color: var(--mute); }
+.cs-chip, .stack-row .chip, .feat-foot .stack-row .chip, .arch-chip { font-size: 0.8rem; }
+.step .num { color: var(--accent); }
+
+/* ---------- Buttons ---------- */
+.btn-primary { font-weight: 500; padding: 0.95rem 1.6rem; }
+.btn-primary .arr { background: var(--accent); color: var(--on-accent); }
+.btn-primary:hover .arr { background: var(--accent-hover); }
+.dark .btn-primary { background: var(--ink); color: var(--bg); }
+.dark .btn-primary:hover { background: #FFFFFF; }
+.dark .btn-primary .arr { background: var(--accent-hover); color: #141312; }
+.btn-ghost { background: var(--surface-hi); border-color: var(--rule); }
+.btn-ghost:hover { color: var(--ink); border-color: var(--rule-strong); background: var(--surface); }
+.pulse::before, .pulse::after, .pulse-on-dark::before, .pulse-on-dark::after { background: #6FBF73; }
+
+/* ---------- Dark cards: flat charcoal with a soft light beam ---------- */
+.hero-card::before,
+.about-card::before,
+.feat-visual::before {
+    inset: 0;
+    background:
+        linear-gradient(118deg, transparent 38%, rgba(255, 247, 236, 0.07) 48%, rgba(255, 247, 236, 0.02) 60%, transparent 70%),
+        radial-gradient(90% 70% at 85% 10%, rgba(255, 247, 236, 0.10), transparent 70%),
+        linear-gradient(180deg, rgba(255, 255, 255, 0.02), rgba(0, 0, 0, 0.25));
+    animation: none;
+}
+.hero-card::after,
+.about-card::after,
+.feat-visual::after { display: none; }
+/* Dark cards get a border in dark mode so they don't sink into the page */
+.hero-card, .about-card, .feat-visual, .pj-card-visual { border: 1px solid var(--card-dark-border); }
+.feat-card, .pj-card { border-color: var(--rule); }
+.hero-card-mark em,
+.feat-numeral em,
+.about-card .accent-dot,
+.footer-headline em,
+.loader-glyph .dot { color: var(--accent-on-dark); animation: none; }
+.hero-card-tag::after,
+.feat-visual-meta .badge::after,
+.feat-foot .ring::before { display: none; }
+.feat-visual-meta .badge {
+    background: rgba(255, 247, 236, 0.10);
+    color: var(--on-card-dark);
+    border: 1px solid rgba(255, 247, 236, 0.16);
+    font-weight: 500;
+}
+
+/* ---------- Hero ---------- */
+.hero-headline {
+    font-size: clamp(2.6rem, 5vw, 4.75rem);
+    font-weight: 500;
+    line-height: 1;
+    letter-spacing: -0.05em;
+}
+.hero-headline .hl-accent { color: var(--accent); font-weight: 500; }
+.hero-polaroid,
+.dark .hero-polaroid {
+    background: var(--surface);
+    border: 1px solid var(--rule);
+    border-radius: 22px;
+    padding: 0.6rem;
+    box-shadow: 0 1px 2px rgba(26, 26, 26, 0.04), 0 18px 40px -30px rgba(26, 26, 26, 0.35);
+}
+.dark .hero-polaroid { box-shadow: 0 18px 40px -28px rgba(0, 0, 0, 0.7); }
+.hero-polaroid.reveal { animation: fadeUp 0.85s 0.32s cubic-bezier(.2,.7,.2,1) forwards; }
+.hero-polaroid:hover { transform: none; box-shadow: none; }
+.hero-card { border-radius: var(--radius-card); }
+.hero-card-mark { font-weight: 500; }
+.polaroid-btn { animation: none; }
+.polaroid-btn:hover { background: var(--on-card-dark); border-color: var(--on-card-dark); color: var(--card-dark); }
+.polaroid-caption {
+    padding: 0.9rem 0.8rem 0.6rem;
+    text-align: left;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    letter-spacing: -0.01em;
+    color: var(--mute);
+}
+.polaroid-caption strong { color: var(--ink); }
+.hero-card { min-height: 300px; }
+@media (min-width: 1000px) { .hero-card { min-height: 340px; } }
+.polaroid-caption strong { font-weight: 500; }
+.hero-polaroid:hover .polaroid-caption { transform: none; }
+
+/* ---------- Cards ---------- */
+.about-card,
+.feat-card { border-radius: var(--radius-card); }
+.about-card h2 { font-weight: 500; }
+.about-card:hover, .feat-card:hover { transform: none; }
+.about-side .name-block,
+.stat-block,
+.cap-tile {
+    background: var(--surface);
+    border: 1px solid var(--rule);
+    border-radius: var(--radius-card);
+    box-shadow: 0 1px 2px rgba(26, 26, 26, 0.04);
+}
+.about-side .name-block:hover,
+.stat-block:hover,
+.cap-tile:hover {
+    border-color: var(--rule-strong);
+    transform: translateY(-2px);
+    box-shadow: 0 10px 24px -18px rgba(26, 26, 26, 0.35);
+}
+.stat-block::before { display: none; }
+.stat-block .num em,
+.about-side .name-block .name .accent-dot { animation: none; color: var(--accent); }
+.stat-block:hover .num em,
+.about-side .name-block:hover .name .accent-dot { transform: none; color: var(--accent); }
+.about-side .name-block .name { font-size: clamp(2rem, 3.8vw, 2.9rem); }
+.about-side .name-block p { color: var(--mute); font-size: 1.1rem; line-height: 1.5; }
+.about-side .name-block p a, .section-body a:not([class]) { color: var(--accent); text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 3px; }
+
+/* ---------- Services grid ---------- */
+.cap-head h2,
+.work-head h2,
+.feat-head h2 {
+    font-size: clamp(2.8rem, 7vw, 6rem);
+    font-weight: 500;
+    line-height: 1;
+    letter-spacing: -0.05em;
+}
+.cap-head p, .work-head p { font-size: 1.15rem; font-weight: 500; max-width: 40ch; }
+.cap-tile-icon,
+.cap-tile.tile-automation .cap-tile-icon,
+.cap-tile.tile-ai .cap-tile-icon,
+.cap-tile.tile-shopify .cap-tile-icon,
+.cap-tile.tile-glue .cap-tile-icon {
+    width: auto; height: auto;
+    background: transparent;
+    border: 0;
+    border-radius: 0;
+    color: var(--ink);
+    justify-content: flex-start;
+    margin-bottom: 1.5rem;
+}
+.cap-tile:hover .cap-tile-icon { background: transparent; color: var(--ink); transform: none; }
+.cap-tile-icon [data-lucide] { width: 32px; height: 32px; stroke-width: 1.75; }
+.cap-tile-icon .shopify-icon { width: 30px; height: 30px; color: var(--ink); }
+.cap-tile h3 { font-size: clamp(1.5rem, 2.2vw, 1.9rem); font-weight: 500; }
+.cap-tile p { font-size: 0.97rem; }
+
+/* ---------- Experience rows: open list with hairlines ---------- */
+.work-list {
+    border: 0;
+    border-radius: 0;
+    border-top: 1px solid var(--rule);
+    overflow: visible;
+}
+.work-row {
+    background: transparent;
+    border-bottom: 1px solid var(--rule);
+}
+.work-row:last-child { border-bottom: 1px solid var(--rule); }
+.work-row:hover { background: var(--bg-2); }
+.work-row h3 { font-size: 1.3rem; font-weight: 500; }
+.work-row .stack { color: var(--mute); font-weight: 400; font-size: 0.95rem; }
+.work-row .year { font-size: clamp(1.75rem, 2.8vw, 2.4rem); font-weight: 500; }
+.work-row:hover .arrow-cell { color: var(--ink); }
+
+/* ---------- Featured project ---------- */
+.feat-numeral { font-weight: 500; }
+.feat-foot { background: var(--surface); }
+.feat-foot h3 { font-weight: 500; }
+.feat-foot .stack-row .chip { background: var(--surface-hi); border-color: var(--rule); }
+.feat-foot .ring { background: var(--ink); color: var(--bg); transition: background 0.2s ease; }
+.feat-card:hover .feat-foot .ring { background: var(--accent); color: var(--on-accent); }
+.feat-card:hover .feat-foot .ring { box-shadow: none; }
+
+/* ---------- Statement ---------- */
+.statement p { font-weight: 500; letter-spacing: -0.03em; color: var(--mute); }
+.word-reveal.is-visible .word.accent-word { color: var(--accent); font-style: normal; font-weight: 500; }
+
+/* ---------- Footer ---------- */
+.dark .site-footer { background: #0E0D0C; }
+.site-footer::before {
+    background: radial-gradient(900px 480px at 85% 100%, rgba(255, 247, 236, 0.06), transparent 70%);
+}
+.footer-avatar { background: var(--on-ink); color: #1A1A1A; font-weight: 500; }
+.footer-name, .footer-headline { font-weight: 500; }
+.footer-btn { font-weight: 500; }
+.footer-btn-primary:hover,
+.dark .footer-btn-primary { background: #FFFFFF; color: #1A1A1A; }
+.dark .footer-btn-primary:hover { background: var(--on-ink); color: #1A1A1A; }
+.footer-btn-ghost:hover { border-color: var(--on-ink); color: var(--on-ink); }
+.footer-col-links a:hover { color: var(--on-ink); }
+
+/* ---------- Loader ---------- */
+.loader-glyph { font-weight: 500; }
+.loader-glyph .dot { color: var(--accent); }
+
+.feat-card { background: var(--surface); }
+@media (max-width: 480px) {
+    .nav-cta > span:not(.arr) { display: none; }
+    .nav-cta { padding: 0; width: 38px; height: 38px; justify-content: center; }
+    .nav-cta .arr { display: inline-flex; background: transparent; color: var(--ink); }
+}
+
+/* Headline accent words: upright, in the accent colour */
+html h1 em, html h2 em, html h3 em,
+html .cs-headline em, html .ab-headline em, html .pj-headline em,
+html .section-h2 em, html .pj-card-foot h3 em, html .stat .stat-num em,
+html .section-body .lead em, html .section-body .lead .quote-mark,
+html .video-cap .title { font-style: normal; color: var(--accent); }
+html .pj-card-numeral em,
+html .footer-headline em { font-style: normal; color: var(--accent-on-dark); }
+
+.feat-visual-meta .badge, .hero-card-tag { letter-spacing: -0.005em; text-transform: none; font-family: 'Geist', system-ui, sans-serif; }
+.dark .read-pill { background: var(--ink); color: var(--bg); }
+.dark .read-pill:hover { background: #FFFFFF; color: var(--bg); }
+
+/* Short intro next to a section heading: centre it on the heading */
+.section-grid:has(> .section-body > p:only-child) { align-items: center; }
+
+/* Page titles and project card titles sit on one line, in one colour */
+.cs-headline, .ab-headline, .pj-headline { white-space: nowrap; font-size: clamp(2.4rem, 5.2vw, 4.75rem); }
+@media (max-width: 699px) { .cs-headline, .ab-headline, .pj-headline { font-size: 7.4vw; } }
+@media (min-width: 1100px) { .feat-foot h3, .pj-card-foot h3 { white-space: nowrap; } }
+@media (max-width: 400px) {
+    .nav-shell { padding: 0 0.75rem; }
+    .nav-pill { padding: 0.5rem 0.5rem 0.5rem 0.85rem; gap: 0.5rem; }
+    .nav-logo { font-size: 1.05rem; padding: 0.45rem 0.25rem; }
+}
+
+/* ---------- Mermaid diagrams (assets/diagrams.js) ---------- */
+.diagram {
+    margin-top: 2.5rem;
+    background: var(--bg-2);
+    border: 1px solid var(--rule);
+    border-radius: var(--radius-card);
+    padding: 1.5rem;
+    overflow-x: auto;
+}
+@media (min-width: 768px) { .diagram { padding: 2.25rem; } }
+.diagram-out svg { display: block; max-width: 100%; height: auto; margin: 0 auto; }
+.diagram-out .nodeLabel, .diagram-out .edgeLabel, .diagram-out .cluster-label { font-family: 'Geist', system-ui, sans-serif; }
+.diagram-out .cluster-label .nodeLabel { color: var(--mute); font-size: 0.85rem; font-weight: 500; }
+.diagram-out .edgeLabel, .diagram-out .edgeLabel p, .diagram-out .edgeLabel span { color: var(--mute) !important; }
+.diagram-out .nodeLabel small { color: var(--mute); font-size: 0.8em; }
+@media (max-width: 699px) {
+    .diagram { padding: 1rem; }
+}

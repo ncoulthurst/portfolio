@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nathan Coulthurst · Technical Support Engineer</title>
+    <title>Nathan Coulthurst · Support Engineer &amp; Developer</title>
     <link rel="icon" type="image/svg+xml" href="/favicon.svg">
 
     <!-- Pre-paint theme: light is default; dark only if explicitly chosen -->
@@ -19,7 +19,7 @@
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300..800;1,300..800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300..700&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/lucide@0.469.0"></script>
 
     <!-- Vercel Web Analytics -->
@@ -83,7 +83,7 @@
             margin: 0; padding: 0;
             background: var(--bg);
             color: var(--ink);
-            font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+            font-family: 'Geist', system-ui, sans-serif;
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
         }
@@ -103,7 +103,7 @@
             border-bottom-right-radius: 18px;
             box-shadow: 0 18px 36px -28px rgba(0, 0, 0, 0.4);
         }
-        .mono { font-family: 'JetBrains Mono', ui-monospace, monospace; }
+        .mono { font-family: 'Geist Mono', ui-monospace, monospace; }
         a { color: inherit; text-decoration: none; }
         button { font-family: inherit; cursor: pointer; }
         ::selection { background: var(--accent); color: var(--bg); }
@@ -144,7 +144,7 @@
             background: transparent;
             color: var(--ink);
             padding: 0.45rem 0.75rem;
-            font-weight: 700;
+            font-weight: 500;
             font-size: 1rem;
             letter-spacing: -0.015em;
             line-height: 1;
@@ -175,7 +175,7 @@
             position: relative;
         }
         .nav-link:hover { opacity: 1; color: var(--accent); }
-        .nav-link.is-active { opacity: 1; font-weight: 600; }
+        .nav-link.is-active { opacity: 1; font-weight: 500; }
         .nav-link.is-active::after {
             content: "";
             position: absolute;
@@ -207,7 +207,7 @@
             color: var(--on-card-dark);
             border-radius: 999px;
             padding: 0.7rem 0.55rem 0.7rem 1.2rem;
-            font-weight: 600;
+            font-weight: 500;
             font-size: 0.9rem;
             letter-spacing: -0.005em;
             transition: background 0.25s ease, transform 0.25s ease;
@@ -245,12 +245,12 @@
 
         /* ============ TYPE ============ */
         .display {
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            font-weight: 800;
+            font-family: 'Geist', sans-serif;
+            font-weight: 500;
             letter-spacing: -0.05em;
         }
         .eyebrow {
-            font-family: 'JetBrains Mono', ui-monospace, monospace;
+            font-family: 'Geist Mono', ui-monospace, monospace;
             font-size: 0.7rem;
             letter-spacing: 0.22em;
             text-transform: uppercase;
@@ -290,7 +290,7 @@
 			line-height: 1.1;
 			margin: 0 0 1.75rem 0;
 			color: var(--ink);
-			font-weight: 800;
+			font-weight: 500;
 			letter-spacing: -0.03em;
 			max-width: 100%;
 			overflow-wrap: break-word;
@@ -312,11 +312,11 @@
         .hero-headline .hl-accent {
             color: var(--accent);
             font-style: italic;
-            font-weight: 700;
+            font-weight: 500;
         }
         .hero-headline .hl-bright {
             color: var(--ink);
-            font-weight: 800;
+            font-weight: 500;
             background: linear-gradient(180deg, transparent 62%, color-mix(in srgb, var(--accent) 35%, transparent) 62%, color-mix(in srgb, var(--accent) 35%, transparent) 92%, transparent 92%);
             padding: 0 0.05em;
         }
@@ -400,7 +400,7 @@
         }
         .hero-card-mark {
             font-size: clamp(2.6rem, 5.5vw, 4rem);
-            font-weight: 800;
+            font-weight: 500;
             letter-spacing: -0.045em;
             line-height: 0.95;
             color: var(--on-card-dark);
@@ -408,7 +408,7 @@
         }
         .hero-card-mark em {
             font-style: italic;
-            font-weight: 600;
+            font-weight: 500;
             color: var(--accent);
         }
         .polaroid-actions {
@@ -437,7 +437,7 @@
         }
         .polaroid-meta {
             margin-left: auto;
-            font-family: 'JetBrains Mono', monospace;
+            font-family: 'Geist Mono', monospace;
             font-size: 0.72rem;
             letter-spacing: 0.18em;
             text-transform: uppercase;
@@ -450,7 +450,7 @@
             color: var(--ink);
             text-align: center;
         }
-        .polaroid-caption strong { font-weight: 600; color: var(--ink); }
+        .polaroid-caption strong { font-weight: 500; color: var(--ink); }
         @media (min-width: 768px) { .polaroid-caption { padding: 0.85rem 1.1rem 1.1rem; } }
 
         /* Polaroid card motion */
@@ -546,7 +546,7 @@
             padding: 0.95rem 1rem 0.95rem 1.5rem;
             border-radius: 999px;
             font-size: 0.95rem;
-            font-weight: 600;
+            font-weight: 500;
             border: 0;
             transition: transform 0.25s ease, background 0.25s ease;
         }
@@ -656,7 +656,7 @@
         .about-card h2 {
             margin: 0;
             font-size: clamp(3rem, 8vw, 6.5rem);
-            font-weight: 800;
+            font-weight: 500;
             letter-spacing: -0.05em;
             line-height: 0.9;
         }
@@ -670,7 +670,7 @@
             padding: 0.55rem 0.6rem 0.55rem 1.2rem;
             border-radius: 999px;
             font-size: 0.85rem;
-            font-weight: 600;
+            font-weight: 500;
             transition: background 0.2s ease, color 0.2s ease;
         }
         .read-pill:hover { background: var(--accent); color: var(--on-accent); }
@@ -701,13 +701,13 @@
         @media (min-width: 768px) { .about-side .name-block { padding: 1.75rem 1.75rem 2rem; } }
         .about-side .name-block .name {
             font-size: clamp(1.8rem, 3.6vw, 2.6rem);
-            font-weight: 800;
+            font-weight: 500;
             letter-spacing: -0.045em;
             line-height: 0.95;
             margin: 0 0 1rem;
         }
         .about-side .name-block .name .accent-dot {
-            font-weight: 800;
+            font-weight: 500;
             display: inline-block;
             transition: transform 0.6s cubic-bezier(.2,.7,.2,1), color 0.3s ease;
         }
@@ -809,7 +809,7 @@
         .stat-block:hover::before { opacity: 1; }
         .stat-block .num {
             font-size: clamp(2.2rem, 4.4vw, 3.2rem);
-            font-weight: 800;
+            font-weight: 500;
             letter-spacing: -0.05em;
             line-height: 0.92;
             color: var(--ink);
@@ -817,7 +817,7 @@
         }
         .stat-block:hover .num { transform: translateY(-2px); }
         .stat-block .num em {
-            font-style: italic; color: var(--accent); font-weight: 700;
+            font-style: italic; color: var(--accent); font-weight: 500;
             display: inline-block;
             animation: statDotPulse 3.4s ease-in-out infinite;
             transform-origin: center bottom;
@@ -860,7 +860,7 @@
         .cap-head h2 {
             margin: 0;
             font-size: clamp(2.6rem, 6.5vw, 5rem);
-            font-weight: 800;
+            font-weight: 500;
             letter-spacing: -0.05em;
             line-height: 0.9;
             overflow-wrap: break-word;
@@ -916,7 +916,7 @@
         .cap-tile h3 {
             margin: 0 0 0.6rem;
             font-size: 1.55rem;
-            font-weight: 700;
+            font-weight: 500;
             letter-spacing: -0.025em;
             line-height: 1.1;
         }
@@ -947,7 +947,7 @@
         .work-head h2 {
             margin: 0;
             font-size: clamp(1.75rem, 3.6vw, 2.85rem);
-            font-weight: 800;
+            font-weight: 500;
             letter-spacing: -0.035em;
             line-height: 1;
         }
@@ -989,17 +989,17 @@
         .work-row h3 {
             margin: 0;
             font-size: clamp(1.3rem, 2.2vw, 1.85rem);
-            font-weight: 700;
+            font-weight: 500;
             letter-spacing: -0.025em;
             line-height: 1.15;
         }
         .work-row .stack {
-            font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+            font-family: 'Geist', system-ui, sans-serif;
             font-size: 1rem;
             letter-spacing: -0.01em;
             text-transform: none;
             color: var(--accent);
-            font-weight: 600;
+            font-weight: 500;
         }
         .work-row p {
             margin: 0;
@@ -1010,7 +1010,7 @@
         }
         .work-row .year {
             font-size: clamp(1.5rem, 2.4vw, 2.25rem);
-            font-weight: 600;
+            font-weight: 500;
             letter-spacing: -0.025em;
             color: var(--ink);
             text-align: left;
@@ -1039,7 +1039,7 @@
         .feat-head h2 {
             margin: 0;
             font-size: clamp(1.75rem, 3.6vw, 2.85rem);
-            font-weight: 800;
+            font-weight: 500;
             letter-spacing: -0.035em;
             line-height: 1;
             white-space: nowrap;
@@ -1117,7 +1117,7 @@
             display: flex;
             justify-content: space-between;
             align-items: start;
-            font-family: 'JetBrains Mono', monospace;
+            font-family: 'Geist Mono', monospace;
             font-size: 0.72rem;
             letter-spacing: 0.18em;
             text-transform: uppercase;
@@ -1132,17 +1132,17 @@
             color: var(--on-accent);
             border-radius: 999px;
             letter-spacing: 0.15em;
-            font-weight: 600;
+            font-weight: 500;
         }
         .feat-numeral {
             font-size: clamp(4rem, 12vw, 9rem);
-            font-weight: 800;
+            font-weight: 500;
             letter-spacing: -0.06em;
             line-height: 0.85;
             color: var(--on-card-dark);
             opacity: 0.95;
         }
-        .feat-numeral em { font-style: italic; font-weight: 600; color: var(--accent); }
+        .feat-numeral em { font-style: italic; font-weight: 500; color: var(--accent); }
         .feat-foot {
             display: grid;
             grid-template-columns: 1fr;
@@ -1157,7 +1157,7 @@
         .feat-foot h3 {
             margin: 0 0 0.85rem;
             font-size: clamp(1.2rem, 1.8vw, 1.6rem);
-            font-weight: 700;
+            font-weight: 500;
             letter-spacing: -0.025em;
             line-height: 1.15;
         }
@@ -1175,7 +1175,7 @@
             margin-top: 0.6rem;
         }
         .feat-foot .stack-row .chip {
-            font-family: 'JetBrains Mono', monospace;
+            font-family: 'Geist Mono', monospace;
             font-size: 0.68rem;
             padding: 0.32rem 0.7rem;
             border: 1px solid var(--rule-strong);
@@ -1298,7 +1298,7 @@
         .word-reveal.is-visible .word.accent-word {
             color: var(--accent);
             font-style: italic;
-            font-weight: 600;
+            font-weight: 500;
         }
         .word-reveal.is-visible .word.bright {
             color: var(--ink);
@@ -1357,7 +1357,7 @@
             background: var(--accent);
             color: var(--on-accent);
             font-size: 1.6rem;
-            font-weight: 800;
+            font-weight: 500;
             letter-spacing: -0.04em;
             display: inline-flex;
             align-items: center;
@@ -1367,7 +1367,7 @@
         }
         .footer-id-text .footer-name {
             font-size: 1.3rem;
-            font-weight: 700;
+            font-weight: 500;
             color: var(--on-ink);
             letter-spacing: -0.025em;
             line-height: 1.1;
@@ -1392,7 +1392,7 @@
             padding: 0.85rem 1.4rem;
             border-radius: 999px;
             font-size: 0.92rem;
-            font-weight: 600;
+            font-weight: 500;
             transition: background 0.25s ease, color 0.25s ease, transform 0.25s ease, border-color 0.25s ease;
         }
         .footer-btn-primary { background: var(--on-ink); color: var(--ink); }
@@ -1406,12 +1406,12 @@
         .footer-headline {
             margin: 0 0 1.25rem;
             font-size: clamp(3rem, 8.5vw, 7.75rem);
-            font-weight: 800;
+            font-weight: 500;
             letter-spacing: -0.055em;
             line-height: 0.94;
             color: var(--on-ink);
         }
-        .footer-headline em { font-style: italic; font-weight: 600; color: var(--accent); }
+        .footer-headline em { font-style: italic; font-weight: 500; color: var(--accent); }
         .footer-subtitle { color: var(--on-ink-mute); font-size: 1rem; max-width: 38ch; }
 
         .footer-divider { height: 1px; background: rgba(255, 255, 255, 0.10); margin: 0; }
@@ -1428,7 +1428,7 @@
         .footer-col-pair { display: flex; gap: 1.1rem; align-items: baseline; flex-wrap: wrap; }
         .footer-col-pair h4 {
             margin: 0;
-            font-family: 'JetBrains Mono', monospace;
+            font-family: 'Geist Mono', monospace;
             font-size: 0.72rem;
             text-transform: uppercase;
             letter-spacing: 0.22em;
@@ -1446,7 +1446,7 @@
         }
         .footer-col-links a:hover { opacity: 1; color: var(--accent); }
         .footer-meta {
-            font-family: 'JetBrains Mono', monospace;
+            font-family: 'Geist Mono', monospace;
             font-size: 0.72rem;
             text-transform: uppercase;
             letter-spacing: 0.18em;
@@ -1475,8 +1475,8 @@
             transition: opacity 0.5s ease;
         }
         .loader-glyph {
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            font-weight: 800;
+            font-family: 'Geist', sans-serif;
+            font-weight: 500;
             font-size: clamp(5rem, 12vw, 9rem);
             letter-spacing: -0.06em;
             color: var(--ink);
@@ -1497,11 +1497,12 @@
             .nav-cta { padding: 0.5rem; }
         }
     </style>
+    <link rel="stylesheet" href="assets/theme.css">
 </head>
 <body>
 
     <div id="loader" aria-hidden="true">
-        <div class="loader-glyph">N<span class="dot">.</span></div>
+        <div class="loader-glyph">N</div>
     </div>
 
     <div id="main-content">
@@ -1509,7 +1510,7 @@
         <!-- ========== NAV ========== -->
         <div class="nav-shell">
             <nav class="nav-pill" aria-label="Primary">
-                <a href="#" class="nav-logo">Nathan Coulthurst<span class="dot">.</span></a>
+                <a href="#" class="nav-logo">Nathan Coulthurst</a>
 
                 <div class="nav-links">
                     <a href="/projects" class="nav-link">Work</a>
@@ -1545,7 +1546,7 @@
 					<div>
 						<h1 class="display hero-headline reveal d2">
 							I fix what breaks, then automate <br>
-							<em class="hl-accent">what shouldn’t be manual</em><span class="accent-dot">.</span>
+							what shouldn’t be manual
 						</h1>
 
 						<div class="hero-actions reveal d4">
@@ -1564,7 +1565,7 @@
 						<div class="hero-card">
 							<span class="hero-card-tag">
 								<span class="pulse-on-dark" aria-hidden="true"></span>
-								Open to work · Leeds, UK
+								Open to software &amp; AI roles
 							</span>
 
 							<div class="hero-card-mark">Nathan<em>.</em></div>
@@ -1584,7 +1585,7 @@
 						</div>
 
 						<div class="polaroid-caption">
-							Hello, I'm Nathan, a <strong>technical support engineer</strong>, who enjoys building automation and AI systems that remove repetitive work and improve how systems run.
+							Hello, I'm Nathan, a <strong>technical support engineer</strong> who builds with React, TypeScript and Python. I built Eskens Ops, the operations app our team runs their day on, and I'm looking for a software or AI engineering role.
 						</div>
 					</aside>
 				</div>
@@ -1594,26 +1595,55 @@
             <!-- ========== FEATURED PROJECT (moved up, first section after hero) ========== -->
             <section class="section" id="work">
                 <div class="wrap">
-                    <a href="/projects/ai-video-engine" class="feat-card scroll-reveal">
+                    <a href="/projects/eskens-ops" class="feat-card scroll-reveal">
                         <div class="feat-visual">
                             <div class="feat-visual-inner">
                                 <div class="feat-visual-meta">
-                                    <span class="badge">Latest Project</span>
-                                    <span>2026 →</span>
+                                    <span class="badge">In daily use</span>
+                                    <span>Eskens →</span>
                                 </div>
-                                <div class="feat-numeral">01<em>.</em></div>
+                                <div class="feat-numeral">01</div>
                             </div>
                         </div>
                         <div class="feat-foot">
                             <div>
-                                <h3>Sequencely - AI Video Production <em>Engine</em></h3>
-                                <p class="blurb">20+ chained agents turn a title and director's brief into a 10-15 minute documentary, covering research, script, narrated audio, animated graphics, and a clip sourcing sheet.</p>
+                                <h3>Eskens Ops - Operations App</h3>
+                                <p class="blurb">An operations app on top of our CRM's API that turns rows of job data into a live map of the UK. 40+ staff across the business use it every day as an installable app with notifications. Built and deployed on my own.</p>
+                            </div>
+                            <div>
+                                <div class="stack-row">
+                                    <span class="chip">Next.js</span>
+                                    <span class="chip">React</span>
+                                    <span class="chip">TypeScript</span>
+                                    <span class="chip">Postgres</span>
+                                    <span class="chip">Python</span>
+                                    <span class="chip">Azure</span>
+                                </div>
+                            </div>
+                            <span class="ring"><i data-lucide="arrow-up-right" class="icon-md"></i></span>
+                        </div>
+                    </a>
+
+                    <a href="/projects/ai-video-engine" class="feat-card scroll-reveal" style="margin-top: 1.5rem;">
+                        <div class="feat-visual">
+                            <div class="feat-visual-inner">
+                                <div class="feat-visual-meta">
+                                    <span class="badge">Personal project</span>
+                                    <span>2026 →</span>
+                                </div>
+                                <div class="feat-numeral">02</div>
+                            </div>
+                        </div>
+                        <div class="feat-foot">
+                            <div>
+                                <h3>Sequencely - AI Video Production Engine</h3>
+                                <p class="blurb">A Flask app that chains Groq Llama 70B and Gemini 2.5 to turn a title into a finished documentary, with research, script, voiceover, 60+ animated graphic templates and a Premiere-style editor.</p>
                             </div>
                             <div>
                                 <div class="stack-row">
                                     <span class="chip">Python</span>
                                     <span class="chip">Flask</span>
-                                    <span class="chip">Groq LLMs</span>
+                                    <span class="chip">Groq + Gemini</span>
                                     <span class="chip">Remotion</span>
                                     <span class="chip">ElevenLabs</span>
                                     <span class="chip">React / TS</span>
@@ -1643,28 +1673,28 @@
 
                         <div class="about-side">
                             <div class="name-block">
-                                <div class="name">Nathan<span class="accent-dot">.</span></div>
+                                <div class="name">Nathan</div>
                                 <p>
-                                    Technical Support Engineer by day, building automation and AI tools by night. My most recent project, <em>Sequencely<em>, is a multi-agent Python pipeline that turns a single title into a full documentary. I like the messy work between code, design, and systems that quietly hold things together.
+                                    Technical Support Engineer at Eskens who also builds with React, TypeScript and Python, with a BSc in Computer Security. At work I built <em>Eskens Ops</em>, the operations app everyone in the business uses every day. In my own time I built <em>Sequencely</em>, an AI tool that goes from a title to a finished, rendered video.
                                 </p>
                             </div>
 
                             <div class="stat-grid">
                                 <div class="stat-block">
                                     <div class="eyebrow" style="margin-bottom: 0.5rem;">Education</div>
-                                    <div class="num">2:1<em>.</em></div>
+                                    <div class="num">2:1</div>
                                     <div class="lab">BSc Computer Security</div>
 									<div class="lab">Liverpool John Moores University</div>
                                 </div>
                                 <div class="stat-block">
                                     <div class="eyebrow" style="margin-bottom: 0.5rem;">Located</div>
-                                    <div class="num">Leeds<em>.</em></div>
-                                    <div class="lab">UK · Open to remote</div>
+                                    <div class="num">Leeds</div>
+                                    <div class="lab">Open to Manchester (hybrid) · Remote</div>
                                 </div>
                                 <div class="stat-block" style="grid-column: 1 / -1;">
                                     <div class="eyebrow" style="margin-bottom: 0.5rem;">Currently</div>
-                                    <div class="num" style="font-size: clamp(1.6rem, 3.2vw, 2.4rem);">Technical Support Engineer<em>.</em></div>
-                                    <div class="lab">Eskens Tinting Solutions · 2024 → present</div>
+                                    <div class="num" style="font-size: clamp(1.6rem, 3.2vw, 2.4rem);">Technical Support Engineer</div>
+                                    <div class="lab">Eskens Tinting Solutions · Dec 2024 → present</div>
                                 </div>
                             </div>
                         </div>
@@ -1677,35 +1707,35 @@
                 <div class="wrap">
                     <div class="cap-grid scroll-reveal">
                         <div class="cap-head">
-                            <h2 class="display">What I Build<span class="accent-dot">.</span></h2>
-                        <p>Smaller pieces of automation, tooling and shop-floor engineering, the quiet wins that compound.</p>
+                            <h2 class="display">What I Build</h2>
+                        <p>Things I've built and shipped, at work and in my own time.</p>
                         </div>
 
                         <div class="cap-tiles">
-                            <div class="cap-tile tile-automation">
-                                <div class="cap-tile-icon"><i data-lucide="terminal-square"></i></div>
-                                <h3>Internal Automation</h3>
-                                <p>A PowerShell installer that provisions tinting machine PCs end-to-end. Replaces a 90-minute manual procedure with a one-click script, tested across Rust-Oleum, Farrow &amp; Ball and PPG variants.</p>
+                            <div class="cap-tile">
+                                <div class="cap-tile-icon"><i data-lucide="layout-dashboard"></i></div>
+                                <h3>Internal Apps</h3>
+                                <p>Eskens Ops, a Next.js and TypeScript app with a live job map, scheduling, rota, IT tickets and NFC stock tracking. Installable as a PWA with notifications, deployed on Azure.</p>
                             </div>
 
-                            <div class="cap-tile tile-ai">
+                            <div class="cap-tile">
                                 <div class="cap-tile-icon"><i data-lucide="sparkles"></i></div>
                                 <h3>AI Systems</h3>
-                                <p>A 20+ agent multi-LLM pipeline that researches, scripts, narrates and renders documentaries end-to-end. Multi-model routing across Groq and Gemini, RAG over scraped sports data, ElevenLabs narration, Remotion render layer.</p>
+                                <p>A Flask app that chains Groq Llama 70B and Gemini 2.5, one step each: research, script, narration cleanup, graphics and output. ElevenLabs or Fish Audio voiceover, rendered with Remotion.</p>
                             </div>
 
-							<div class="cap-tile tile-shopify">
-								<div class="cap-tile-icon">
-									<img src="assets/shopify.png" alt="Shopify" class="shopify-icon">
-								</div>
-								<h3>Web Design & Shopify</h3>
-								<p>Custom JavaScript, bespoke page design and theme-level UX on Shopify storefronts.</p>
-							</div>
+                            <div class="cap-tile">
+                                <div class="cap-tile-icon"><i data-lucide="database"></i></div>
+                                <h3>Data Pipelines</h3>
+                                <p>Python pipelines that pull our CRM's API, an Outlook work-order calendar and monthly service schedules into one Postgres database, covering 17,000 appointments.</p>
+                            </div>
 
-                            <div class="cap-tile tile-glue">
-                                <div class="cap-tile-icon"><i data-lucide="layout-grid"></i></div>
-                                <h3>Frontend &amp; Design</h3>
-                                <p>A 2,000 line CSS corporate site built from scratch with glassmorphism and bespoke animation, plus a React/Remotion video editor for the AI pipeline.</p>
+                            <div class="cap-tile">
+                                <div class="cap-tile-icon">
+                                    <svg class="shopify-icon" viewBox="0 0 24 24" fill="currentColor" role="img" aria-label="Shopify"><path d="M15.337 23.979l7.216-1.561s-2.604-17.613-2.625-17.73c-.018-.116-.114-.192-.211-.192s-1.929-.136-1.929-.136-1.275-1.274-1.439-1.411c-.045-.037-.075-.057-.121-.074l-.914 21.104h.023zM11.71 11.305s-.81-.424-1.774-.424c-1.447 0-1.504.906-1.504 1.141 0 1.232 3.24 1.715 3.24 4.629 0 2.295-1.44 3.76-3.406 3.76-2.354 0-3.54-1.465-3.54-1.465l.646-2.086s1.245 1.066 2.28 1.066c.675 0 .975-.545.975-.932 0-1.619-2.654-1.694-2.654-4.359-.034-2.237 1.571-4.416 4.827-4.416 1.257 0 1.875.361 1.875.361l-.945 2.715-.02.01zM11.17.83c.136 0 .271.038.405.135-.984.465-2.064 1.639-2.508 3.992-.656.213-1.293.405-1.889.578C7.697 3.75 8.951.84 11.17.84V.83zm1.235 2.949v.135c-.754.232-1.583.484-2.394.736.466-1.777 1.333-2.645 2.085-2.971.193.501.309 1.176.309 2.1zm.539-2.234c.694.074 1.141.867 1.429 1.755-.349.114-.735.231-1.158.366v-.252c0-.752-.096-1.371-.271-1.871v.002zm2.992 1.289c-.02 0-.06.021-.078.021s-.289.075-.714.21c-.423-1.233-1.176-2.37-2.508-2.37h-.115C12.135.209 11.669 0 11.265 0 8.159 0 6.675 3.877 6.21 5.846c-1.194.365-2.063.636-2.16.674-.675.213-.694.232-.772.87-.075.462-1.83 14.063-1.83 14.063L15.009 24l.927-21.166z"/></svg>
+                                </div>
+                                <h3>Web &amp; Shopify</h3>
+                                <p>I built and maintain the eskensonline.com Shopify store and the Eskens corporate website, with custom JavaScript and theme-level design.</p>
                             </div>
                         </div>
                     </div>
@@ -1716,7 +1746,7 @@
             <section class="section" style="padding-top: 0;">
                 <div class="wrap">
                     <div class="work-head scroll-reveal">
-                        <h2 class="display">Work Experience<span class="accent-dot">.</span></h2>
+                        <h2 class="display">Work Experience</h2>
                     </div>
 
                     <div class="work-list scroll-reveal">
@@ -1725,7 +1755,7 @@
                                 <span class="stack">Eskens Tinting Solutions</span>
                                 <h3>Technical Support Engineer</h3>
                             </div>
-                            <p>Promoted to Tier 2 within 8 months; now resolve escalated system issues across 500+ sites while building automation tools that eliminate manual processes and improve operational reliability.</p>
+                            <p>Built and deployed Eskens Ops, used every day across the whole business. Second-line support for 300+ retail sites (B&amp;Q, PPG, Farrow &amp; Ball) using Citrix and Azure AD, plus Windows PC builds, GPOs and patching.</p>
                             <div class="year">Present</div>
                             <div class="arrow-cell"><i data-lucide="arrow-up-right" class="icon-md"></i></div>
                         </article>
@@ -1735,17 +1765,7 @@
                                 <span class="stack">Eskens Tinting Solutions</span>
                                 <h3>Helpdesk Advisor</h3>
                             </div>
-                            <p>Delivered first-line support for paint tinting systems across phone and email, diagnosing dispenser and shaker faults and restoring functionality remotely to reduce operational downtime.</p>
-                            <div class="year">2024</div>
-                            <div class="arrow-cell"><i data-lucide="arrow-up-right" class="icon-md"></i></div>
-                        </article>
-
-                        <article class="work-row">
-                            <div class="title-block">
-                                <span class="stack">AQA</span>
-                                <h3>Marking Administrator (Temporary)</h3>
-                            </div>
-                            <p>Handled quality assurance for exam processing, validating script completeness and managing exception cases (disqualifications, zero-mark outcomes) within internal systems to maintain data accuracy.</p>
+                            <p>First-line support for paint tinting systems by phone and email, diagnosing dispenser and shaker faults remotely. Promoted to Tier 2 Technical Support within 8 months.</p>
                             <div class="year">2024</div>
                             <div class="arrow-cell"><i data-lucide="arrow-up-right" class="icon-md"></i></div>
                         </article>
@@ -1772,11 +1792,11 @@
                         <span class="footer-avatar">N</span>
                         <div class="footer-id-text">
                             <div class="footer-name">Nathan Coulthurst</div>
-                            <div class="footer-role">Technical Support Engineer<br>Leeds, United Kingdom<br></div>
+                            <div class="footer-role">Technical Support Engineer<br>Leeds · Manchester (hybrid) · Remote</div>
                         </div>
                     </div>
                     <p class="footer-pitch">
-                        Got a workflow that's mostly held together by hope and copy-paste? Let's talk.
+                        Hiring for a software or AI engineering role? Get in touch.
                     </p>
                     <div class="footer-actions">
                         <a href="mailto:nathancoulthurst@hotmail.co.uk?subject=Hello" class="footer-btn footer-btn-primary">
@@ -1795,7 +1815,7 @@
                 <div class="footer-divider"></div>
                 <div class="footer-bottom-row">
                     <div class="footer-col-pair">
-                        <h4>SITEMAP</h4>
+                        <h4>Sitemap</h4>
                         <div class="footer-col-links">
                             <a href="/about">About</a>
                             <a href="/projects">Work</a>

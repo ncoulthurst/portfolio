@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vinted Marketplace Scraper · Nathan Coulthurst</title>
+    <title>Eskens Ops · Nathan Coulthurst</title>
     <link rel="icon" type="image/svg+xml" href="/favicon.svg">
 
     <script>
@@ -235,7 +235,7 @@
             display: grid; grid-template-columns: 1fr; gap: 1rem;
         }
         @media (min-width: 700px) { .pipeline { grid-template-columns: 1fr 1fr; } }
-        @media (min-width: 1100px) { .pipeline { grid-template-columns: repeat(4, 1fr); } }
+        @media (min-width: 1100px) { .pipeline { grid-template-columns: repeat(4, 1fr); } .pipeline.cols-3 { grid-template-columns: repeat(3, 1fr); } }
         .step {
             background: var(--surface);
             border: 1px solid var(--rule);
@@ -539,8 +539,8 @@
                 <div class="wrap">
                     <div class="cs-hero-grid">
                         <div class="cs-meta reveal d1">
-                            <div class="eyebrow">Case Study / 04</div>
-                            <div class="meta-row">Automation · 2024</div>
+                            <div class="eyebrow">Case Study / 01</div>
+                            <div class="meta-row">Internal app · Eskens</div>
                             <a href="/projects" class="all-work">
                                 <i data-lucide="arrow-left" class="icon-sm"></i>
                                 All work
@@ -549,17 +549,20 @@
 
                         <div>
                             <h1 class="display cs-headline reveal d2">
-                                Vinted Marketplace Scraper
+                                Eskens Ops
                             </h1>
                             <p class="cs-lede reveal d3">
-                                A Python Discord bot that watches Vinted's newest UK listings, routes each one to a brand-specific channel, and posts a rich embed with seller reputation, condition, and a one-tap buy link. Alerts within seconds of go-live.
+                                An operations app that sits on top of our CRM's API and turns rows of job data into a live map of the UK, with every job as an icon. 40+ staff use it every day, from helpdesk and field engineers to projects, the warehouse, IT and senior stakeholders. I planned, designed, built and deployed it on my own.
                             </p>
                             <div class="cs-chips reveal d3">
+                                <span class="cs-chip">Next.js</span>
+                                <span class="cs-chip">React</span>
+                                <span class="cs-chip">TypeScript</span>
+                                <span class="cs-chip">Postgres</span>
                                 <span class="cs-chip">Python</span>
-                                <span class="cs-chip">discord.py</span>
-                                <span class="cs-chip">pyVinted</span>
-                                <span class="cs-chip">RapidAPI</span>
-                                <span class="cs-chip">JSON config</span>
+                                <span class="cs-chip">Azure</span>
+                                <span class="cs-chip">Entra ID</span>
+                                <span class="cs-chip">PWA</span>
                             </div>
                         </div>
                     </div>
@@ -574,114 +577,112 @@
 
                         <div class="section-body">
                             <p class="lead">
-                                Resellers win on speed; the listings worth buying are gone within minutes. VintBot polls Vinted's newest-first feed, enriches each item with seller history and a full description, then drops it into a brand-specific Discord channel so collectors can react in seconds.
+                                Engineers used to track jobs in their own spreadsheets. Work got missed, and engineers would drive past jobs they didn't know about because the job was sitting in someone else's file.
                             </p>
                             <p>
-                                Each brand watcher in <span class="mono" style="color: var(--accent);">brand_channels.json</span> maps a canonical brand (Nike, Jordan, Adidas, Yeezy, Stüssy, Palace, Bape, Carhartt, Acne Studios…) to a Discord channel ID and a list of aliases, so a listing tagged "Nike x Stussy", "Air Max", or "ACG" all route to the right Nike channel automatically.
+                                The CRM holds everything as rows of data. Eskens Ops pulls those rows through the CRM's API and plots them on a map of the UK, with each job as an icon, so anyone in the business can see what's happening and where at a glance. Jobs sync live, so a job added while an engineer is out on the road still reaches them.
                             </p>
                             <p>
-                                The bot uses <span class="mono" style="color: var(--accent);">pyVinted</span> for the listing feed and <span class="mono" style="color: var(--accent);">vinted6.p.rapidapi.com</span> for enrichment, pulling the item's full description plus the seller's positive/neutral/negative feedback counts so the embed can show a real star rating, not just a price.
+                                I built it end to end on my own: planning, design, the Next.js app, the Python data pipeline, the Azure deployment and the rollout to the team.
                             </p>
                         </div>
                     </div>
                 </div>
             </section>
 
-            <!-- HOW IT WORKS -->
+            <!-- FEATURES -->
+            <section class="section">
+                <div class="wrap scroll-reveal">
+                    <div class="section-grid">
+                        <h2 class="section-h2">What it <em>does</em></h2>
+                        <div class="section-body">
+                            <p>One app for the whole business: helpdesk, field engineers, projects, the warehouse, IT and senior stakeholders.</p>
+                        </div>
+                    </div>
+
+                    <div class="pipeline cols-3">
+                        <div class="step">
+                            <div class="num">01 / Job map</div>
+                            <h3>Live job map</h3>
+                            <p>Every job from the CRM plotted as an icon on a map of the UK, instead of a row in a table.</p>
+                        </div>
+                        <div class="step">
+                            <div class="num">02 / Scheduling</div>
+                            <h3>Service scheduling</h3>
+                            <p>Service visits scheduled from the work orders and monthly service schedules the pipeline pulls in.</p>
+                        </div>
+                        <div class="step">
+                            <div class="num">03 / Rota</div>
+                            <h3>Team rota</h3>
+                            <p>The rota sits next to the jobs, so who's working and what needs doing are in the same place.</p>
+                        </div>
+                        <div class="step">
+                            <div class="num">04 / IT</div>
+                            <h3>IT ticket queue</h3>
+                            <p>Internal IT requests are raised and tracked in the same app the team already has open.</p>
+                        </div>
+                        <div class="step">
+                            <div class="num">05 / Warehouse</div>
+                            <h3>Installation stages</h3>
+                            <p>The warehouse tracks each new installation through its stages, so everyone can see where it's up to.</p>
+                        </div>
+                        <div class="step">
+                            <div class="num">06 / Stock</div>
+                            <h3>NFC stock tracking</h3>
+                            <p>PC stock is tagged with NFC, so the warehouse can track machines with a tap instead of a spreadsheet.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- DATA PIPELINE -->
             <section class="section">
                 <div class="wrap scroll-reveal">
                     <div class="section-grid">
                         <h2 class="section-h2">How it <em>works</em></h2>
                         <div class="section-body">
-                            <p>Every ten seconds the bot checks Vinted's newest UK listings. Anything new from a watched brand gets its seller rating and description added, then posts to that brand's Discord channel. The whole thing runs on a £4/mo VPS.</p>
+                            <p>A Python pipeline pulls three sources into one Postgres database. The app reads from that database and turns every job into an icon on a map of the UK.</p>
                         </div>
                     </div>
 
-                    <div class="diagram" role="img" aria-label="Every 10 seconds the bot fetches the newest UK listings with pyVinted. Listings already posted, or from brands that aren't watched, are skipped. The rest get the seller rating and description from RapidAPI and are posted to the brand's Discord channel.">
+                    <div class="diagram" role="img" aria-label="The CRM API, Outlook work-order calendar and monthly service schedules feed a Python pipeline into an Azure Postgres database of 17,000 appointments. Eskens Ops reads from it to show a live UK job map, scheduling, rota, IT tickets and stock to 40+ staff.">
 <script type="text/plain">
 flowchart DIR
-    tick([Every 10 seconds]) --> fetch[Fetch newest UK listings<br/>pyVinted]
-    fetch --> seen{Already posted?}
-    seen -- yes --> skip[Skip]:::quiet
-    seen -- no --> brand{Watched brand?}
-    brand -- no --> skip
-    brand -- yes --> enrich[Add seller rating<br/>and description<br/>RapidAPI]
-    enrich --> post[Post to the brand's<br/>Discord channel]:::accent
+    subgraph sources[Sources]
+        crm[CRM API]
+        cal[Outlook work-order calendar]
+        sch[Monthly service schedules]
+    end
+    crm --> py[Python pipeline]
+    cal --> py
+    sch --> py
+    py --> db[(Azure Postgres<br/>17,000 appointments)]
+    db --> app[Eskens Ops<br/>Next.js PWA]:::accent
+    app --> map[Live UK job map]
+    app --> ops[Scheduling, rota,<br/>IT tickets, stock]
+    map --> staff([40+ staff on phone<br/>and desktop])
+    ops --> staff
 </script>
                     </div>
                 </div>
             </section>
 
-            <!-- DISCORD ALERT MOCK -->
+            <!-- ACCESS -->
             <section class="section">
-                <div class="wrap scroll-reveal">
-                    <div class="section-grid">
-                        <h2 class="section-h2">The <em>alert</em>, in context</h2>
-                        <div class="section-body">
-                            <p>The alert is the whole product. It needs to give you everything you need to decide in under 5 seconds: title, price, condition, photo, link.</p>
-                        </div>
-                    </div>
+                <div class="wrap">
+                    <div class="section-grid scroll-reveal">
+                        <h2 class="section-h2">Built as an <em>app</em></h2>
 
-                    <div class="discord-mock" aria-label="Discord alert preview">
-                        <div class="discord-head">
-                            <span class="hash">#</span>
-                            <span>nike-alerts</span>
-                        </div>
-                        <div class="discord-msg">
-                            <div class="discord-avatar">V</div>
-                            <div class="discord-body">
-                                <div class="discord-name">
-                                    VintBot
-                                    <span class="bot">Bot</span>
-                                    <span class="ts">Today at 14:32</span>
-                                </div>
-                                <div class="discord-embed">
-                                    <div>
-                                        <div class="e-title">Nike Air Max 1 '86 OG · Big Bubble</div>
-                                        <div style="color: #DBDEE1; font-size: 0.88rem; margin-top: 0.15rem;">
-                                            <strong style="color: #FFFFFF;">[New item found!]</strong> &nbsp;·&nbsp; Worn twice, OG box, no creases. UK 9.
-                                        </div>
-                                        <div class="e-fields">
-                                            <div><span>⌛ Time Uploaded</span><span>6 seconds ago</span></div>
-                                            <div><span>🔖 Brand</span><span>Nike</span></div>
-                                            <div><span>📏 Size</span><span>UK 9</span></div>
-                                            <div><span>💰 Price</span><span>£85.00</span></div>
-                                            <div><span>🏷 Condition</span><span>Very good</span></div>
-                                            <div><span>⭐ Seller Rating</span><span>⭐️⭐️⭐️⭐️⭐️ (142)</span></div>
-                                        </div>
-                                        <div class="e-foot">VintBot</div>
-                                    </div>
-                                    <div class="e-thumb">IMG</div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="discord-msg">
-                            <div class="discord-avatar">V</div>
-                            <div class="discord-body">
-                                <div class="discord-name">
-                                    VintBot
-                                    <span class="bot">Bot</span>
-                                    <span class="ts">Today at 14:34</span>
-                                </div>
-                                <div class="discord-embed">
-                                    <div>
-                                        <div class="e-title">Nike x Stüssy Spiridon Cage 2</div>
-                                        <div style="color: #DBDEE1; font-size: 0.88rem; margin-top: 0.15rem;">
-                                            <strong style="color: #FFFFFF;">[New item found!]</strong> &nbsp;·&nbsp; Brand new, deadstock with tags. EU 43.
-                                        </div>
-                                        <div class="e-fields">
-                                            <div><span>⌛ Time Uploaded</span><span>11 seconds ago</span></div>
-                                            <div><span>🔖 Brand</span><span>Nike x Stüssy</span></div>
-                                            <div><span>📏 Size</span><span>EU 43</span></div>
-                                            <div><span>💰 Price</span><span>£140.00</span></div>
-                                            <div><span>🏷 Condition</span><span>New with tags</span></div>
-                                            <div><span>⭐ Seller Rating</span><span>⭐️⭐️⭐️⭐️ (38)</span></div>
-                                        </div>
-                                        <div class="e-foot">VintBot</div>
-                                    </div>
-                                    <div class="e-thumb">IMG</div>
-                                </div>
-                            </div>
+                        <div class="section-body">
+                            <p class="lead">
+                                Eskens Ops is a progressive web app, so staff install it on their phone or computer like any other app and get notifications from it.
+                            </p>
+                            <p>
+                                Staff sign in with their Microsoft accounts through Entra ID, so there are no new passwords to hand out or reset.
+                            </p>
+                            <p>
+                                The app runs on Azure App Service with an Azure Postgres database.
+                            </p>
                         </div>
                     </div>
                 </div>
@@ -691,24 +692,23 @@ flowchart DIR
             <section class="section">
                 <div class="wrap scroll-reveal">
                     <div class="section-grid">
-                        <h2 class="section-h2">By <em>the numbers</em></h2>
+                        <h2 class="section-h2">At a <em>glance</em></h2>
                         <div class="section-body">
-                            <p>A personal bot, built for my own use.</p>
                         </div>
                     </div>
 
                     <div class="stats">
                         <div class="stat">
-                            <div class="stat-num">10s</div>
-                            <div class="stat-lab">Poll interval. The loop fires every ten seconds, so a fresh listing is in Discord within seconds of it going live.</div>
+                            <div class="stat-num">40+<em></em></div>
+                            <div class="stat-lab">Staff using it every day, from helpdesk and field engineers to projects, the warehouse, IT and senior stakeholders.</div>
                         </div>
                         <div class="stat">
-                            <div class="stat-num">9+</div>
-                            <div class="stat-lab">Brands watched, from Nike and Stüssy to Carhartt and Acne Studios, each posting to its own Discord channel.</div>
+                            <div class="stat-num">17k</div>
+                            <div class="stat-lab">Appointments pulled into one database by the Python pipeline, from Outlook, the CRM and service schedules.</div>
                         </div>
                         <div class="stat">
-                            <div class="stat-num">£4</div>
-                            <div class="stat-lab">A month to run on a small VPS. Built for my own use, to catch the best deals first.</div>
+                            <div class="stat-num">PWA</div>
+                            <div class="stat-lab">Installs like a native app on phones and computers, with notifications.</div>
                         </div>
                     </div>
                 </div>
@@ -720,11 +720,11 @@ flowchart DIR
                     <div class="section-grid">
                         <h2 class="section-h2">Up <em>next</em></h2>
                         <div class="section-body">
-                            <p>Source on GitHub, browse the rest of the work, or skip back to the homepage.</p>
+                            <p>Eskens Ops is an internal tool, so there's no public demo or repo. I'm happy to walk through it on a call.</p>
                             <div style="display: flex; gap: 0.6rem; flex-wrap: wrap;">
-                                <a href="https://github.com/ncoulthurst/VintBot" class="btn-primary" target="_blank" rel="noopener">
-                                    GitHub repo
-                                    <span class="arr"><i data-lucide="github" class="icon-sm"></i></span>
+                                <a href="mailto:nathancoulthurst@hotmail.co.uk?subject=Eskens%20Ops" class="btn-primary">
+                                    Email me
+                                    <span class="arr"><i data-lucide="mail" class="icon-sm"></i></span>
                                 </a>
                                 <a href="/projects" class="btn-primary">
                                     <span class="arr"><i data-lucide="arrow-left" class="icon-sm"></i></span>
@@ -789,7 +789,7 @@ flowchart DIR
                     </div>
                     <div class="footer-meta">
                         <span>© 2026 Nathan Coulthurst</span>
-                        <span>Case Study / 04</span>
+                        <span>Case Study / 01</span>
                     </div>
                 </div>
             </div>
