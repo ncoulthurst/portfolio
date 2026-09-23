@@ -146,7 +146,8 @@ em,
 /* ---------- Dark cards: flat charcoal with a soft light beam ---------- */
 .hero-card::before,
 .about-card::before,
-.feat-visual::before {
+.feat-visual::before,
+.pj-card-visual::before {
     inset: 0;
     background:
         linear-gradient(118deg, transparent 38%, rgba(255, 247, 236, 0.07) 48%, rgba(255, 247, 236, 0.02) 60%, transparent 70%),
@@ -156,7 +157,8 @@ em,
 }
 .hero-card::after,
 .about-card::after,
-.feat-visual::after { display: none; }
+.feat-visual::after,
+.pj-card-visual::after { display: none; }
 /* Dark cards get a border in dark mode so they don't sink into the page */
 .hero-card, .about-card, .feat-visual, .pj-card-visual { border: 1px solid var(--card-dark-border); }
 .feat-card, .pj-card { border-color: var(--rule); }
@@ -167,8 +169,11 @@ em,
 .loader-glyph .dot { color: var(--accent-on-dark); animation: none; }
 .hero-card-tag::after,
 .feat-visual-meta .badge::after,
-.feat-foot .ring::before { display: none; }
-.feat-visual-meta .badge {
+.pj-card-meta .badge::after,
+.feat-foot .ring::before,
+.pj-card-foot .ring::before { display: none; }
+.feat-visual-meta .badge,
+.pj-card-meta .badge {
     background: rgba(255, 247, 236, 0.10);
     color: var(--on-card-dark);
     border: 1px solid rgba(255, 247, 236, 0.16);
@@ -296,6 +301,14 @@ em,
 .feat-foot .stack-row .chip { background: var(--surface-hi); border-color: var(--rule); }
 .feat-foot .ring { background: var(--ink); color: var(--bg); transition: background 0.2s ease; }
 .feat-card:hover .feat-foot .ring { background: var(--accent); color: var(--on-accent); }
+
+/* ---------- Projects page cards: same treatment as the homepage cards ---------- */
+.pj-card { border-radius: var(--radius-card); background: var(--surface); }
+.pj-card:hover { transform: none; }
+.pj-card-foot { background: var(--surface); }
+.pj-card-foot .stack-row .chip { background: var(--surface-hi); border-color: var(--rule); }
+.pj-card-foot .ring { background: var(--ink); color: var(--bg); box-shadow: none; transition: background 0.2s ease, transform 0.3s ease; }
+.pj-card:hover .pj-card-foot .ring { background: var(--accent); color: var(--on-accent); box-shadow: none; }
 .feat-card:hover .feat-foot .ring { box-shadow: none; }
 
 /* ---------- Statement ---------- */

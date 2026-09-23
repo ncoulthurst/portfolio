@@ -374,60 +374,6 @@
         }
         .pj-card:hover .pj-card-foot .ring { box-shadow: 0 0 0 6px color-mix(in srgb, var(--accent) 18%, transparent); }
 
-        /* ===== Per-card brand accents ===== */
-
-        /* Card 2: Eskens — #003057 navy */
-        .pj-card.pj-eskens { --pj-brand: #003057; --pj-brand-on: #E6EEF5; }
-        .pj-card.pj-eskens .pj-card-visual::before {
-            background:
-                radial-gradient(circle at 50% 50%, color-mix(in srgb, var(--pj-brand) 35%, transparent), transparent 80%),
-                radial-gradient(circle at 20% 30%, color-mix(in srgb, var(--pj-brand) 75%, transparent), transparent 60%),
-                radial-gradient(circle at 80% 70%, color-mix(in srgb, var(--pj-brand) 55%, transparent), transparent 65%);
-        }
-        .pj-card.pj-eskens .pj-card-meta .badge {
-            background: var(--pj-brand);
-            color: var(--pj-brand-on);
-        }
-        .pj-card.pj-eskens .pj-card-numeral em { color: var(--pj-brand); }
-        .pj-card.pj-eskens .pj-card-foot h3 em { color: var(--pj-brand); }
-        .dark .pj-card.pj-eskens .pj-card-foot h3 em { color: #f3cf3e; }
-        .pj-card.pj-eskens .pj-card-foot .ring {
-            background: var(--pj-brand);
-            color: var(--pj-brand-on);
-            box-shadow: 0 0 0 0 color-mix(in srgb, var(--pj-brand) 60%, transparent);
-        }
-        .pj-card.pj-eskens .pj-card-foot .ring::before {
-            border-color: color-mix(in srgb, var(--pj-brand) 50%, transparent);
-        }
-        .pj-card.pj-eskens:hover .pj-card-foot .ring {
-            box-shadow: 0 0 0 6px color-mix(in srgb, var(--pj-brand) 22%, transparent);
-        }
-
-        /* Card 3: Vinted — #09B1BA teal */
-        .pj-card.pj-vinted { --pj-brand: #09B1BA; --pj-brand-on: #002B2D; }
-        .pj-card.pj-vinted .pj-card-visual::before {
-            background:
-                radial-gradient(circle at 50% 50%, color-mix(in srgb, var(--pj-brand) 22%, transparent), transparent 80%),
-                radial-gradient(circle at 20% 30%, color-mix(in srgb, var(--pj-brand) 55%, transparent), transparent 60%),
-                radial-gradient(circle at 80% 70%, color-mix(in srgb, var(--pj-brand) 35%, transparent), transparent 65%);
-        }
-        .pj-card.pj-vinted .pj-card-meta .badge {
-            background: var(--pj-brand);
-            color: var(--pj-brand-on);
-        }
-        .pj-card.pj-vinted .pj-card-numeral em,
-        .pj-card.pj-vinted .pj-card-foot h3 em { color: var(--pj-brand); }
-        .pj-card.pj-vinted .pj-card-foot .ring {
-            background: var(--pj-brand);
-            color: var(--pj-brand-on);
-            box-shadow: 0 0 0 0 color-mix(in srgb, var(--pj-brand) 60%, transparent);
-        }
-        .pj-card.pj-vinted .pj-card-foot .ring::before {
-            border-color: color-mix(in srgb, var(--pj-brand) 50%, transparent);
-        }
-        .pj-card.pj-vinted:hover .pj-card-foot .ring {
-            box-shadow: 0 0 0 6px color-mix(in srgb, var(--pj-brand) 22%, transparent);
-        }
         @media (prefers-reduced-motion: reduce) {
             .pj-card-visual::before, .pj-card-visual::after,
             .pj-card-meta .badge::after,
@@ -678,7 +624,7 @@
                             </div>
                         </a>
 
-                        <a href="/projects/eskens-redesign" class="pj-card pj-eskens scroll-reveal">
+                        <a href="/projects/eskens-redesign" class="pj-card scroll-reveal">
                             <div class="pj-card-visual">
                                 <div class="pj-card-inner">
                                     <div class="pj-card-meta">
@@ -705,7 +651,7 @@
                             </div>
                         </a>
 
-                        <a href="/projects/vinted-scraper" class="pj-card pj-vinted scroll-reveal">
+                        <a href="/projects/vinted-scraper" class="pj-card scroll-reveal">
                             <div class="pj-card-visual">
                                 <div class="pj-card-inner">
                                     <div class="pj-card-meta">
@@ -772,7 +718,6 @@
                         <div class="footer-col-links">
                             <a href="/about">About</a>
                             <a href="/projects">Work</a>
-                            <a href="/#contact">Contact</a>
                         </div>
                     </div>
                     <div class="footer-col-pair">
