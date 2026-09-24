@@ -552,17 +552,19 @@
                                 Eskens Ops
                             </h1>
                             <p class="cs-lede reveal d3">
-                                An operations app that sits on top of our CRM's API and turns rows of job data into a live map of the UK, with every job as an icon. 40+ staff use it every day, from helpdesk and field engineers to projects, the warehouse, IT and senior stakeholders. I planned, designed, built and deployed it on my own.
+                                An operations app that sits on top of our CRM's API and turns rows of job data into a live map of the UK, with every job as an icon and every van beside them. 40+ staff use it every day, from helpdesk and field engineers to projects, the warehouse, IT and senior stakeholders. I planned, designed, built and deployed it on my own.
                             </p>
                             <div class="cs-chips reveal d3">
                                 <span class="cs-chip">Next.js</span>
                                 <span class="cs-chip">React</span>
                                 <span class="cs-chip">TypeScript</span>
+                                <span class="cs-chip">Node.js</span>
                                 <span class="cs-chip">Postgres</span>
                                 <span class="cs-chip">Python</span>
                                 <span class="cs-chip">Azure</span>
                                 <span class="cs-chip">Entra ID</span>
                                 <span class="cs-chip">PWA</span>
+                                <span class="cs-chip">Web Push</span>
                             </div>
                         </div>
                     </div>
@@ -580,10 +582,10 @@
                                 Engineers used to track jobs in their own spreadsheets. Work got missed, and engineers would drive past jobs they didn't know about because the job was sitting in someone else's file.
                             </p>
                             <p>
-                                The CRM holds everything as rows of data. Eskens Ops pulls those rows through the CRM's API and plots them on a map of the UK, with each job as an icon, so anyone in the business can see what's happening and where at a glance. Jobs sync live, so a job added while an engineer is out on the road still reaches them.
+                                The CRM holds everything as rows of data. Eskens Ops pulls those rows through the CRM's API every ten minutes and plots them on a map of the UK, with each job as an icon, so anyone in the business can see what's happening and where at a glance. When a new breakdown lands, the engineer whose area it's in gets a push notification on their phone, so a job booked while they're out on the road still reaches them.
                             </p>
                             <p>
-                                I built it end to end on my own: planning, design, the Next.js app, the Python data pipeline, the Azure deployment and the rollout to the team.
+                                I built it end to end on my own: planning, design, the Next.js app, the data pipeline, the Azure deployment and the rollout to the team.
                             </p>
                         </div>
                     </div>
@@ -602,34 +604,34 @@
 
                     <div class="pipeline cols-3">
                         <div class="step">
-                            <div class="num">01 / Job map</div>
+                            <div class="num">01 / Map</div>
                             <h3>Live job map</h3>
-                            <p>Every job from the CRM plotted as an icon on a map of the UK, instead of a row in a table.</p>
+                            <p>Every job from the CRM plotted as an icon on a map of the UK, with the company vans shown live from the tracking system.</p>
                         </div>
                         <div class="step">
-                            <div class="num">02 / Scheduling</div>
-                            <h3>Service scheduling</h3>
-                            <p>Service visits scheduled from the work orders and monthly service schedules the pipeline pulls in.</p>
+                            <div class="num">02 / Claims</div>
+                            <h3>Claim a job</h3>
+                            <p>Engineers claim work from the map and planners see it arrive live. A claim made with no signal queues and sends itself on reconnect.</p>
                         </div>
                         <div class="step">
-                            <div class="num">03 / Rota</div>
-                            <h3>Team rota</h3>
-                            <p>The rota sits next to the jobs, so who's working and what needs doing are in the same place.</p>
+                            <div class="num">03 / Alerts</div>
+                            <h3>New-job alerts</h3>
+                            <p>A new breakdown pushes a notification to the engineer whose postcode area it's in, or to whoever is covering while they're away.</p>
                         </div>
                         <div class="step">
-                            <div class="num">04 / IT</div>
-                            <h3>IT ticket queue</h3>
-                            <p>Internal IT requests are raised and tracked in the same app the team already has open.</p>
+                            <div class="num">04 / Schedule</div>
+                            <h3>My week, everyone's week</h3>
+                            <p>Each engineer's week grouped by store, the whole team's week for planners, and the rota beside both.</p>
                         </div>
                         <div class="step">
-                            <div class="num">05 / Warehouse</div>
-                            <h3>Installation stages</h3>
-                            <p>The warehouse tracks each new installation through its stages, so everyone can see where it's up to.</p>
+                            <div class="num">05 / Helpdesk</div>
+                            <h3>Helpdesk and IT</h3>
+                            <p>The helpdesk dashboard, a second-line queue, and IT tickets with threads that notify both ways.</p>
                         </div>
                         <div class="step">
-                            <div class="num">06 / Stock</div>
-                            <h3>NFC stock tracking</h3>
-                            <p>PC stock is tagged with NFC, so the warehouse can track machines with a tap instead of a spreadsheet.</p>
+                            <div class="num">06 / Customers</div>
+                            <h3>Customers and machines</h3>
+                            <p>Every store and its machines, each machine with its own page and an append-only log of edits and notes.</p>
                         </div>
                     </div>
                 </div>
@@ -641,27 +643,28 @@
                     <div class="section-grid">
                         <h2 class="section-h2">How it <em>works</em></h2>
                         <div class="section-body">
-                            <p>A Python pipeline pulls three sources into one Postgres database. The app reads from that database and turns every job into an icon on a map of the UK.</p>
+                            <p>The app reads the CRM's API on its own schedule: tickets and orders every ten minutes, sites hourly, machines every six hours. The fields the API can't give yet arrive from a Node agent inside the office network, and a Python agent reads the shared Outlook work-order diary. Everything lands in one Postgres table with its change history, and changes reach open screens straight away over a live stream.</p>
                         </div>
                     </div>
 
-                    <div class="diagram" role="img" aria-label="The CRM API, Outlook work-order calendar and monthly service schedules feed a Python pipeline into an Azure Postgres database of 17,000 appointments. Eskens Ops reads from it to show a live UK job map, scheduling, rota, IT tickets and stock to 40+ staff.">
+                    <div class="diagram" role="img" aria-label="The CRM API, a Node export agent, a Python agent reading the Outlook work-order diary, and the van tracking API feed an Azure Postgres database of 30,000+ job rows. Eskens Ops reads from it to show a live UK job map and schedules, and sends push alerts to 40+ staff.">
 <script type="text/plain">
 flowchart DIR
     subgraph sources[Sources]
-        crm[CRM API]
-        cal[Outlook work-order calendar]
-        sch[Monthly service schedules]
+        crm[CRM API<br/>every 10 minutes]
+        exp[Node export agent]
+        cal[Python agent<br/>Outlook diary]
+        vans[Van tracking API]
     end
-    crm --> py[Python pipeline]
-    cal --> py
-    sch --> py
-    py --> db[(Azure Postgres<br/>17,000 appointments)]
+    crm --> db[(Azure Postgres<br/>30,000+ job rows)]
+    exp --> db
+    cal --> db
     db --> app[Eskens Ops<br/>Next.js PWA]:::accent
-    app --> map[Live UK job map]
-    app --> ops[Scheduling, rota,<br/>IT tickets, stock]
+    vans --> app
+    app --> map[Live UK job map<br/>and schedules]
+    app --> push[Push alerts<br/>by area]
     map --> staff([40+ staff on phone<br/>and desktop])
-    ops --> staff
+    push --> staff
 </script>
                     </div>
                 </div>
@@ -675,13 +678,13 @@ flowchart DIR
 
                         <div class="section-body">
                             <p class="lead">
-                                Eskens Ops is a progressive web app, so staff install it on their phone or computer like any other app and get notifications from it.
+                                Eskens Ops is a progressive web app, so staff install it on their phone or computer like any other app, and push notifications reach them even with the app closed.
                             </p>
                             <p>
-                                Staff sign in with their Microsoft accounts through Entra ID, so there are no new passwords to hand out or reset.
+                                Staff sign in with their Microsoft accounts through Entra ID, so there are no new passwords to hand out or reset. What each person can see and do is decided by their role on the server, never by the browser.
                             </p>
                             <p>
-                                The app runs on Azure App Service with an Azure Postgres database.
+                                The app runs on Azure App Service with an Azure Postgres database, and deploys from GitHub Actions only once type checks, lint and its own test suite pass.
                             </p>
                         </div>
                     </div>
@@ -703,12 +706,12 @@ flowchart DIR
                             <div class="stat-lab">Staff using it every day, from helpdesk and field engineers to projects, the warehouse, IT and senior stakeholders.</div>
                         </div>
                         <div class="stat">
-                            <div class="stat-num">17k</div>
-                            <div class="stat-lab">Appointments pulled into one database by the Python pipeline, from Outlook, the CRM and service schedules.</div>
+                            <div class="stat-num">30k</div>
+                            <div class="stat-lab">Rows of job data in one database, from the CRM's API, its exports and the Outlook work-order diary.</div>
                         </div>
                         <div class="stat">
-                            <div class="stat-num">PWA</div>
-                            <div class="stat-lab">Installs like a native app on phones and computers, with notifications.</div>
+                            <div class="stat-num">10 min</div>
+                            <div class="stat-lab">From a job being booked in the CRM to it appearing on the map and alerting the engineer whose area it's in.</div>
                         </div>
                     </div>
                 </div>
